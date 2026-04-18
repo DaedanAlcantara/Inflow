@@ -11,7 +11,7 @@ namespace Inflow
         public InFlow()
         {
             InitializeComponent();
-
+            this.Text = "Inflow";
             //this.Resize += Form1_Resize;
             pictureBox1.Left = (this.ClientSize.Width - pictureBox1.Width) / 2;
             pictureBox1.Top = (this.ClientSize.Height - pictureBox1.Height) / 2;
@@ -45,6 +45,10 @@ namespace Inflow
             timer1.Stop(); // Stop timer to prevent multiple openings
             SplashScreen newForm = new SplashScreen();
             newForm.Show(this); // Open the new form
+        }
+        private void Inflow_Load(object sender, EventArgs e)
+        {
+            
         }
     }
 }
