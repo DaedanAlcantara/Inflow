@@ -5,10 +5,10 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 namespace Inflow
 {
-    public partial class Form1 : MotherWindow
+    public partial class InFlow : MotherWindow
     {
         
-        public Form1()
+        public InFlow()
         {
             InitializeComponent();
 
@@ -17,7 +17,7 @@ namespace Inflow
             pictureBox1.Top = (this.ClientSize.Height - pictureBox1.Height) / 2;
             panel1.ColorBottom = System.Drawing.ColorTranslator.FromHtml("#0E24F0");
             panel1.ColorTop = System.Drawing.ColorTranslator.FromHtml("#FF37E8");
-
+            this.ResizeRedraw = true;
 
 
         }

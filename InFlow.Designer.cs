@@ -1,7 +1,7 @@
 ﻿
 namespace Inflow
 {
-    partial class Form1
+    partial class InFlow
     {
         /// <summary>
         ///  Required designer variable.
@@ -30,7 +30,7 @@ namespace Inflow
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InFlow));
             panel1 = new GradientPanel();
             pictureBox1 = new PictureBox();
             timer1 = new System.Windows.Forms.Timer(components);
@@ -41,11 +41,12 @@ namespace Inflow
             // panel1
             // 
             panel1.BackColor = SystemColors.ActiveCaptionText;
+            panel1.BorderStyle = BorderStyle.FixedSingle;
             panel1.Controls.Add(pictureBox1);
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1399, 739);
+            panel1.Size = new Size(1417, 786);
             panel1.TabIndex = 0;
             panel1.Paint += panel1_Paint;
             // 
@@ -66,13 +67,15 @@ namespace Inflow
             timer1.Interval = 3000;
             timer1.Tick += timer1_Tick_1;
             // 
-            // Form1
+            // InFlow
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1399, 739);
+            ClientSize = new Size(1417, 786);
+            ControlBox = false;
             Controls.Add(panel1);
-            Name = "Form1";
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            Name = "InFlow";
             Text = "Form1";
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
