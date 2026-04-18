@@ -9,16 +9,7 @@ namespace Inflow
     {
         private int borderSize = 0;
         private Size formSize;
-        [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
-        private static extern IntPtr CreateRoundRectRgn
-        (
-            int nLeftRect,     // x-coordinate of upper-left corner
-            int nTopRect,      // y-coordinate of upper-left corner
-            int nRightRect,    // x-coordinate of lower-right corner
-            int nBottomRect,   // y-coordinate of lower-right corner
-            int nWidthEllipse, // width of ellipse
-            int nHeightEllipse // height of ellipse
-        );
+        
         public MotherWindow()
         {
             this.Padding = new System.Windows.Forms.Padding(borderSize);
@@ -29,12 +20,35 @@ namespace Inflow
             this.StartPosition = FormStartPosition.CenterScreen;
             
         }
-        public void roundedEdges()
-        {
-            this.FormBorderStyle = FormBorderStyle.None;
-            Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, ClientSize.Width, ClientSize.Height, 20, 20));
-        }
+
         //Overridden methods
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+
+            e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+
+            int radius = 20;
+            int borderThickness = 4;
+
+            var rect = new Rectangle(0, 0, Width - 1, Height - 1);
+
+            using (var path = new System.Drawing.Drawing2D.GraphicsPath())
+            {
+                path.AddArc(0, 0, radius, radius, 180, 90);
+                path.AddArc(Width - radius, 0, radius, radius, 270, 90);
+                path.AddArc(Width - radius, Height - radius, radius, radius, 0, 90);
+                path.AddArc(0, Height - radius, radius, radius, 90, 90);
+                path.CloseFigure();
+
+                this.Region = new Region(path);
+
+                using (Pen pen = new Pen(Color.White, borderThickness))
+                {
+                    e.Graphics.DrawPath(pen, path);
+                }
+            }
+        }
         protected override void WndProc(ref Message m)
         {
             const int WM_NCCALCSIZE = 0x0083;//Standar Title Bar - Snap Window
@@ -122,7 +136,9 @@ namespace Inflow
                 if (wParam == SC_RESTORE)// Restored form(Before)
                     this.Size = formSize;
             }
+
             base.WndProc(ref m);
+
         }
     }
 }

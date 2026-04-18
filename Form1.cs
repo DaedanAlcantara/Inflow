@@ -16,7 +16,7 @@ namespace Inflow
             pictureBox1.Left = (this.ClientSize.Width - pictureBox1.Width) / 2;
             pictureBox1.Top = (this.ClientSize.Height - pictureBox1.Height) / 2;
             panel1.ColorBottom = System.Drawing.ColorTranslator.FromHtml("#0E24F0");
-            panel1.ColorBottom = System.Drawing.ColorTranslator.FromHtml("#FF37E8");
+            panel1.ColorTop = System.Drawing.ColorTranslator.FromHtml("#FF37E8");
 
 
 
