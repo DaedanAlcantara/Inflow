@@ -11,6 +11,12 @@ public class GradientPanel : Panel
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public Color ColorBottom { get; set; } = Color.LightBlue;
 
+    public GradientPanel()
+    {
+        this.DoubleBuffered = true;
+        this.ResizeRedraw = true;
+    }
+
     protected override void OnPaint(PaintEventArgs e)
     {
         base.OnPaint(e);

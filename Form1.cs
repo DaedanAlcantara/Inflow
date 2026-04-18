@@ -14,6 +14,8 @@ namespace Inflow
 
             this.TopMost = true;
             this.WindowState = FormWindowState.Maximized;
+            this.DoubleBuffered = true;
+            this.ResizeRedraw = true;
 
 
         }
@@ -21,16 +23,12 @@ namespace Inflow
         {
             pictureBox1.Left = (this.ClientSize.Width - pictureBox1.Width) / 2;
             pictureBox1.Top = (this.ClientSize.Height - pictureBox1.Height) / 2;
+            
+            panel1.ColorBottom = System.Drawing.ColorTranslator.FromHtml("#0E24F0");
+            panel1.ColorBottom = System.Drawing.ColorTranslator.FromHtml("#FF37E8");
         }
-        private async void Form1_Load(object sender, EventArgs e)
-        {
-            Image loadedImage = await Task.Run(() => Image.FromFile("large_image.jpg"));
-        }
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-
-        }
-
+     
+        
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
