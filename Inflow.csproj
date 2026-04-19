@@ -9,6 +9,27 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Fonts\Inter_18pt-Black.ttf" />
+    <None Remove="Fonts\Inter_18pt-BlackItalic.ttf" />
+    <None Remove="Fonts\Inter_18pt-Bold.ttf" />
+    <None Remove="Fonts\Inter_18pt-BoldItalic.ttf" />
+    <None Remove="Fonts\Inter_18pt-ExtraBold.ttf" />
+    <None Remove="Fonts\Inter_18pt-ExtraBoldItalic.ttf" />
+    <None Remove="Fonts\Inter_18pt-ExtraLight.ttf" />
+    <None Remove="Fonts\Inter_18pt-ExtraLightItalic.ttf" />
+    <None Remove="Fonts\Inter_18pt-Italic.ttf" />
+    <None Remove="Fonts\Inter_18pt-Light.ttf" />
+    <None Remove="Fonts\Inter_18pt-LightItalic.ttf" />
+    <None Remove="Fonts\Inter_18pt-Medium.ttf" />
+    <None Remove="Fonts\Inter_18pt-MediumItalic.ttf" />
+    <None Remove="Fonts\Inter_18pt-Regular.ttf" />
+    <None Remove="Fonts\Inter_18pt-SemiBold.ttf" />
+    <None Remove="Fonts\Inter_18pt-SemiBoldItalic.ttf" />
+    <None Remove="Fonts\Inter_18pt-Thin.ttf" />
+    <None Remove="Fonts\Inter_18pt-ThinItalic.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="GradientPanel.cs" />
   </ItemGroup>
 

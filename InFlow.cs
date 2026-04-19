@@ -2,7 +2,7 @@ using System.Runtime.InteropServices;
 using static System.Windows.Forms.DataFormats;
 using System.Timers;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
-
+using System.Drawing.Text;
 namespace Inflow
 {
     public partial class InFlow : MotherWindow
@@ -10,6 +10,7 @@ namespace Inflow
         
         public InFlow()
         {
+           
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             InitializeComponent();
             this.Text = "Inflow";
@@ -20,7 +21,7 @@ namespace Inflow
             panel1.ColorTop = System.Drawing.ColorTranslator.FromHtml("#FF37E8");
             
 
-
+            
         }
 
        
@@ -43,8 +44,9 @@ namespace Inflow
 
         private void timer1_Tick_1(object sender, EventArgs e)
         {
-            timer1.Stop(); // Stop timer to prevent multiple openings
             SplashScreen newForm = new SplashScreen();
+            timer1.Stop(); // Stop timer to prevent multiple openings
+            newForm.TopMost = true;
             // Show the splash without making it an owned window to avoid activation/visual artifacts
             newForm.Show(); // Open the new form
         }

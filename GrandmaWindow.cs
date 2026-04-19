@@ -1,15 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Text;
+using System.Runtime.InteropServices;
 using System.Text;
+using System.IO;
+using System.Linq;
+using System.Windows.Forms;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Inflow
 {
     public class GrandmaWindow : Form
     {
         private Size formSize;
+
+        
         protected GrandmaWindow()
         {
             this.StartPosition = FormStartPosition.CenterScreen;
+            
+
         }
         /*
         protected override void OnPaint(PaintEventArgs e)
@@ -136,5 +147,6 @@ namespace Inflow
         {
 
         }
+
     }
 }
