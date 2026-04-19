@@ -5,10 +5,9 @@ using System.Text;
 
 namespace Inflow
 {
-    public class MotherWindow : AbstractWindow
+    public class MotherWindow : GrandmaWindow
     {
         private int borderSize = 0;
-        private Size formSize;
         
         public MotherWindow()
         {

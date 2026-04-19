@@ -2,18 +2,18 @@
 
 namespace Inflow
 {
-    public partial class SplashScreen : SplashMother
+    public partial class SplashScreen : MotherWindow
     {
         private GradientPanel panel2;
 
 
         public SplashScreen()
         {
-            this.FormBorderStyle = FormBorderStyle.FixedSingle ;
+            this.FormBorderStyle = FormBorderStyle.None;
             InitializeComponent();
             panel2.ColorBottom = System.Drawing.ColorTranslator.FromHtml("#01FBCE");
             panel2.ColorTop = System.Drawing.ColorTranslator.FromHtml("#0E24F0");
-            
+            this.MaximumSize = this.MinimumSize = this.Size;
 
         }
 
@@ -37,7 +37,7 @@ namespace Inflow
             panel2.Dock = DockStyle.Left;
             panel2.Location = new Point(0, 0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(344, 777);
+            panel2.Size = new Size(344, 712);
             panel2.TabIndex = 1;
             panel2.Paint += panel2_Paint;
             // 
@@ -46,16 +46,12 @@ namespace Inflow
             AutoScaleMode = AutoScaleMode.None;
             AutoSize = true;
             BackColor = Color.White;
-            ClientSize = new Size(865, 777);
+            ClientSize = new Size(999, 712);
             ControlBox = false;
             Controls.Add(panel2);
             Controls.Add(panel1);
             Icon = (Icon)resources.GetObject("$this.Icon");
-            MaximizeBox = false;
-            MdiChildrenMinimizedAnchorBottom = false;
-            MinimizeBox = false;
             Name = "SplashScreen";
-            ShowIcon = false;
             SizeGripStyle = SizeGripStyle.Hide;
             Load += SplashScreen_Load;
             ResumeLayout(false);

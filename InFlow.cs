@@ -10,6 +10,7 @@ namespace Inflow
         
         public InFlow()
         {
+            this.FormBorderStyle = FormBorderStyle.FixedDialog;
             InitializeComponent();
             this.Text = "Inflow";
             //this.Resize += Form1_Resize;
@@ -17,7 +18,7 @@ namespace Inflow
             pictureBox1.Top = (this.ClientSize.Height - pictureBox1.Height) / 2;
             panel1.ColorBottom = System.Drawing.ColorTranslator.FromHtml("#0E24F0");
             panel1.ColorTop = System.Drawing.ColorTranslator.FromHtml("#FF37E8");
-            this.ResizeRedraw = true;
+            
 
 
         }
@@ -44,7 +45,8 @@ namespace Inflow
         {
             timer1.Stop(); // Stop timer to prevent multiple openings
             SplashScreen newForm = new SplashScreen();
-            newForm.Show(this); // Open the new form
+            // Show the splash without making it an owned window to avoid activation/visual artifacts
+            newForm.Show(); // Open the new form
         }
         private void Inflow_Load(object sender, EventArgs e)
         {

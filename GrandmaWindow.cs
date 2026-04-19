@@ -4,14 +4,14 @@ using System.Text;
 
 namespace Inflow
 {
-    public class AbstractWindow : Form
+    public class GrandmaWindow : Form
     {
         private Size formSize;
-        protected AbstractWindow()
+        protected GrandmaWindow()
         {
-
+            this.StartPosition = FormStartPosition.CenterScreen;
         }
-        
+        /*
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
@@ -39,7 +39,7 @@ namespace Inflow
                 }
             }
         }
-        
+        */
         protected override void WndProc(ref Message m)
         {
             const int WM_NCCALCSIZE = 0x0083;//Standar Title Bar - Snap Window
@@ -129,8 +129,12 @@ namespace Inflow
             }
 
             base.WndProc(ref m);
-        
+
         }
-        
+
+        private void InitializeComponent()
+        {
+
+        }
     }
 }
