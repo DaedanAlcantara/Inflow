@@ -5,7 +5,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 using System.Drawing.Text;
 namespace Inflow
 {
-    public partial class InFlow : MotherWindow
+    public partial class InFlow : MotherWindowFX
     {
         
         public InFlow()
@@ -44,7 +44,7 @@ namespace Inflow
 
         private void timer1_Tick_1(object sender, EventArgs e)
         {
-            SplashScreen newForm = new SplashScreen();
+            SignUpForm_FX newForm = new SignUpForm_FX();
             timer1.Stop(); // Stop timer to prevent multiple openings
             newForm.TopMost = true;
             // Show the splash without making it an owned window to avoid activation/visual artifacts

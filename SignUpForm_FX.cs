@@ -1,15 +1,17 @@
 ﻿using System.Drawing.Text;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Inflow
 {
-    public partial class SplashScreen : Form
+    public partial class SignUpForm_FX : Form
     {
-        private GradientPanel panel2;
+        private GradientPanel_CMP panel2;
 
 
-        public SplashScreen()
+        public SignUpForm_FX()
         {
 
 
@@ -22,13 +24,22 @@ namespace Inflow
             // Ensure the label uses GDI+ (compatible) text rendering so PrivateFontCollection fonts are used
             label1.UseCompatibleTextRendering = true;
             pictureBox1.SizeMode = PictureBoxSizeMode.AutoSize;
+            usernameTextbox.PlaceholderText = "Username";
+            passwordText.PlaceholderText = "Password";
+            confirmPassText.PlaceholderText = "Confirm Password";
+            passwordText.PasswordChar = '*';
+            confirmPassText.PasswordChar = '*';
+            usernameTextbox.TextAlign = HorizontalAlignment.Center;
+            passwordText.TextAlign = HorizontalAlignment.Center;
+            confirmPassText.TextAlign = HorizontalAlignment.Center;
+
         }
 
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SplashScreen));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SignUpForm_FX));
             panel1 = new Panel();
-            panel2 = new GradientPanel();
+            panel2 = new GradientPanel_CMP();
             pictureBox1 = new PictureBox();
             label1 = new Label();
             panel3 = new Panel();
@@ -36,9 +47,10 @@ namespace Inflow
             Next = new Label();
             nextButton = new PictureBox();
             flowLayoutPanel3 = new FlowLayoutPanel();
-            usernameTextbox = new RoundedTextBox();
-            passwordText = new RoundedTextBox();
-            confirmPassText = new RoundedTextBox();
+            usernameTextbox = new RoundedTextBox_CMP();
+            passwordText = new RoundedTextBox_CMP();
+            confirmPassText = new RoundedTextBox_CMP();
+            usernameErrorLabel = new Label();
             label2 = new Label();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -82,11 +94,11 @@ namespace Inflow
             // 
             label1.Anchor = AnchorStyles.None;
             label1.AutoSize = true;
-            label1.Font = new Font("Microsoft Sans Serif", 48F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Font = new Font("Inter", 48F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = SystemColors.ActiveCaptionText;
-            label1.Location = new Point(123, 149);
+            label1.Location = new Point(135, 157);
             label1.Name = "label1";
-            label1.Size = new Size(401, 91);
+            label1.Size = new Size(435, 97);
             label1.TabIndex = 2;
             label1.Text = "Welcome!";
             label1.TextAlign = ContentAlignment.MiddleCenter;
@@ -130,6 +142,7 @@ namespace Inflow
             Next.TabIndex = 1;
             Next.Text = "Next";
             Next.TextAlign = ContentAlignment.MiddleCenter;
+            Next.Click += Next_Click;
             // 
             // nextButton
             // 
@@ -145,9 +158,11 @@ namespace Inflow
             // 
             // flowLayoutPanel3
             // 
+            flowLayoutPanel3.BackColor = Color.Transparent;
             flowLayoutPanel3.Controls.Add(usernameTextbox);
             flowLayoutPanel3.Controls.Add(passwordText);
             flowLayoutPanel3.Controls.Add(confirmPassText);
+            flowLayoutPanel3.Controls.Add(usernameErrorLabel);
             flowLayoutPanel3.ForeColor = SystemColors.ActiveCaptionText;
             flowLayoutPanel3.Location = new Point(65, 314);
             flowLayoutPanel3.Name = "flowLayoutPanel3";
@@ -159,78 +174,68 @@ namespace Inflow
             // 
             usernameTextbox.Anchor = AnchorStyles.None;
             usernameTextbox.BackColor = SystemColors.ControlLight;
-            usernameTextbox.BorderStyle = BorderStyle.None;
-            usernameTextbox.Font = new Font("Microsoft Sans Serif", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            usernameTextbox.Font = new Font("Inter Light", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             usernameTextbox.ForeColor = SystemColors.WindowText;
-            usernameTextbox.InnerPadding = new Padding(12, 20, 12, 20);
             usernameTextbox.Location = new Point(10, 10);
             usernameTextbox.Margin = new Padding(10);
             usernameTextbox.Name = "usernameTextbox";
-            usernameTextbox.PlaceholderText = "Username";
-            usernameTextbox.Size = new Size(536, 31);
+            usernameTextbox.Padding = new Padding(10, 8, 10, 8);
+            usernameTextbox.Size = new Size(536, 40);
             usernameTextbox.TabIndex = 1;
-            usernameTextbox.TextAlign = HorizontalAlignment.Center;
             usernameTextbox.TextChanged += usernameTextbox_TextChanged;
             // 
             // passwordText
             // 
             passwordText.Anchor = AnchorStyles.None;
             passwordText.BackColor = SystemColors.ControlLight;
-            passwordText.BorderStyle = BorderStyle.None;
-            passwordText.Font = new Font("Microsoft Sans Serif", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            passwordText.Font = new Font("Inter Light", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             passwordText.ForeColor = SystemColors.WindowText;
-            passwordText.InnerPadding = new Padding(12, 20, 12, 20);
-            passwordText.Location = new Point(10, 61);
+            passwordText.Location = new Point(10, 70);
             passwordText.Margin = new Padding(10);
             passwordText.Name = "passwordText";
-            passwordText.PasswordChar = '*';
-            passwordText.PlaceholderText = "Password";
-            passwordText.Size = new Size(536, 31);
+            passwordText.Padding = new Padding(12, 8, 12, 8);
+            passwordText.Size = new Size(536, 40);
             passwordText.TabIndex = 1;
-            passwordText.TextAlign = HorizontalAlignment.Center;
             passwordText.TextChanged += passwordText_TextChanged;
             // 
             // confirmPassText
             // 
             confirmPassText.Anchor = AnchorStyles.None;
             confirmPassText.BackColor = SystemColors.ControlLight;
-            confirmPassText.BorderStyle = BorderStyle.None;
-            confirmPassText.Font = new Font("Microsoft Sans Serif", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            confirmPassText.Font = new Font("Inter Light", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             confirmPassText.ForeColor = SystemColors.WindowText;
-            confirmPassText.InnerPadding = new Padding(12, 20, 12, 20);
-            confirmPassText.Location = new Point(10, 112);
+            confirmPassText.Location = new Point(10, 130);
             confirmPassText.Margin = new Padding(10);
             confirmPassText.Name = "confirmPassText";
-            confirmPassText.PasswordChar = '*';
-            confirmPassText.PlaceholderText = "Confirm Password";
-            confirmPassText.Size = new Size(536, 31);
+            confirmPassText.Padding = new Padding(10, 8, 10, 8);
+            confirmPassText.Size = new Size(536, 40);
             confirmPassText.TabIndex = 1;
-            confirmPassText.TextAlign = HorizontalAlignment.Center;
             confirmPassText.TextChanged += confirmPassText_TextChanged;
-            //
-            // username error back-end
-            //
-            usernameErrorLabel = new Label();
+            // 
+            // usernameErrorLabel
+            // 
             usernameErrorLabel.AutoSize = true;
+            usernameErrorLabel.Font = new Font("Inter Light", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             usernameErrorLabel.ForeColor = Color.Red;
-            usernameErrorLabel.Font = new Font("Microsoft Sans Serif", 9F);
-            usernameErrorLabel.Text = "";
+            usernameErrorLabel.Location = new Point(10, 180);
+            usernameErrorLabel.Margin = new Padding(10, 0, 10, 10);
+            usernameErrorLabel.Name = "usernameErrorLabel";
+            usernameErrorLabel.Size = new Size(0, 20);
+            usernameErrorLabel.TabIndex = 2;
             usernameErrorLabel.Visible = false;
-            usernameErrorLabel.Margin = new Padding(10, -10, 10, 10); // negative top pulls it closer to the textbox
-            flowLayoutPanel3.Controls.Add(usernameErrorLabel);
             // 
             // label2
             // 
             label2.Anchor = AnchorStyles.None;
             label2.AutoSize = true;
-            label2.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(147, 255);
+            label2.Font = new Font("Inter", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label2.Location = new Point(159, 254);
             label2.Name = "label2";
-            label2.Size = new Size(351, 25);
+            label2.Size = new Size(392, 24);
             label2.TabIndex = 3;
             label2.Text = "Please sign in with the following details:";
             // 
-            // SplashScreen
+            // SignUpForm_FX
             // 
             AutoScaleMode = AutoScaleMode.None;
             AutoSize = true;
@@ -241,7 +246,7 @@ namespace Inflow
             Controls.Add(panel1);
             Controls.Add(panel3);
             Icon = (Icon)resources.GetObject("$this.Icon");
-            Name = "SplashScreen";
+            Name = "SignUpForm_FX";
             SizeGripStyle = SizeGripStyle.Hide;
             Load += SplashScreen_Load;
             panel2.ResumeLayout(false);
@@ -261,6 +266,8 @@ namespace Inflow
 
         private void SplashScreen_Load(object sender, EventArgs e)
         {
+            nextButton.Enabled = false;
+            Next.Enabled = false;
         }
 
 
@@ -274,10 +281,10 @@ namespace Inflow
         private Panel panel3;
         private PictureBox pictureBox1;
         private Label label2;
-        private RoundedTextBox passwordText;
-        private RoundedTextBox usernameTextbox;
+        private RoundedTextBox_CMP passwordText;
+        private RoundedTextBox_CMP usernameTextbox;
         private FlowLayoutPanel flowLayoutPanel3;
-        private RoundedTextBox confirmPassText;
+        private RoundedTextBox_CMP confirmPassText;
         private Panel panel4;
         private Label Next;
         private PictureBox nextButton;
@@ -338,6 +345,18 @@ namespace Inflow
 
         }
 
+        private void Next_Click(object sender, EventArgs e)
+        {
+            if (!IsFormValid())
+            {
+                MessageBox.Show("Please enter a valid username or password.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            GettingStartedForm_FX newForm = new GettingStartedForm_FX();
+            newForm.Show();
+            newForm.TopMost = true;
+            this.Close();
+        }
         private string ValidateUsername(string username)
         {
             if (string.IsNullOrWhiteSpace(username))

@@ -5,11 +5,11 @@ using System.Text;
 
 namespace Inflow
 {
-    public class MotherWindow : GrandmaWindow
+    public class MotherWindowFX : GrandmaWindow_FX
     {
         private int borderSize = 0;
         
-        public MotherWindow()
+        public MotherWindowFX()
         {
             this.Padding = new System.Windows.Forms.Padding(borderSize);
             this.TopMost = true;

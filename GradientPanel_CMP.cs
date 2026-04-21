@@ -4,14 +4,14 @@ using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using System.ComponentModel;
 
-public class GradientPanel : Panel
+public class GradientPanel_CMP : Panel
 {
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public Color ColorTop { get; set; } = Color.Blue;
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public Color ColorBottom { get; set; } = Color.LightBlue;
 
-    public GradientPanel()
+    public GradientPanel_CMP()
     {
         this.DoubleBuffered = true;
         this.ResizeRedraw = true;

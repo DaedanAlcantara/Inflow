@@ -11,12 +11,12 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace Inflow
 {
-    public class GrandmaWindow : Form
+    public class GrandmaWindow_FX : Form
     {
         private Size formSize;
 
         
-        protected GrandmaWindow()
+        protected GrandmaWindow_FX()
         {
             this.StartPosition = FormStartPosition.CenterScreen;
             

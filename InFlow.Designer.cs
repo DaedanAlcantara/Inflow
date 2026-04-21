@@ -31,7 +31,7 @@ namespace Inflow
         {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InFlow));
-            panel1 = new GradientPanel();
+            panel1 = new GradientPanel_CMP();
             pictureBox1 = new PictureBox();
             timer1 = new System.Windows.Forms.Timer(components);
             panel1.SuspendLayout();
@@ -85,7 +85,7 @@ namespace Inflow
 
         #endregion
 
-        private GradientPanel panel1;
+        private GradientPanel_CMP panel1;
         private PictureBox pictureBox1;
         private System.Windows.Forms.Timer timer1;
     }

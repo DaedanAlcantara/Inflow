@@ -30,7 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="GradientPanel.cs" />
+    <None Include="GradientPanel_CMP.cs" />
   </ItemGroup>
 
   <ItemGroup>

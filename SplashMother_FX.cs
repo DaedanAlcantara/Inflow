@@ -6,15 +6,15 @@ using System.Windows.Forms;
 
 namespace Inflow
 {
-    public class SplashMother : GrandmaWindow
+    public class SplashMother_FX : GrandmaWindow_FX
     {
 
-        public SplashMother()
+        public SplashMother_FX()
         {
             
         }
 
-        public SplashMother(Size formSize)
+        public SplashMother_FX(Size formSize)
         {
         }
 
@@ -29,7 +29,7 @@ namespace Inflow
         {
             SuspendLayout();
             // 
-            // SplashMother
+            // SplashMother_FX
             // 
             ClientSize = new Size(318, 347);
             MaximizeBox = false;
