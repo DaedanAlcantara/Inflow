@@ -176,5 +176,46 @@ public class RoundedTextBox_CMP : UserControl
         set => innerTextBox.PasswordChar = value;
     }
 
-   
+    private int _maxLength = 32767;
+    [Category("Behavior")]
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+    public int MaxLength
+    {
+        get => _maxLength;
+        set
+        {
+            _maxLength = value;
+            innerTextBox.MaxLength = value;
+        }
+    }
+
+    private bool _numericOnly = false;
+    [Category("Behavior")]
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+    public bool NumericOnly
+    {
+        get => _numericOnly;
+        set
+        {
+            _numericOnly = value;
+            if (value)
+            {
+                innerTextBox.KeyPress += OnInnerTextBoxKeyPress;
+            }
+            else
+            {
+                innerTextBox.KeyPress -= OnInnerTextBoxKeyPress;
+            }
+        }
+    }
+
+    private void OnInnerTextBoxKeyPress(object sender, KeyPressEventArgs e)
+    {
+        // Allow digits and control keys (backspace, delete, enter, etc.)
+        if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
+        {
+            e.Handled = true;
+        }
+    }
+
 }

@@ -328,6 +328,11 @@ namespace Inflow
                 return;
             }
             MessageBox.Show($"Welcome, {usernameTextbox.Text}!", "Successfully logged in", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            string username = usernameTextbox.Text;
+            GettingStartedForm_FX newForm = new GettingStartedForm_FX(usernameTextbox.Text);
+            newForm.Show();
+            newForm.TopMost = true;
+            this.Close();
         }
 
         private void passwordText_TextChanged(object sender, EventArgs e)
@@ -352,7 +357,9 @@ namespace Inflow
                 MessageBox.Show("Please enter a valid username or password.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            GettingStartedForm_FX newForm = new GettingStartedForm_FX();
+            MessageBox.Show($"Welcome, {usernameTextbox.Text}!", "Successfully logged in", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            string username = usernameTextbox.Text;
+            GettingStartedForm_FX newForm = new GettingStartedForm_FX(usernameTextbox.Text);
             newForm.Show();
             newForm.TopMost = true;
             this.Close();
