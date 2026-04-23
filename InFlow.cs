@@ -44,11 +44,18 @@ namespace Inflow
 
         private void timer1_Tick_1(object sender, EventArgs e)
         {
+            /*
             SignUpForm_FX newForm = new SignUpForm_FX();
             timer1.Stop(); // Stop timer to prevent multiple openings
+            this.Hide(); // Hide the splash screen
             newForm.TopMost = true;
             // Show the splash without making it an owned window to avoid activation/visual artifacts
             newForm.Show(); // Open the new form
+            */
+            Dashboard_FX newForm = new Dashboard_FX();
+            timer1.Stop(); // Stop timer to prevent multiple openings
+            this.Hide(); // Hide the splash screen
+            newForm.Show();
         }
         private void Inflow_Load(object sender, EventArgs e)
         {

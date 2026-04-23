@@ -6,6 +6,7 @@ using System.ComponentModel;
 
 public class GradientPanel_CMP : Panel
 {
+
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public Color ColorTop { get; set; } = Color.Blue;
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -13,6 +14,11 @@ public class GradientPanel_CMP : Panel
 
     public GradientPanel_CMP()
     {
+        this.SetStyle(ControlStyles.AllPaintingInWmPaint |
+                      ControlStyles.UserPaint |
+                      ControlStyles.DoubleBuffer |
+                      ControlStyles.OptimizedDoubleBuffer, true);
+        this.UpdateStyles();
         this.DoubleBuffered = true;
         this.ResizeRedraw = true;
     }

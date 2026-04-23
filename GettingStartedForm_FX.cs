@@ -26,6 +26,10 @@ namespace Inflow
             panel2.ColorTop = System.Drawing.ColorTranslator.FromHtml("#0E24F0");
             this.StartPosition = FormStartPosition.CenterScreen;
             this.MaximumSize = this.MinimumSize = this.Size;
+            textBox10.PlaceholderText = textBox14.PlaceholderText = textBox6.PlaceholderText = textBox2.PlaceholderText = "x";
+            textBox11.PlaceholderText = textBox15.PlaceholderText = textBox7.PlaceholderText = textBox3.PlaceholderText = "x";
+            textBox12.PlaceholderText = textBox13.PlaceholderText = textBox5.PlaceholderText = textBox4.PlaceholderText = "x";
+            textBox9.PlaceholderText = textBox16.PlaceholderText = textBox8.PlaceholderText = MorningStartHour1.PlaceholderText = "x";
 
             var timeTextBoxes = new RoundedTextBox_CMP[]
             {
@@ -177,6 +181,12 @@ namespace Inflow
                             $"Morning: {schedule.MorningStart:hh\\:mm} – {schedule.MorningEnd:hh\\:mm}\n" +
                             $"Afternoon: {schedule.AfternoonStart:hh\\:mm} – {schedule.AfternoonEnd:hh\\:mm}",
                             "Schedule Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            Dashboard_FX dashboard = new Dashboard_FX();
+            this.Close();
+            
+            dashboard.Show();
+            dashboard.TopMost = true;
+            
         }
         private void InitializeComponent()
         {
@@ -278,11 +288,11 @@ namespace Inflow
             // 
             label1.Anchor = AnchorStyles.None;
             label1.AutoSize = true;
-            label1.Font = new Font("Microsoft Sans Serif", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Font = new Font("Inter", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = SystemColors.ActiveCaptionText;
-            label1.Location = new Point(201, 47);
+            label1.Location = new Point(195, 49);
             label1.Name = "label1";
-            label1.Size = new Size(283, 42);
+            label1.Size = new Size(297, 45);
             label1.TabIndex = 2;
             label1.Text = "Getting Started";
             label1.TextAlign = ContentAlignment.MiddleCenter;
@@ -450,7 +460,9 @@ namespace Inflow
             textBox13.BackColor = SystemColors.ControlLight;
             textBox13.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             textBox13.Location = new Point(3, 3);
+            textBox13.MaxLength = 32767;
             textBox13.Name = "textBox13";
+            textBox13.NumericOnly = false;
             textBox13.Padding = new Padding(10, 8, 10, 8);
             textBox13.Size = new Size(36, 46);
             textBox13.TabIndex = 0;
@@ -462,7 +474,9 @@ namespace Inflow
             textBox14.BackColor = SystemColors.ControlLight;
             textBox14.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             textBox14.Location = new Point(45, 3);
+            textBox14.MaxLength = 32767;
             textBox14.Name = "textBox14";
+            textBox14.NumericOnly = false;
             textBox14.Padding = new Padding(10, 8, 10, 8);
             textBox14.Size = new Size(36, 46);
             textBox14.TabIndex = 1;
@@ -486,7 +500,9 @@ namespace Inflow
             textBox15.BackColor = SystemColors.ControlLight;
             textBox15.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             textBox15.Location = new Point(116, 3);
+            textBox15.MaxLength = 32767;
             textBox15.Name = "textBox15";
+            textBox15.NumericOnly = false;
             textBox15.Padding = new Padding(10, 8, 10, 8);
             textBox15.Size = new Size(36, 46);
             textBox15.TabIndex = 3;
@@ -498,7 +514,9 @@ namespace Inflow
             textBox16.BackColor = SystemColors.ControlLight;
             textBox16.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             textBox16.Location = new Point(158, 3);
+            textBox16.MaxLength = 32767;
             textBox16.Name = "textBox16";
+            textBox16.NumericOnly = false;
             textBox16.Padding = new Padding(10, 8, 10, 8);
             textBox16.Size = new Size(36, 46);
             textBox16.TabIndex = 4;
@@ -523,7 +541,9 @@ namespace Inflow
             textBox9.BackColor = SystemColors.ControlLight;
             textBox9.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             textBox9.Location = new Point(3, 3);
+            textBox9.MaxLength = 32767;
             textBox9.Name = "textBox9";
+            textBox9.NumericOnly = false;
             textBox9.Padding = new Padding(10, 8, 10, 8);
             textBox9.Size = new Size(36, 46);
             textBox9.TabIndex = 0;
@@ -535,7 +555,9 @@ namespace Inflow
             textBox10.BackColor = SystemColors.ControlLight;
             textBox10.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             textBox10.Location = new Point(45, 3);
+            textBox10.MaxLength = 32767;
             textBox10.Name = "textBox10";
+            textBox10.NumericOnly = false;
             textBox10.Padding = new Padding(10, 8, 10, 8);
             textBox10.Size = new Size(36, 46);
             textBox10.TabIndex = 1;
@@ -559,7 +581,9 @@ namespace Inflow
             textBox11.BackColor = SystemColors.ControlLight;
             textBox11.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             textBox11.Location = new Point(116, 3);
+            textBox11.MaxLength = 32767;
             textBox11.Name = "textBox11";
+            textBox11.NumericOnly = false;
             textBox11.Padding = new Padding(10, 8, 10, 8);
             textBox11.Size = new Size(36, 46);
             textBox11.TabIndex = 3;
@@ -571,7 +595,9 @@ namespace Inflow
             textBox12.BackColor = SystemColors.ControlLight;
             textBox12.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             textBox12.Location = new Point(158, 3);
+            textBox12.MaxLength = 32767;
             textBox12.Name = "textBox12";
+            textBox12.NumericOnly = false;
             textBox12.Padding = new Padding(10, 8, 10, 8);
             textBox12.Size = new Size(36, 46);
             textBox12.TabIndex = 4;
@@ -596,7 +622,9 @@ namespace Inflow
             textBox5.BackColor = SystemColors.ControlLight;
             textBox5.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             textBox5.Location = new Point(3, 3);
+            textBox5.MaxLength = 32767;
             textBox5.Name = "textBox5";
+            textBox5.NumericOnly = false;
             textBox5.Padding = new Padding(10, 8, 10, 8);
             textBox5.Size = new Size(36, 46);
             textBox5.TabIndex = 0;
@@ -608,7 +636,9 @@ namespace Inflow
             textBox6.BackColor = SystemColors.ControlLight;
             textBox6.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             textBox6.Location = new Point(45, 3);
+            textBox6.MaxLength = 32767;
             textBox6.Name = "textBox6";
+            textBox6.NumericOnly = false;
             textBox6.Padding = new Padding(10, 8, 10, 8);
             textBox6.Size = new Size(36, 46);
             textBox6.TabIndex = 1;
@@ -632,7 +662,9 @@ namespace Inflow
             textBox7.BackColor = SystemColors.ControlLight;
             textBox7.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             textBox7.Location = new Point(116, 3);
+            textBox7.MaxLength = 32767;
             textBox7.Name = "textBox7";
+            textBox7.NumericOnly = false;
             textBox7.Padding = new Padding(10, 8, 10, 8);
             textBox7.Size = new Size(36, 46);
             textBox7.TabIndex = 3;
@@ -644,7 +676,9 @@ namespace Inflow
             textBox8.BackColor = SystemColors.ControlLight;
             textBox8.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             textBox8.Location = new Point(158, 3);
+            textBox8.MaxLength = 32767;
             textBox8.Name = "textBox8";
+            textBox8.NumericOnly = false;
             textBox8.Padding = new Padding(10, 8, 10, 8);
             textBox8.Size = new Size(36, 46);
             textBox8.TabIndex = 4;
@@ -654,11 +688,11 @@ namespace Inflow
             // 
             label6.Anchor = AnchorStyles.None;
             label6.AutoSize = true;
-            label6.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label6.Location = new Point(171, 520);
+            label6.Font = new Font("Inter", 9F);
+            label6.Location = new Point(166, 524);
             label6.Margin = new Padding(3, 10, 3, 10);
             label6.Name = "label6";
-            label6.Size = new Size(323, 18);
+            label6.Size = new Size(351, 19);
             label6.TabIndex = 11;
             label6.Text = "What time do you end your afternoon schedule?";
             label6.TextAlign = ContentAlignment.MiddleCenter;
@@ -667,11 +701,11 @@ namespace Inflow
             // 
             label5.Anchor = AnchorStyles.None;
             label5.AutoSize = true;
-            label5.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label5.Location = new Point(171, 380);
+            label5.Font = new Font("Inter", 9F);
+            label5.Location = new Point(166, 384);
             label5.Margin = new Padding(3, 10, 3, 10);
             label5.Name = "label5";
-            label5.Size = new Size(328, 18);
+            label5.Size = new Size(356, 19);
             label5.TabIndex = 10;
             label5.Text = "What time do you start your afternoon schedule?";
             label5.TextAlign = ContentAlignment.MiddleCenter;
@@ -680,11 +714,11 @@ namespace Inflow
             // 
             label3.Anchor = AnchorStyles.None;
             label3.AutoSize = true;
-            label3.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label3.Location = new Point(179, 240);
+            label3.Font = new Font("Inter", 9F);
+            label3.Location = new Point(174, 244);
             label3.Margin = new Padding(3, 10, 3, 10);
             label3.Name = "label3";
-            label3.Size = new Size(314, 18);
+            label3.Size = new Size(341, 19);
             label3.TabIndex = 9;
             label3.Text = "What time do you end your morning schedule?";
             label3.TextAlign = ContentAlignment.MiddleCenter;
@@ -748,7 +782,9 @@ namespace Inflow
             MorningStartHour1.BackColor = SystemColors.ControlLight;
             MorningStartHour1.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             MorningStartHour1.Location = new Point(3, 3);
+            MorningStartHour1.MaxLength = 32767;
             MorningStartHour1.Name = "MorningStartHour1";
+            MorningStartHour1.NumericOnly = false;
             MorningStartHour1.Padding = new Padding(10, 8, 10, 8);
             MorningStartHour1.Size = new Size(36, 46);
             MorningStartHour1.TabIndex = 0;
@@ -760,7 +796,9 @@ namespace Inflow
             textBox2.BackColor = SystemColors.ControlLight;
             textBox2.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             textBox2.Location = new Point(45, 3);
+            textBox2.MaxLength = 32767;
             textBox2.Name = "textBox2";
+            textBox2.NumericOnly = false;
             textBox2.Padding = new Padding(10, 8, 10, 8);
             textBox2.Size = new Size(36, 46);
             textBox2.TabIndex = 1;
@@ -784,7 +822,9 @@ namespace Inflow
             textBox3.BackColor = SystemColors.ControlLight;
             textBox3.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             textBox3.Location = new Point(116, 3);
+            textBox3.MaxLength = 32767;
             textBox3.Name = "textBox3";
+            textBox3.NumericOnly = false;
             textBox3.Padding = new Padding(10, 8, 10, 8);
             textBox3.Size = new Size(36, 46);
             textBox3.TabIndex = 3;
@@ -796,7 +836,9 @@ namespace Inflow
             textBox4.BackColor = SystemColors.ControlLight;
             textBox4.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             textBox4.Location = new Point(158, 3);
+            textBox4.MaxLength = 32767;
             textBox4.Name = "textBox4";
+            textBox4.NumericOnly = false;
             textBox4.Padding = new Padding(10, 8, 10, 8);
             textBox4.Size = new Size(36, 46);
             textBox4.TabIndex = 4;
@@ -844,11 +886,11 @@ namespace Inflow
             // 
             label2.Anchor = AnchorStyles.None;
             label2.AutoSize = true;
-            label2.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(176, 100);
+            label2.Font = new Font("Inter", 9F);
+            label2.Location = new Point(171, 104);
             label2.Margin = new Padding(3, 10, 3, 10);
             label2.Name = "label2";
-            label2.Size = new Size(319, 18);
+            label2.Size = new Size(346, 19);
             label2.TabIndex = 3;
             label2.Text = "What time do you start your morning schedule?";
             label2.TextAlign = ContentAlignment.MiddleCenter;
