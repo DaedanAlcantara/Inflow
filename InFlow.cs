@@ -14,7 +14,6 @@ namespace Inflow
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             InitializeComponent();
             this.Text = "Inflow";
-            //this.Resize += Form1_Resize;
             pictureBox1.Left = (this.ClientSize.Width - pictureBox1.Width) / 2;
             pictureBox1.Top = (this.ClientSize.Height - pictureBox1.Height) / 2;
             panel1.ColorBottom = System.Drawing.ColorTranslator.FromHtml("#0E24F0");
@@ -25,16 +24,7 @@ namespace Inflow
         }
 
        
-        /*
-        private void Form1_Resize(object sender, EventArgs e)
-        {
-            pictureBox1.Left = (this.ClientSize.Width - pictureBox1.Width) / 2;
-            pictureBox1.Top = (this.ClientSize.Height - pictureBox1.Height) / 2;
-            
-            panel1.ColorBottom = System.Drawing.ColorTranslator.FromHtml("#0E24F0");
-            panel1.ColorBottom = System.Drawing.ColorTranslator.FromHtml("#FF37E8");
-        }
-        */
+       
         
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -44,18 +34,14 @@ namespace Inflow
 
         private void timer1_Tick_1(object sender, EventArgs e)
         {
-            /*
+            
             SignUpForm_FX newForm = new SignUpForm_FX();
-            timer1.Stop(); // Stop timer to prevent multiple openings
-            this.Hide(); // Hide the splash screen
+            timer1.Stop(); 
+            this.Hide(); 
             newForm.TopMost = true;
-            // Show the splash without making it an owned window to avoid activation/visual artifacts
-            newForm.Show(); // Open the new form
-            */
-            Dashboard_FX newForm = new Dashboard_FX();
-            timer1.Stop(); // Stop timer to prevent multiple openings
-            this.Hide(); // Hide the splash screen
-            newForm.Show();
+            newForm.Show(); 
+            
+            
         }
         private void Inflow_Load(object sender, EventArgs e)
         {
