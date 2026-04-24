@@ -1,4 +1,5 @@
-﻿using System.Drawing.Text;
+﻿using Microsoft.VisualBasic.ApplicationServices;
+using System.Drawing.Text;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -32,6 +33,7 @@ namespace Inflow
             usernameTextbox.TextAlign = HorizontalAlignment.Center;
             passwordText.TextAlign = HorizontalAlignment.Center;
             confirmPassText.TextAlign = HorizontalAlignment.Center;
+
 
         }
 
@@ -312,7 +314,7 @@ namespace Inflow
 
         private void panel4_Click(object sender, EventArgs e)
         {
-
+            nextButton_Click(sender, e);
         }
 
         private void panel4_Paint(object sender, PaintEventArgs e)
@@ -322,17 +324,41 @@ namespace Inflow
 
         private void nextButton_Click(object sender, EventArgs e)
         {
-            if (!IsFormValid())
+            string usernameError = ValidateUsername(usernameTextbox.Text);
+
+            if (usernameError != null)
             {
-                MessageBox.Show("Please enter a valid username or password.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                usernameErrorLabel.Text = usernameError;
+                usernameErrorLabel.Visible = true;
+                MessageBox.Show(usernameError, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+
+            if (string.IsNullOrWhiteSpace(passwordText.Text))
+            {
+                usernameErrorLabel.Visible = false;
+                MessageBox.Show("Password is required.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (passwordText.Text != confirmPassText.Text)
+            {
+                usernameErrorLabel.Visible = false;
+                MessageBox.Show("Passwords do not match! Please re-enter your password.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            usernameErrorLabel.Visible = false;
             MessageBox.Show($"Welcome, {usernameTextbox.Text}!", "Successfully logged in", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            string username = usernameTextbox.Text;
-            GettingStartedForm_FX newForm = new GettingStartedForm_FX(usernameTextbox.Text);
-            newForm.Show();
-            newForm.TopMost = true;
-            this.Close();
+
+            string user = usernameTextbox.Text;
+
+            GettingStartedForm_FX nextForm = new GettingStartedForm_FX(user);
+            nextForm.Show();
+
+            this.Hide();
+
+            
         }
 
         private void passwordText_TextChanged(object sender, EventArgs e)
@@ -393,9 +419,8 @@ namespace Inflow
 
         private void UpdateNextButtonState()
         {
-            bool valid = IsFormValid();
-            nextButton.Enabled = valid;
-            Next.Enabled = valid;
+            nextButton.Enabled = true;
+            Next.Enabled = true;
         }
     }
 }
