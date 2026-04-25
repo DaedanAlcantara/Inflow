@@ -144,12 +144,13 @@
             // 
             NamePlaceholder.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             NamePlaceholder.BackColor = Color.Transparent;
-            NamePlaceholder.Font = new Font("Inter", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            NamePlaceholder.Font = new Font("Microsoft Sans Serif", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
             NamePlaceholder.Location = new Point(3, 0);
             NamePlaceholder.Name = "NamePlaceholder";
             NamePlaceholder.Size = new Size(246, 44);
             NamePlaceholder.TabIndex = 0;
             NamePlaceholder.Text = "User Name";
+            NamePlaceholder.Click += NamePlaceholder_Click;
             // 
             // flowLayoutPanel1
             // 
@@ -201,14 +202,15 @@
             // label2
             // 
             label2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            label2.Font = new Font("Inter", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.Font = new Font("Microsoft Sans Serif", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.ImageAlign = ContentAlignment.MiddleRight;
             label2.Location = new Point(59, 15);
             label2.Name = "label2";
-            label2.Size = new Size(127, 46);
+            label2.Size = new Size(66, 46);
             label2.TabIndex = 2;
             label2.Text = "00";
             label2.TextAlign = ContentAlignment.MiddleRight;
+            label2.Click += label2_Click;
             // 
             // flowLayoutPanel2
             // 
@@ -225,7 +227,7 @@
             // 
             label1.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label1.BackColor = Color.Transparent;
-            label1.Font = new Font("Inter", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label1.Location = new Point(13, 10);
             label1.Name = "label1";
             label1.Size = new Size(176, 24);
@@ -257,7 +259,7 @@
             // label3
             // 
             label3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            label3.Font = new Font("Inter", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.Font = new Font("Microsoft Sans Serif", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label3.ImageAlign = ContentAlignment.MiddleRight;
             label3.Location = new Point(13, 15);
             label3.Name = "label3";
@@ -265,6 +267,7 @@
             label3.TabIndex = 2;
             label3.Text = "00";
             label3.TextAlign = ContentAlignment.MiddleRight;
+            label3.Click += label3_Click;
             // 
             // flowLayoutPanel5
             // 
@@ -281,7 +284,7 @@
             // 
             label5.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label5.BackColor = Color.Transparent;
-            label5.Font = new Font("Inter", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label5.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label5.Location = new Point(13, 10);
             label5.Name = "label5";
             label5.Size = new Size(153, 29);
@@ -313,7 +316,7 @@
             // label6
             // 
             label6.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            label6.Font = new Font("Inter", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label6.Font = new Font("Microsoft Sans Serif", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label6.ImageAlign = ContentAlignment.MiddleRight;
             label6.Location = new Point(13, 15);
             label6.Name = "label6";
@@ -321,6 +324,7 @@
             label6.TabIndex = 2;
             label6.Text = "00";
             label6.TextAlign = ContentAlignment.MiddleRight;
+            label6.Click += label6_Click;
             // 
             // flowLayoutPanel9
             // 
@@ -337,7 +341,7 @@
             // 
             label7.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label7.BackColor = Color.Transparent;
-            label7.Font = new Font("Inter", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label7.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label7.Location = new Point(13, 10);
             label7.Name = "label7";
             label7.Size = new Size(161, 24);
@@ -381,12 +385,13 @@
             // YearText
             // 
             YearText.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            YearText.Font = new Font("Inter", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            YearText.Font = new Font("Microsoft Sans Serif", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             YearText.Location = new Point(13, 5);
             YearText.Name = "YearText";
             YearText.Size = new Size(139, 29);
             YearText.TabIndex = 0;
             YearText.Text = "Year";
+            YearText.Click += YearText_Click;
             // 
             // flowLayoutPanel11
             // 
@@ -402,13 +407,14 @@
             // DayText
             // 
             DayText.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            DayText.Font = new Font("Inter", 28.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            DayText.Font = new Font("Microsoft Sans Serif", 28.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             DayText.Location = new Point(13, 5);
             DayText.Name = "DayText";
             DayText.Size = new Size(180, 65);
             DayText.TabIndex = 2;
             DayText.Text = "00";
             DayText.TextAlign = ContentAlignment.MiddleLeft;
+            DayText.Click += DayText_Click;
             // 
             // flowLayoutPanel12
             // 
@@ -425,12 +431,13 @@
             // 
             MonthText.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             MonthText.BackColor = Color.Transparent;
-            MonthText.Font = new Font("Inter", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            MonthText.Font = new Font("Microsoft Sans Serif", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             MonthText.Location = new Point(13, 10);
             MonthText.Name = "MonthText";
             MonthText.Size = new Size(172, 36);
             MonthText.TabIndex = 0;
             MonthText.Text = "Month";
+            MonthText.Click += MonthText_Click;
             // 
             // CurrentTaskDisplay
             // 
@@ -543,13 +550,14 @@
             // NameTaskText
             // 
             NameTaskText.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            NameTaskText.Font = new Font("Inter", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            NameTaskText.Font = new Font("Microsoft Sans Serif", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             NameTaskText.Location = new Point(13, 5);
             NameTaskText.Name = "NameTaskText";
             NameTaskText.Size = new Size(202, 50);
             NameTaskText.TabIndex = 2;
             NameTaskText.Text = "Name of Task";
             NameTaskText.TextAlign = ContentAlignment.MiddleCenter;
+            NameTaskText.Click += NameTaskText_Click;
             // 
             // flowLayoutPanel14
             // 
@@ -622,7 +630,7 @@
             // 
             Timetext.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             Timetext.BackColor = Color.Transparent;
-            Timetext.Font = new Font("Inter", 36F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            Timetext.Font = new Font("Microsoft Sans Serif", 36F, FontStyle.Bold, GraphicsUnit.Point, 0);
             Timetext.Location = new Point(8, 15);
             Timetext.Name = "Timetext";
             Timetext.Size = new Size(177, 82);

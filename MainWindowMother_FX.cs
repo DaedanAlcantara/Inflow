@@ -27,6 +27,7 @@ namespace Inflow
         private PictureBox pictureBox4;
         private bool isRestoringFromMinimized = false;
         private bool isInitializing = true;
+        private User_BX currentUser;
 
         private System.Windows.Forms.Timer animationTimer;
         private int targetWidth;
@@ -45,7 +46,7 @@ namespace Inflow
 
             if (this.Icon == null)
             {
-               Application.Exit();
+                Application.Exit();
             }
             flowLayoutPanel5.SuspendLayout();
             this.ShowIcon = true;
@@ -285,6 +286,7 @@ namespace Inflow
             label2.TabIndex = 1;
             label2.Tag = "Planner";
             label2.Text = "Planner";
+            label2.Click += label2_Click;
             // 
             // flowLayoutPanel2
             // 
@@ -320,6 +322,7 @@ namespace Inflow
             label1.TabIndex = 1;
             label1.Tag = "Dashboard";
             label1.Text = "Dashboard";
+            label1.Click += label1_Click;
             // 
             // panel1
             // 
@@ -644,6 +647,10 @@ namespace Inflow
 
             var dashboard = new Dashboard_FX();
             dashboard.Dock = DockStyle.Fill;
+            if (currentUser != null)
+            {
+                dashboard.SetUser(currentUser);
+            }
             // Remove the duplicate Dock assignment and AutoSize line
 
             panel1.Controls.Add(dashboard);
@@ -660,20 +667,37 @@ namespace Inflow
             }
         }
 
+        internal void SetUser(User_BX user)
+        {
+            currentUser = user;
+        }
+
         private void ShowPlanner()
         {
             // Clear existing content
             panel1.Controls.Clear();
 
-            // TODO: Create and add Planner control
-            var planner = new Label
+            var planner = new Planner_FX();
+            planner.Dock = DockStyle.Fill;
+            if (currentUser != null)
             {
-                Text = "Planner View - Coming Soon",
-                Dock = DockStyle.Fill,
-                TextAlign = ContentAlignment.MiddleCenter,
-                Font = new Font("Inter", 18F)
-            };
+                planner.SetUser(currentUser);
+            }
+            // Remove the duplicate Dock assignment and AutoSize line
+
             panel1.Controls.Add(planner);
+
+            // Force layout update
+            planner.PerformLayout();
+
+            if (!isInitializing && this.WindowState == FormWindowState.Normal)
+            {
+                if (normalFormSize.Width > this.MinimumSize.Width)
+                {
+                    this.Size = normalFormSize;
+                }
+            }
+
         }
 
         private void ShowNitro()
@@ -690,6 +714,18 @@ namespace Inflow
                 Font = new Font("Inter", 18F)
             };
             panel1.Controls.Add(nitro);
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+            panel1.Controls.Clear();
+            ShowDashboard();
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+            panel1.Controls.Clear();
+            ShowPlanner();
         }
     }
 }

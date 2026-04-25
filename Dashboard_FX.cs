@@ -3,10 +3,12 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
+
 namespace Inflow
 {
     public partial class Dashboard_FX : UserControl
     {
+        private System.Windows.Forms.Timer timeTimer;
         private Panel loadingPanel;
         private bool isInitializing = true;
         private PictureBox[] stars;
@@ -25,6 +27,7 @@ namespace Inflow
             System.Threading.Tasks.Task.Run(() => InitializeContent());
 
             this.Load += Dashboard_FX_Load;
+            
         }
 
         private void CreateLoadingPanel()
@@ -36,6 +39,7 @@ namespace Inflow
                 Visible = true
             };
 
+            
             var loadingLabel = new Label
             {
                 Text = "Loading Dashboard...",
@@ -49,11 +53,14 @@ namespace Inflow
             this.Controls.Add(loadingPanel);
             loadingPanel.BringToFront();
         }
+        
 
+            // Configure all controls properly
+            
         private void InitializeContent()
         {
             // Simulate loading time (remove in production)
-            System.Threading.Thread.Sleep(100);
+            System.Threading.Thread.Sleep(2000);
 
             // Update UI on main thread
             this.Invoke(new Action(() =>
@@ -84,29 +91,44 @@ namespace Inflow
         {
             this.Resize += Dashboard_FX_Resize;
             ResizeContent();
+            DateTime now = DateTime.Now;
+            MonthText.Text = now.ToString("MMMM");
+            DayText.Text = now.ToString("dd");
+            YearText.Text = now.ToString("yyyy");
+
+            UpdateCurrentTime();
+            timeTimer = new System.Windows.Forms.Timer();
+            timeTimer.Interval = 1000; // 1 second
+            timeTimer.Tick += TimeTimer_Tick;
+            timeTimer.Start();
+
         }
 
         private void ConfigureControls()
         {
             // IMPORTANT: Only set properties that WON'T be changed by ResizeContent()
             // Properties like Height, Width, Dock, etc. will be overwritten by ResizeContent()
-            // Fix flowLayoutPanel14 - Current Task header with trash icon
+            // Fix flowLayoutPanel14 Current Task header
+            flowLayoutPanel14.SuspendLayout();
             flowLayoutPanel14.FlowDirection = FlowDirection.LeftToRight;
             flowLayoutPanel14.WrapContents = false;
+            flowLayoutPanel14.Padding = new Padding(10, 0, 10, 0);
 
-            // Configure label11 - don't let it take all the space
+            // Configure label11 to stretch
             label11.AutoSize = false;
-            label11.Anchor = AnchorStyles.Left;  // Remove AnchorStyles.Right
+            label11.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
             label11.TextAlign = ContentAlignment.MiddleLeft;
-            label11.Width = flowLayoutPanel14.Width - 50; // Leave space for trash icon
+            label11.Height = flowLayoutPanel14.Height;
 
-            // Configure pictureBox3 (trash icon)
-            pictureBox3.Visible = true;
-            pictureBox3.Anchor = AnchorStyles.Right;
+            // Configure pictureBox3 fixed on right
+            pictureBox3.Anchor = AnchorStyles.Right | AnchorStyles.Top;
             pictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox3.Width = 25;
             pictureBox3.Height = 25;
-            pictureBox3.Cursor = Cursors.Hand; // Make it clickable
+            pictureBox3.Visible = true;
+
+            flowLayoutPanel14.ResumeLayout(false);
+
 
 
             // Greeting section
@@ -158,6 +180,9 @@ namespace Inflow
             YearText.TextAlign = ContentAlignment.MiddleLeft;
 
             // Current task panel
+            flowLayoutPanel14.Height = 40;
+            flowLayoutPanel14.Dock = DockStyle.Top;
+
             label11.AutoSize = false;
             label11.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label11.TextAlign = ContentAlignment.MiddleLeft;
@@ -341,6 +366,17 @@ namespace Inflow
             }
         }
 
+        private User_BX currentUser;
+
+        internal void SetUser(User_BX user)
+        {
+            if (user != null && NamePlaceholder != null)
+            {
+                currentUser = user;
+                NamePlaceholder.Text = user.Username;
+            }
+        }
+
         private void Dashboard_FX_Resize(object sender, EventArgs e)
         {
             ResizeContent();
@@ -419,6 +455,9 @@ namespace Inflow
                 ApplyTwoPanelSizesEven(panels3, panelWidth3, panelHeight3, panelMargin);
 
                 SetLabelWidths();
+
+                // Fix Current Task header layout (add this at the end)
+                FixCurrentTaskHeaderLayout();
             }
             finally
             {
@@ -426,6 +465,25 @@ namespace Inflow
                 flowLayoutPanel18.ResumeLayout();
                 flowLayoutPanel10.ResumeLayout();
             }
+        }
+
+        private void FixCurrentTaskHeaderLayout()
+        {
+            if (flowLayoutPanel14 == null || label11 == null || pictureBox3 == null) return;
+
+            flowLayoutPanel14.SuspendLayout();
+
+            // Make label11 stretch to fill space
+            label11.Width = flowLayoutPanel14.Width - pictureBox3.Width - 30;
+            label11.Height = flowLayoutPanel14.Height;
+
+            // Position pictureBox3 on the right edge
+            pictureBox3.Location = new Point(
+                flowLayoutPanel14.Width - pictureBox3.Width - 10,
+                (flowLayoutPanel14.Height - pictureBox3.Height) / 2
+            );
+
+            flowLayoutPanel14.ResumeLayout(false);
         }
 
         private void ApplyTwoPanelSizesEven(Control[] panels, int width, int height, int margin)
@@ -610,9 +668,83 @@ namespace Inflow
             }
         }
 
-        private void pictureBox3_Click(object sender, EventArgs e)
+        private void UpdateCurrentTime()
+        {
+            if (Timetext != null && !Timetext.IsDisposed)
+            {
+                Timetext.Text = DateTime.Now.ToString("hh:mm:ss tt");
+            }
+        }
+        private void TimeTimer_Tick(object sender, EventArgs e)
+        {
+            UpdateCurrentTime();
+        }
+
+        private void NamePlaceholder_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DayText_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MonthText_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void YearText_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void NameTaskText_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DecriptionText_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Timetext_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void NameNextTaskText_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+            // Handle trash icon click - for example, clear current task
+            NameTaskText.Text = "No current task";
+            DecriptionText.Text = "";
+            SetTaskRating(0);
         }
     }
 }

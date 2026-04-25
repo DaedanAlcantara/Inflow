@@ -34,14 +34,15 @@ namespace Inflow
 
         private void timer1_Tick_1(object sender, EventArgs e)
         {
-            /*
+           /* 
             SignUpForm_FX newForm = new SignUpForm_FX();
             timer1.Stop(); 
             this.Hide(); 
             newForm.TopMost = true;
             newForm.Show(); 
-            */
-
+           */
+            
+            
             MainWindowMother_FX newForm = new MainWindowMother_FX();
             timer1.Stop();
             this.Hide();
