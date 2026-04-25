@@ -35,6 +35,27 @@ namespace Inflow
 
             // Subscribe to resize event
             this.Resize += Planner_FX_Resize;
+
+            var durationBoxes = new RoundedTextBox_CMP[] { MorningStartHour1, textBox2, textBox3, textBox4 };
+
+            foreach (var box in durationBoxes)
+            {
+                box.MaxLength = 1;
+                box.NumericOnly = true;
+            }
+
+            textBox3.KeyPress += RestrictMinuteTens;
+        }
+
+        private void RestrictMinuteTens(object sender, KeyPressEventArgs e)
+        {
+            // Allow control keys (backspace, delete, arrow keys, tab, etc.)
+            if (char.IsControl(e.KeyChar))
+                return;
+
+            // Only allow digits 0-5
+            if (!char.IsDigit(e.KeyChar) || int.Parse(e.KeyChar.ToString()) > 5)
+                e.Handled = true;
         }
 
 
@@ -68,11 +89,11 @@ namespace Inflow
             flowLayoutPanel8 = new FlowLayoutPanel();
             label6 = new Label();
             flowLayoutPanel9 = new FlowLayoutPanel();
-            star5 = new PictureBox();
             star1 = new PictureBox();
             star2 = new PictureBox();
             star3 = new PictureBox();
             star4 = new PictureBox();
+            star5 = new PictureBox();
             flowLayoutPanel10 = new FlowLayoutPanel();
             button1 = new Button();
             button2 = new Button();
@@ -90,11 +111,11 @@ namespace Inflow
             TimePicker1.SuspendLayout();
             flowLayoutPanel8.SuspendLayout();
             flowLayoutPanel9.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)star5).BeginInit();
             ((System.ComponentModel.ISupportInitialize)star1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)star2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)star3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)star4).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)star5).BeginInit();
             flowLayoutPanel10.SuspendLayout();
             SuspendLayout();
             // 
@@ -145,6 +166,7 @@ namespace Inflow
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
+            pictureBox1.Click += pictureBox1_Click;
             // 
             // flowLayoutPanel2
             // 
@@ -174,10 +196,10 @@ namespace Inflow
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Inter", 10.2F, FontStyle.Bold);
+            label1.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
             label1.Location = new Point(8, 5);
             label1.Name = "label1";
-            label1.Size = new Size(102, 20);
+            label1.Size = new Size(103, 20);
             label1.TabIndex = 3;
             label1.Text = "Task Name";
             // 
@@ -185,7 +207,7 @@ namespace Inflow
             // 
             usernameTextbox.Anchor = AnchorStyles.None;
             usernameTextbox.BackColor = SystemColors.ControlLight;
-            usernameTextbox.Font = new Font("Inter Light", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            usernameTextbox.Font = new Font("Microsoft Sans Serif", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             usernameTextbox.ForeColor = SystemColors.WindowText;
             usernameTextbox.Location = new Point(15, 35);
             usernameTextbox.Margin = new Padding(10);
@@ -195,6 +217,7 @@ namespace Inflow
             usernameTextbox.Padding = new Padding(10, 8, 10, 8);
             usernameTextbox.Size = new Size(237, 31);
             usernameTextbox.TabIndex = 2;
+            usernameTextbox.Load += usernameTextbox_Load;
             // 
             // flowLayoutPanel4
             // 
@@ -210,10 +233,10 @@ namespace Inflow
             // label2
             // 
             label2.AutoSize = true;
-            label2.Font = new Font("Inter", 10.2F, FontStyle.Bold);
+            label2.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
             label2.Location = new Point(8, 5);
             label2.Name = "label2";
-            label2.Size = new Size(150, 20);
+            label2.Size = new Size(152, 20);
             label2.TabIndex = 3;
             label2.Text = "Task Description";
             // 
@@ -221,7 +244,7 @@ namespace Inflow
             // 
             roundedTextBox_cmp1.Anchor = AnchorStyles.None;
             roundedTextBox_cmp1.BackColor = SystemColors.ControlLight;
-            roundedTextBox_cmp1.Font = new Font("Inter Light", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            roundedTextBox_cmp1.Font = new Font("Microsoft Sans Serif", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             roundedTextBox_cmp1.ForeColor = SystemColors.WindowText;
             roundedTextBox_cmp1.Location = new Point(15, 35);
             roundedTextBox_cmp1.Margin = new Padding(10);
@@ -231,6 +254,7 @@ namespace Inflow
             roundedTextBox_cmp1.Padding = new Padding(10, 8, 10, 8);
             roundedTextBox_cmp1.Size = new Size(237, 100);
             roundedTextBox_cmp1.TabIndex = 2;
+            roundedTextBox_cmp1.Load += roundedTextBox_cmp1_Load;
             // 
             // flowLayoutPanel5
             // 
@@ -255,36 +279,38 @@ namespace Inflow
             // label3
             // 
             label3.AutoSize = true;
-            label3.Font = new Font("Inter", 10.2F, FontStyle.Bold);
+            label3.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
             label3.Location = new Point(3, 0);
             label3.Name = "label3";
-            label3.Size = new Size(51, 20);
+            label3.Size = new Size(50, 20);
             label3.TabIndex = 4;
             label3.Text = "Time";
             // 
             // AMButton
             // 
             AMButton.AutoSize = true;
-            AMButton.Font = new Font("Inter", 10.2F);
+            AMButton.Font = new Font("Microsoft Sans Serif", 10.2F);
             AMButton.Location = new Point(3, 23);
             AMButton.Name = "AMButton";
-            AMButton.Size = new Size(95, 24);
+            AMButton.Size = new Size(90, 24);
             AMButton.TabIndex = 5;
             AMButton.TabStop = true;
             AMButton.Text = "Morning";
             AMButton.UseVisualStyleBackColor = true;
+            AMButton.CheckedChanged += AMButton_CheckedChanged;
             // 
             // PMButton
             // 
             PMButton.AutoSize = true;
-            PMButton.Font = new Font("Inter", 10.2F);
+            PMButton.Font = new Font("Microsoft Sans Serif", 10.2F);
             PMButton.Location = new Point(3, 53);
             PMButton.Name = "PMButton";
-            PMButton.Size = new Size(109, 24);
+            PMButton.Size = new Size(102, 24);
             PMButton.TabIndex = 6;
             PMButton.TabStop = true;
             PMButton.Text = "Afternoon";
             PMButton.UseVisualStyleBackColor = true;
+            PMButton.CheckedChanged += PMButton_CheckedChanged;
             // 
             // flowLayoutPanel7
             // 
@@ -298,7 +324,7 @@ namespace Inflow
             // label4
             // 
             label4.AutoSize = true;
-            label4.Font = new Font("Inter", 10.2F, FontStyle.Bold);
+            label4.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
             label4.Location = new Point(3, 0);
             label4.Name = "label4";
             label4.Size = new Size(81, 20);
@@ -330,6 +356,7 @@ namespace Inflow
             MorningStartHour1.Padding = new Padding(10, 8, 10, 8);
             MorningStartHour1.Size = new Size(37, 46);
             MorningStartHour1.TabIndex = 0;
+            MorningStartHour1.Load += MorningStartHour1_Load;
             // 
             // textBox2
             // 
@@ -343,6 +370,7 @@ namespace Inflow
             textBox2.Padding = new Padding(10, 8, 10, 8);
             textBox2.Size = new Size(37, 46);
             textBox2.TabIndex = 1;
+            textBox2.Load += textBox2_Load;
             // 
             // label5
             // 
@@ -368,6 +396,7 @@ namespace Inflow
             textBox3.Padding = new Padding(10, 8, 10, 8);
             textBox3.Size = new Size(37, 46);
             textBox3.TabIndex = 3;
+            textBox3.Load += textBox3_Load;
             // 
             // textBox4
             // 
@@ -381,6 +410,7 @@ namespace Inflow
             textBox4.Padding = new Padding(10, 8, 10, 8);
             textBox4.Size = new Size(37, 46);
             textBox4.TabIndex = 4;
+            textBox4.Load += textBox4_Load;
             // 
             // flowLayoutPanel8
             // 
@@ -394,10 +424,10 @@ namespace Inflow
             // label6
             // 
             label6.AutoSize = true;
-            label6.Font = new Font("Inter", 10.2F, FontStyle.Bold);
+            label6.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
             label6.Location = new Point(3, 0);
             label6.Name = "label6";
-            label6.Size = new Size(128, 20);
+            label6.Size = new Size(130, 20);
             label6.TabIndex = 4;
             label6.Text = "Priority Rating";
             // 
@@ -413,16 +443,6 @@ namespace Inflow
             flowLayoutPanel9.Size = new Size(210, 33);
             flowLayoutPanel9.TabIndex = 5;
             // 
-            // star5
-            // 
-            star5.Image = Properties.Resources.Rating;
-            star5.Location = new Point(147, 3);
-            star5.Name = "star5";
-            star5.Size = new Size(30, 30);
-            star5.SizeMode = PictureBoxSizeMode.StretchImage;
-            star5.TabIndex = 9;
-            star5.TabStop = false;
-            // 
             // star1
             // 
             star1.Image = Properties.Resources.Rating;
@@ -432,6 +452,7 @@ namespace Inflow
             star1.SizeMode = PictureBoxSizeMode.StretchImage;
             star1.TabIndex = 5;
             star1.TabStop = false;
+            star1.Click += star1_Click;
             // 
             // star2
             // 
@@ -442,6 +463,7 @@ namespace Inflow
             star2.SizeMode = PictureBoxSizeMode.StretchImage;
             star2.TabIndex = 6;
             star2.TabStop = false;
+            star2.Click += star2_Click;
             // 
             // star3
             // 
@@ -452,6 +474,7 @@ namespace Inflow
             star3.SizeMode = PictureBoxSizeMode.StretchImage;
             star3.TabIndex = 7;
             star3.TabStop = false;
+            star3.Click += star3_Click;
             // 
             // star4
             // 
@@ -462,6 +485,18 @@ namespace Inflow
             star4.SizeMode = PictureBoxSizeMode.StretchImage;
             star4.TabIndex = 8;
             star4.TabStop = false;
+            star4.Click += star4_Click;
+            // 
+            // star5
+            // 
+            star5.Image = Properties.Resources.Rating;
+            star5.Location = new Point(147, 3);
+            star5.Name = "star5";
+            star5.Size = new Size(30, 30);
+            star5.SizeMode = PictureBoxSizeMode.StretchImage;
+            star5.TabIndex = 9;
+            star5.TabStop = false;
+            star5.Click += star5_Click;
             // 
             // flowLayoutPanel10
             // 
@@ -474,23 +509,25 @@ namespace Inflow
             // 
             // button1
             // 
-            button1.Font = new Font("Inter", 7.8F, FontStyle.Bold);
+            button1.Font = new Font("Microsoft Sans Serif", 7.8F, FontStyle.Bold);
             button1.Location = new Point(3, 3);
             button1.Name = "button1";
             button1.Size = new Size(213, 28);
             button1.TabIndex = 0;
             button1.Text = "Create Task";
             button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // button2
             // 
-            button2.Font = new Font("Inter", 7.8F, FontStyle.Bold);
+            button2.Font = new Font("Microsoft Sans Serif", 7.8F, FontStyle.Bold);
             button2.Location = new Point(3, 37);
             button2.Name = "button2";
             button2.Size = new Size(213, 28);
             button2.TabIndex = 1;
             button2.Text = "Reset Planner";
             button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
             // 
             // Planner_FX
             // 
@@ -521,11 +558,11 @@ namespace Inflow
             flowLayoutPanel8.ResumeLayout(false);
             flowLayoutPanel8.PerformLayout();
             flowLayoutPanel9.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)star5).EndInit();
             ((System.ComponentModel.ISupportInitialize)star1).EndInit();
             ((System.ComponentModel.ISupportInitialize)star2).EndInit();
             ((System.ComponentModel.ISupportInitialize)star3).EndInit();
             ((System.ComponentModel.ISupportInitialize)star4).EndInit();
+            ((System.ComponentModel.ISupportInitialize)star5).EndInit();
             flowLayoutPanel10.ResumeLayout(false);
             ResumeLayout(false);
 
@@ -568,6 +605,214 @@ namespace Inflow
         private Panel AutoSortBTN;
         private PictureBox pictureBox1;
         private int taskCounter = 0;
+
+        // getting duration
+        private bool TryParseDuration(out TimeSpan duration, out string error)
+        {
+            duration = TimeSpan.Zero;
+            error = null;
+
+            // Combine hour digits (tens + units)
+            string hourText = MorningStartHour1.Text.Trim() + textBox2.Text.Trim();
+            if (!int.TryParse(hourText, out int hours) || hours < 0 || hours > 23)
+            {
+                error = "Hours must be between 0 and 23 (use two digits, e.g., 04).";
+                return false;
+            }
+
+            // Combine minute digits (tens + units)
+            string minuteText = textBox3.Text.Trim() + textBox4.Text.Trim();
+            if (!int.TryParse(minuteText, out int minutes) || minutes < 0 || minutes > 59)
+            {
+                error = "Minutes must be between 0 and 59 (use two digits, e.g., 30).";
+                return false;
+            }
+
+            if (hours == 0 && minutes == 0)
+            {
+                error = "Duration cannot be zero.";
+                return false;
+            }
+
+            duration = new TimeSpan(hours, minutes, 0);
+            return true;
+        }
+
+        private TaskCard_CMP CreateTaskCardFromTask(Task_BX task)
+        {
+            string timePeriod = (task.TimePreference == TimePreference_BX.Morning) ? "Morning" : "Afternoon";
+            // Format duration as HH:MM
+            string duration = $"{task.Duration.Hours:D2}:{task.Duration.Minutes:D2}";
+            var card = new TaskCard_CMP(task.Name, task.Description, timePeriod, duration, task.Priority);
+            card.Tag = task;  // store reference for deletion
+            card.DeleteClicked += (s, e) => DeleteTask((TaskCard_CMP)s);
+            return card;
+        }
+
+        // task display with sorting
+        private void RefreshTaskDisplay()
+        {
+            if (taskListPanel == null || currentUser == null) return;
+
+            taskListPanel.SuspendLayout();
+            taskListPanel.Controls.Clear();
+
+            // Morning tasks section
+            if (currentUser.MorningTasks.Count() > 0)
+            {
+                Label morningHeader = new Label
+                {
+                    Text = "☀️ Morning Tasks",
+                    Font = new Font("Segoe UI", 12F, FontStyle.Bold),
+                    ForeColor = Color.FromArgb(255, 140, 0),
+                    Margin = new Padding(3, 10, 3, 5),
+                    AutoSize = true
+                };
+                taskListPanel.Controls.Add(morningHeader);
+
+                foreach (Task_BX task in currentUser.MorningTasks)
+                {
+                    TaskCard_CMP card = CreateTaskCardFromTask(task);
+                    taskListPanel.Controls.Add(card);
+                }
+            }
+
+            // Afternoon tasks section
+            if (currentUser.AfternoonTasks.Count() > 0)
+            {
+                Label afternoonHeader = new Label
+                {
+                    Text = "🌤️ Afternoon Tasks",
+                    Font = new Font("Segoe UI", 12F, FontStyle.Bold),
+                    ForeColor = Color.FromArgb(0, 120, 215),
+                    Margin = new Padding(3, 15, 3, 5),
+                    AutoSize = true
+                };
+                taskListPanel.Controls.Add(afternoonHeader);
+
+                foreach (Task_BX task in currentUser.AfternoonTasks)
+                {
+                    TaskCard_CMP card = CreateTaskCardFromTask(task);
+                    taskListPanel.Controls.Add(card);
+                }
+            }
+
+            // Empty state
+            if (currentUser.MorningTasks.Count() == 0 && currentUser.AfternoonTasks.Count() == 0)
+            {
+                Label noTasksLabel = new Label
+                {
+                    Text = "No tasks yet. Create your first task!",
+                    Font = new Font("Segoe UI", 10F, FontStyle.Italic),
+                    ForeColor = Color.Gray,
+                    TextAlign = ContentAlignment.MiddleCenter,
+                    Dock = DockStyle.Top,
+                    Height = 50,
+                    Margin = new Padding(3, 20, 3, 0)
+                };
+                taskListPanel.Controls.Add(noTasksLabel);
+            }
+
+            taskListPanel.ResumeLayout(false);
+            taskListPanel.PerformLayout();
+        }
+
+        private void DeleteTask(TaskCard_CMP taskCard)
+        {
+            if (currentUser == null) return;
+
+            Task_BX task = taskCard.Tag as Task_BX;
+            if (task == null) return;
+
+            DialogResult result = MessageBox.Show($"Delete task '{task.Name}'?", "Confirm Delete",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result != DialogResult.Yes) return;
+
+            currentUser.RemoveTask(task);
+            RefreshTaskDisplay();
+        }
+
+        private void ResetAllTasks()
+        {
+            if (currentUser == null) return;
+
+            DialogResult result = MessageBox.Show("Delete ALL tasks (both morning and afternoon)?", "Confirm Reset",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (result != DialogResult.Yes) return;
+
+            // Clear both lists (using ToList() to avoid modification during iteration)
+            foreach (var task in currentUser.MorningTasks.ToList())
+                currentUser.RemoveTask(task);
+            foreach (var task in currentUser.AfternoonTasks.ToList())
+                currentUser.RemoveTask(task);
+
+            RefreshTaskDisplay();
+            taskCounter = 0;
+        }
+
+        // CREATING TASK BACKEND
+        private void CreateTask()
+        {
+            if (currentUser == null)
+            {
+                MessageBox.Show("User not loaded. Please restart the application.", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // get task name to validate
+            string taskName = GetTaskName();
+            if (string.IsNullOrWhiteSpace(taskName))
+            {
+                MessageBox.Show("Please enter a task name.", "Validation Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            string description = GetTaskDescription();
+
+            // Priority (1–5)
+            int priority = selectedPriority;
+            if (priority < 1)
+            {
+                MessageBox.Show("Please select a priority (1-5 stars).", "Validation Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // morning or afternoon 
+            TimePreference_BX timePref;
+            if (AMButton.Checked)
+                timePref = TimePreference_BX.Morning;
+            else if (PMButton.Checked)
+                timePref = TimePreference_BX.Afternoon;
+            else
+            {
+                MessageBox.Show("Please select Morning or Afternoon.", "Validation Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (!TryParseDuration(out TimeSpan duration, out string durationError))
+            {
+                MessageBox.Show($"Invalid duration: {durationError}", "Validation Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            Task_BX newTask = new Task_BX(taskName, priority, duration, timePref, description);
+
+            // Add to user (automatically sorted and placed in morning/afternoon list)
+            currentUser.AddTask(newTask);
+
+            // Refresh the UI from the model
+            RefreshTaskDisplay();
+
+            // Clear input form
+            ClearTaskForm();
+
+            taskCounter++;
+        }
 
         private void InitializeTaskDisplay()
         {
@@ -686,63 +931,16 @@ namespace Inflow
             }
         }
 
-        //Much prefered to be on a separate file (BX file)
+        // USES SortedTaskList_BX to sort tasks by priority and refresh display
         private void SortTasksByPriority()
         {
-            if (taskListPanel == null || taskListPanel.Controls.Count == 0) return;
+            if (currentUser == null) return;
 
+            // Convert unsorted lists to SortedTaskList_BX and sort
+            currentUser.SortTasks();
 
-            var taskCards = taskListPanel.Controls.OfType<TaskCard_CMP>().ToList();
-
-
-            var sortedCards = taskCards.OrderByDescending(card => card.Priority).ToList();
-
-
-            taskListPanel.SuspendLayout();
-
-
-            taskListPanel.Controls.Clear();
-            foreach (var card in sortedCards)
-            {
-                taskListPanel.Controls.Add(card);
-            }
-
-            taskListPanel.ResumeLayout(false);
-            taskListPanel.PerformLayout();
-        }
-
-        // Add this method to create a task from form data
-        private void CreateTask()
-        {
-            // Validate input
-            string taskName = GetTaskName();
-            if (string.IsNullOrWhiteSpace(taskName))
-            {
-                MessageBox.Show("Please enter a task name.", "Validation Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            string taskDescription = GetTaskDescription();
-            string timePeriod = GetSelectedTimePeriod();
-            string duration = GetDuration();
-            int priority = GetSelectedPriority();
-
-            // Create task card
-            var taskCard = new TaskCard_CMP(taskName, taskDescription, timePeriod, duration, priority);
-
-            // Subscribe to delete event
-            taskCard.DeleteClicked += (s, e) => DeleteTask((TaskCard_CMP)s);
-
-            // Add to task list panel
-            taskListPanel.Controls.Add(taskCard);
-            taskListPanel.Controls.SetChildIndex(taskCard, 0); // Newest on top
-
-            // Clear the form for next task
-            ClearTaskForm();
-
-            // Optional: Show success message
-            taskCounter++;
+            // Refresh the display to show the sorted order
+            RefreshTaskDisplay();
         }
 
         // Helper methods to get form values
@@ -758,47 +956,22 @@ namespace Inflow
 
         private string GetDuration()
         {
-            string startHour = MorningStartHour1?.Text ?? "";
-            string startMin = textBox2?.Text ?? "";
-            string endHour = textBox3?.Text ?? "";
-            string endMin = textBox4?.Text ?? "";
+            string hourTens = MorningStartHour1?.Text ?? "";
+            string hourUnits = textBox2?.Text ?? "";
+            string minuteTens = textBox3?.Text ?? "";
+            string minuteUnits = textBox4?.Text ?? "";
 
-            if (!string.IsNullOrEmpty(startHour) && !string.IsNullOrEmpty(startMin) &&
-                !string.IsNullOrEmpty(endHour) && !string.IsNullOrEmpty(endMin))
+            if (!string.IsNullOrEmpty(hourTens) && !string.IsNullOrEmpty(hourUnits) &&
+                !string.IsNullOrEmpty(minuteTens) && !string.IsNullOrEmpty(minuteUnits))
             {
-                return $"{startHour}:{startMin} - {endHour}:{endMin}";
+                return $"{hourTens}{hourUnits}:{minuteTens}{minuteUnits}";
             }
-            return "Time not set";
+            return "Not set";
         }
 
         private int GetSelectedPriority()
         {
             return selectedPriority;
-        }
-
-        private void DeleteTask(TaskCard_CMP taskCard)
-        {
-            DialogResult result = MessageBox.Show($"Delete task '{taskCard.TaskName}'?", "Confirm Delete",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-            if (result == DialogResult.Yes)
-            {
-                taskListPanel.Controls.Remove(taskCard);
-                taskCard.Dispose();
-            }
-        }
-
-        // Add a method to reset all tasks
-        private void ResetAllTasks()
-        {
-            DialogResult result = MessageBox.Show("Delete ALL tasks?", "Confirm Reset",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-            if (result == DialogResult.Yes)
-            {
-                taskListPanel.Controls.Clear();
-                taskCounter = 0;
-            }
         }
         private void EnableDoubleBufferingForAllControls()
         {
@@ -918,15 +1091,8 @@ namespace Inflow
         }
 
         // Public methods to get task data
-        public string GetTaskName()
-        {
-            return usernameTextbox?.Text ?? string.Empty;
-        }
-
-        public string GetTaskDescription()
-        {
-            return roundedTextBox_cmp1?.Text ?? string.Empty;
-        }
+        public string GetTaskName() => usernameTextbox?.Text ?? string.Empty;
+        public string GetTaskDescription() => roundedTextBox_cmp1?.Text ?? string.Empty;
 
         public void ClearTaskForm()
         {
@@ -949,8 +1115,8 @@ namespace Inflow
             AMButton.Checked = false;
             PMButton.Checked = false;
 
-            // Reset star rating to default (3 stars)
-            selectedPriority = 3;
+            // Reset star rating to none
+            selectedPriority = 0;
             var stars = new PictureBox[] { star1, star2, star3, star4, star5 };
             UpdateStarDisplay(stars, selectedPriority);
         }
@@ -1016,18 +1182,10 @@ namespace Inflow
         {
             for (int i = 0; i < stars.Length; i++)
             {
-                if (i < upToRating)
-                {
-                    // Highlighted star (full color with slight highlight)
-                    stars[i].Image = Properties.Resources.Rating;
-                    
-                }
-                else
-                {
-                    // Dimmed star for unselected
-                    stars[i].Image = CreateDimmedStar(Properties.Resources.Rating);
-                    stars[i].BackColor = Color.Transparent;
-                }
+                stars[i].Image = (i < upToRating)
+                    ? Properties.Resources.Rating
+                    : ImageHelper.CreateDimmedStar(Properties.Resources.Rating);
+                stars[i].BackColor = Color.Transparent;
             }
         }
 
@@ -1035,54 +1193,100 @@ namespace Inflow
         {
             for (int i = 0; i < stars.Length; i++)
             {
-                if (i < rating)
-                {
-                    // Filled star (full color)
-                    stars[i].Image = Properties.Resources.Rating;
-                    stars[i].BackColor = Color.Transparent;
-                }
-                else
-                {
-                    // Dimmed star for unselected
-                    stars[i].Image = CreateDimmedStar(Properties.Resources.Rating);
-                    stars[i].BackColor = Color.Transparent;
-                }
+                stars[i].Image = (i < rating)
+                    ? Properties.Resources.Rating
+                    : ImageHelper.CreateDimmedStar(Properties.Resources.Rating);
+                stars[i].BackColor = Color.Transparent;
             }
-        }
-
-
-        private Image CreateDimmedStar(Image original)
-        {
-            Bitmap dimmed = new Bitmap(original.Width, original.Height);
-            using (Graphics g = Graphics.FromImage(dimmed))
-            {
-                var colorMatrix = new System.Drawing.Imaging.ColorMatrix(
-                    new float[][]
-                    {
-                new float[] {0.3f, 0.3f, 0.3f, 0, 0},
-                new float[] {0.59f, 0.59f, 0.59f, 0, 0},
-                new float[] {0.11f, 0.11f, 0.11f, 0, 0},
-                new float[] {0, 0, 0, 0.4f, 0},
-                new float[] {0, 0, 0, 0, 1}
-                    });
-
-                using (var attributes = new System.Drawing.Imaging.ImageAttributes())
-                {
-                    attributes.SetColorMatrix(colorMatrix);
-                    g.DrawImage(original, new Rectangle(0, 0, original.Width, original.Height),
-                        0, 0, original.Width, original.Height, GraphicsUnit.Pixel, attributes);
-                }
-            }
-            return dimmed;
         }
 
         // Update GetSelectedPriority to use the selected rating
         // Add this field:
         private int selectedPriority = 0;
 
+        private void usernameTextbox_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void roundedTextBox_cmp1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void AMButton_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void PMButton_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MorningStartHour1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox2_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox3_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox4_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void star1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void star2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void star3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void star4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void star5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            SortTasksByPriority();
+        }
+
         // Then in SetupStarRatingSelection, update the click event:
         // selectedPriority = rating;
-        
+
 
     }
 }

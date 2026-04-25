@@ -128,18 +128,17 @@ namespace Inflow
             descriptionLabel.Text = description.Length > 50 ? description.Substring(0, 47) + "..." : description;
             timeLabel.Text = $"{timePeriod} • {duration}";
 
-            // Set stars based on priority
+            // Show stars
             for (int i = 0; i < stars.Length; i++)
             {
                 if (i < priority)
                 {
-                    stars[i].Image = Properties.Resources.Rating;
+                    stars[i].Image = Properties.Resources.Rating;  // gold star
                     stars[i].Enabled = true;
                 }
                 else
                 {
-                    // Create dimmed version or hide
-                    stars[i].Image = Properties.Resources.Rating;
+                    stars[i].Image = ImageHelper.CreateDimmedStar(Properties.Resources.Rating);
                     stars[i].Enabled = false;
                 }
             }
@@ -147,5 +146,7 @@ namespace Inflow
 
         public string TaskName => taskName;
         public int Priority => priority;
+
+
     }
 }
