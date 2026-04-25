@@ -4,15 +4,16 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Windows;
 using System.Windows.Forms;
 
 namespace Inflow
 {
     public class MainWindowMother_FX : GrandmaWindow_FX
     {
-        private Size formSize;
+        private Size normalFormSize;
         private int borderSize = 0;
-        private Panel panel1;
+        protected Panel panel1;
         private FlowLayoutPanel flowLayoutPanel2;
         private PictureBox pictureBox1;
         private FlowLayoutPanel flowLayoutPanel4;
@@ -25,6 +26,7 @@ namespace Inflow
         private FlowLayoutPanel flowLayoutPanel5;
         private PictureBox pictureBox4;
         private bool isRestoringFromMinimized = false;
+        private bool isInitializing = true;
 
         private System.Windows.Forms.Timer animationTimer;
         private int targetWidth;
@@ -33,16 +35,18 @@ namespace Inflow
         private const int EXPANDED_WIDTH = 250;
         private const int COLLAPSED_WIDTH = 100;
         private const int ANIMATION_STEP = 15;
-        private const int ANIMATION_INTERVAL = 5; 
+        private const int ANIMATION_INTERVAL = 5;
 
         public MainWindowMother_FX()
         {
             EnableDoubleBuffering();
-
             InitializeComponent();
-
             InitializeAnimation();
 
+            if (this.Icon == null)
+            {
+               Application.Exit();
+            }
             flowLayoutPanel5.SuspendLayout();
             this.ShowIcon = true;
             this.Padding = new Padding(borderSize);
@@ -51,8 +55,31 @@ namespace Inflow
 
             pictureBox4.Location = new Point((Sidebar.Width - pictureBox4.Width) / 2, (flowLayoutPanel5.Height - pictureBox4.Height) / 2);
 
-            this.Load += Dashboard_FX_Load;
             Sidebar.BackColor = System.Drawing.ColorTranslator.FromHtml("#0E24F0");
+
+            this.Size = new Size(1200, 800);  // Adjust these values as needed
+            this.MinimumSize = new Size(800, 600);  // Set minimum size
+
+            // Use Shown event instead of Load for proper sizing
+            this.Shown += MainWindowMother_FX_Shown;
+        }
+
+        private void MainWindowMother_FX_Shown(object? sender, EventArgs e)
+        {
+            isInitializing = false;
+
+            // Store the initial form size
+            if (this.WindowState == FormWindowState.Normal)
+            {
+                normalFormSize = this.Size;
+            }
+
+            ShowDashboard();
+        }
+
+        public Panel ContentPanel
+        {
+            get { return panel1; }
         }
 
         private void EnableDoubleBuffering()
@@ -63,8 +90,6 @@ namespace Inflow
                           ControlStyles.ResizeRedraw |
                           ControlStyles.OptimizedDoubleBuffer, true);
             this.UpdateStyles();
-
-            
         }
 
         private void InitializeAnimation()
@@ -74,14 +99,12 @@ namespace Inflow
             animationTimer.Tick += AnimationTimer_Tick;
         }
 
-
-        private void InitializeComponent()
+        protected virtual void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindowMother_FX));
             TitleBar = new Panel();
             flowLayoutPanel1 = new FlowLayoutPanel();
             btnMinimize = new PictureBox();
-            btnMaximize = new PictureBox();
             btnClose = new PictureBox();
             Sidebar = new Panel();
             flowLayoutPanel5 = new FlowLayoutPanel();
@@ -99,7 +122,6 @@ namespace Inflow
             TitleBar.SuspendLayout();
             flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)btnMinimize).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)btnMaximize).BeginInit();
             ((System.ComponentModel.ISupportInitialize)btnClose).BeginInit();
             Sidebar.SuspendLayout();
             flowLayoutPanel5.SuspendLayout();
@@ -119,19 +141,18 @@ namespace Inflow
             TitleBar.Dock = DockStyle.Top;
             TitleBar.Location = new Point(0, 0);
             TitleBar.Name = "TitleBar";
-            TitleBar.Size = new Size(1941, 41);
+            TitleBar.Size = new Size(1942, 41);
             TitleBar.TabIndex = 0;
             TitleBar.MouseDown += TitleBar_MouseDown;
             // 
             // flowLayoutPanel1
             // 
             flowLayoutPanel1.Controls.Add(btnMinimize);
-            flowLayoutPanel1.Controls.Add(btnMaximize);
             flowLayoutPanel1.Controls.Add(btnClose);
             flowLayoutPanel1.Dock = DockStyle.Right;
-            flowLayoutPanel1.Location = new Point(1835, 0);
+            flowLayoutPanel1.Location = new Point(1862, 0);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(106, 41);
+            flowLayoutPanel1.Size = new Size(80, 41);
             flowLayoutPanel1.TabIndex = 0;
             // 
             // btnMinimize
@@ -146,22 +167,10 @@ namespace Inflow
             btnMinimize.TabStop = false;
             btnMinimize.Click += btnMinimize_Click;
             // 
-            // btnMaximize
-            // 
-            btnMaximize.Image = Properties.Resources.Maximize;
-            btnMaximize.Location = new Point(36, 15);
-            btnMaximize.Margin = new Padding(3, 15, 15, 10);
-            btnMaximize.Name = "btnMaximize";
-            btnMaximize.Size = new Size(15, 15);
-            btnMaximize.SizeMode = PictureBoxSizeMode.StretchImage;
-            btnMaximize.TabIndex = 1;
-            btnMaximize.TabStop = false;
-            btnMaximize.Click += btnMaximize_Click;
-            // 
             // btnClose
             // 
             btnClose.Image = Properties.Resources.Close;
-            btnClose.Location = new Point(69, 15);
+            btnClose.Location = new Point(36, 15);
             btnClose.Margin = new Padding(3, 15, 15, 10);
             btnClose.Name = "btnClose";
             btnClose.Size = new Size(15, 15);
@@ -319,12 +328,13 @@ namespace Inflow
             panel1.ForeColor = SystemColors.ActiveCaptionText;
             panel1.Location = new Point(250, 41);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1691, 1061);
+            panel1.Padding = new Padding(10);
+            panel1.Size = new Size(1692, 1061);
             panel1.TabIndex = 2;
             // 
             // MainWindowMother_FX
             // 
-            ClientSize = new Size(1941, 1102);
+            ClientSize = new Size(1942, 1102);
             Controls.Add(panel1);
             Controls.Add(Sidebar);
             Controls.Add(TitleBar);
@@ -333,14 +343,11 @@ namespace Inflow
             MdiChildrenMinimizedAnchorBottom = false;
             MinimizeBox = false;
             Name = "MainWindowMother_FX";
-            ShowIcon = false;
-            ShowInTaskbar = false;
             SizeGripStyle = SizeGripStyle.Show;
             Text = "Inflow";
             TitleBar.ResumeLayout(false);
             flowLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)btnMinimize).EndInit();
-            ((System.ComponentModel.ISupportInitialize)btnMaximize).EndInit();
             ((System.ComponentModel.ISupportInitialize)btnClose).EndInit();
             Sidebar.ResumeLayout(false);
             flowLayoutPanel5.ResumeLayout(false);
@@ -356,16 +363,6 @@ namespace Inflow
             flowLayoutPanel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
-
-        }
-        private void Dashboard_FX_Load(object sender, EventArgs e)
-        {
-            this.SuspendLayout();
-
-            CollapseMenu(false);
-
-            this.ResumeLayout(true);
-            this.PerformLayout();
         }
 
         private void btnClose_Click(object? sender, EventArgs e)
@@ -376,7 +373,6 @@ namespace Inflow
         private Panel TitleBar;
         private FlowLayoutPanel flowLayoutPanel1;
         private PictureBox btnMinimize;
-        private PictureBox btnMaximize;
         private PictureBox btnClose;
         private Panel Sidebar;
 
@@ -409,56 +405,54 @@ namespace Inflow
 
         private void btnMinimize_Click(object sender, EventArgs e)
         {
+            // Save the current normal size before minimizing
             if (this.WindowState == FormWindowState.Normal)
             {
-                formSize = this.Size;
+                if (this.Size.Width > this.MinimumSize.Width && this.Size.Height > this.MinimumSize.Height)
+                {
+                    normalFormSize = this.Size;
+                }
             }
+
+            // Minimize the window
             this.WindowState = FormWindowState.Minimized;
         }
 
-        private void btnMaximize_Click(object sender, EventArgs e)
-        {
-            if (this.WindowState == FormWindowState.Normal)
-            {
-                formSize = this.Size;
-                this.WindowState = FormWindowState.Maximized;
-            }
-            else if (this.WindowState == FormWindowState.Maximized)
-            {
-                isRestoringFromMinimized = true;
-                this.WindowState = FormWindowState.Normal;
-            }
-        }
 
         private void Form1_Resize(object sender, EventArgs e)
         {
             AdjustForm();
 
-            if (this.WindowState == FormWindowState.Normal && this.Size.Width > 100)
-            {
-                formSize = this.Size;
-            }
-
+            // Handle restore from minimized state
             if (this.WindowState == FormWindowState.Normal && isRestoringFromMinimized)
             {
                 isRestoringFromMinimized = false;
                 this.BeginInvoke(new Action(() =>
                 {
-                    if (formSize.Width > 100 && formSize.Height > 100)
+                    if (normalFormSize.Width > this.MinimumSize.Width && normalFormSize.Height > this.MinimumSize.Height)
                     {
-                        this.Size = formSize;
+                        this.Size = normalFormSize;
                     }
                 }));
+            }
+
+            // Save normal size when resizing in normal state (not during initialization)
+            if (!isInitializing && this.WindowState == FormWindowState.Normal)
+            {
+                if (this.Size.Width > this.MinimumSize.Width && this.Size.Height > this.MinimumSize.Height)
+                {
+                    normalFormSize = this.Size;
+                }
             }
         }
 
         private void MainWindowMother_FX_ResizeEnd(object sender, EventArgs e)
         {
-            if (this.WindowState == FormWindowState.Normal && formSize.Width > 0)
+            if (!isInitializing && this.WindowState == FormWindowState.Normal)
             {
-                if (this.Size != formSize)
+                if (this.Size.Width > this.MinimumSize.Width && this.Size.Height > this.MinimumSize.Height)
                 {
-                    this.Size = formSize;
+                    normalFormSize = this.Size;
                 }
             }
         }
@@ -476,6 +470,10 @@ namespace Inflow
 
             isAnimating = true;
             animationTimer.Start();
+
+            // Adjust minimum form size when sidebar changes
+            int newMinWidth = 400 + (isSidebarCollapsed ? COLLAPSED_WIDTH : EXPANDED_WIDTH);
+            this.MinimumSize = new Size(newMinWidth, 400);
         }
 
         private void AnimationTimer_Tick(object sender, EventArgs e)
@@ -484,7 +482,6 @@ namespace Inflow
 
             if (Sidebar.Width < targetWidth)
             {
-                
                 newWidth = Math.Min(Sidebar.Width + ANIMATION_STEP, targetWidth);
                 Sidebar.Width = newWidth;
 
@@ -499,6 +496,12 @@ namespace Inflow
                     if (shouldShowText != !isSidebarCollapsed)
                     {
                         UpdateLabelsVisibility(shouldShowText);
+                    }
+
+                    // Update dashboard during animation
+                    if (panel1.Controls.Count > 0 && panel1.Controls[0] is Dashboard_FX dashboard)
+                    {
+                        dashboard.ResizeContent();
                     }
                 }
             }
@@ -519,6 +522,12 @@ namespace Inflow
                     {
                         UpdateLabelsVisibility(shouldShowText);
                     }
+
+                    // Update dashboard during animation
+                    if (panel1.Controls.Count > 0 && panel1.Controls[0] is Dashboard_FX dashboard)
+                    {
+                        dashboard.ResizeContent();
+                    }
                 }
             }
         }
@@ -533,6 +542,13 @@ namespace Inflow
             UpdateLabelsVisibility(!isSidebarCollapsed);
 
             this.PerformLayout();
+
+            // Notify dashboard of size change
+            if (panel1.Controls.Count > 0 && panel1.Controls[0] is Dashboard_FX dashboard)
+            {
+                dashboard.ResizeContent();
+                dashboard.PerformLayout();
+            }
         }
 
         private void UpdatePictureBoxPosition(int currentWidth)
@@ -620,6 +636,60 @@ namespace Inflow
 
             UpdatePictureBoxPosition(Sidebar.Width);
             isSidebarCollapsed = collapse;
+        }
+
+        private void ShowDashboard()
+        {
+            panel1.Controls.Clear();
+
+            var dashboard = new Dashboard_FX();
+            dashboard.Dock = DockStyle.Fill;
+            // Remove the duplicate Dock assignment and AutoSize line
+
+            panel1.Controls.Add(dashboard);
+
+            // Force layout update
+            dashboard.PerformLayout();
+
+            if (!isInitializing && this.WindowState == FormWindowState.Normal)
+            {
+                if (normalFormSize.Width > this.MinimumSize.Width)
+                {
+                    this.Size = normalFormSize;
+                }
+            }
+        }
+
+        private void ShowPlanner()
+        {
+            // Clear existing content
+            panel1.Controls.Clear();
+
+            // TODO: Create and add Planner control
+            var planner = new Label
+            {
+                Text = "Planner View - Coming Soon",
+                Dock = DockStyle.Fill,
+                TextAlign = ContentAlignment.MiddleCenter,
+                Font = new Font("Inter", 18F)
+            };
+            panel1.Controls.Add(planner);
+        }
+
+        private void ShowNitro()
+        {
+            // Clear existing content
+            panel1.Controls.Clear();
+
+            // TODO: Create and add Nitro control
+            var nitro = new Label
+            {
+                Text = "Nitro View - Coming Soon",
+                Dock = DockStyle.Fill,
+                TextAlign = ContentAlignment.MiddleCenter,
+                Font = new Font("Inter", 18F)
+            };
+            panel1.Controls.Add(nitro);
         }
     }
 }

@@ -181,12 +181,11 @@ namespace Inflow
                             $"Morning: {schedule.MorningStart:hh\\:mm} – {schedule.MorningEnd:hh\\:mm}\n" +
                             $"Afternoon: {schedule.AfternoonStart:hh\\:mm} – {schedule.AfternoonEnd:hh\\:mm}",
                             "Schedule Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            Dashboard_FX dashboard = new Dashboard_FX();
+    
+            MainWindowMother_FX mainWindow = new MainWindowMother_FX();
             this.Close();
-            
-            dashboard.Show();
-            dashboard.TopMost = true;
-            
+            mainWindow.Show();
+            mainWindow.TopMost = true;
         }
         private void InitializeComponent()
         {
