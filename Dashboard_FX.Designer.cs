@@ -48,12 +48,18 @@
             MonthText = new Label();
             CurrentTaskDisplay = new Panel();
             flowLayoutPanel17 = new FlowLayoutPanel();
+            star5 = new PictureBox();
+            star1 = new PictureBox();
+            star2 = new PictureBox();
+            star3 = new PictureBox();
+            star4 = new PictureBox();
             flowLayoutPanel16 = new FlowLayoutPanel();
             DecriptionText = new Label();
             flowLayoutPanel13 = new FlowLayoutPanel();
             NameTaskText = new Label();
             flowLayoutPanel14 = new FlowLayoutPanel();
             label11 = new Label();
+            pictureBox3 = new PictureBox();
             flowLayoutPanel18 = new FlowLayoutPanel();
             TimeDisplayPanel = new Panel();
             flowLayoutPanel21 = new FlowLayoutPanel();
@@ -82,9 +88,16 @@
             flowLayoutPanel11.SuspendLayout();
             flowLayoutPanel12.SuspendLayout();
             CurrentTaskDisplay.SuspendLayout();
+            flowLayoutPanel17.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)star5).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)star1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)star2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)star3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)star4).BeginInit();
             flowLayoutPanel16.SuspendLayout();
             flowLayoutPanel13.SuspendLayout();
             flowLayoutPanel14.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             flowLayoutPanel18.SuspendLayout();
             TimeDisplayPanel.SuspendLayout();
             flowLayoutPanel21.SuspendLayout();
@@ -113,11 +126,11 @@
             label4.Name = "label4";
             label4.Size = new Size(257, 36);
             label4.TabIndex = 0;
-            label4.Text = "Good Day,";
+            label4.Text = "Good Day!";
             // 
             // flowLayoutPanel7
             // 
-            flowLayoutPanel7.BackColor = Color.Gainsboro;
+            flowLayoutPanel7.BackColor = Color.Transparent;
             flowLayoutPanel7.Controls.Add(NamePlaceholder);
             flowLayoutPanel7.Dock = DockStyle.Top;
             flowLayoutPanel7.Location = new Point(0, 46);
@@ -168,10 +181,10 @@
             flowLayoutPanel3.Controls.Add(pictureBox1);
             flowLayoutPanel3.Controls.Add(label2);
             flowLayoutPanel3.Dock = DockStyle.Bottom;
-            flowLayoutPanel3.Location = new Point(0, 68);
+            flowLayoutPanel3.Location = new Point(0, 37);
             flowLayoutPanel3.Name = "flowLayoutPanel3";
             flowLayoutPanel3.Padding = new Padding(10, 15, 5, 5);
-            flowLayoutPanel3.Size = new Size(199, 48);
+            flowLayoutPanel3.Size = new Size(199, 79);
             flowLayoutPanel3.TabIndex = 1;
             // 
             // pictureBox1
@@ -434,19 +447,75 @@
             // 
             // flowLayoutPanel17
             // 
-            flowLayoutPanel17.Dock = DockStyle.Top;
-            flowLayoutPanel17.Location = new Point(0, 126);
+            flowLayoutPanel17.Controls.Add(star5);
+            flowLayoutPanel17.Controls.Add(star1);
+            flowLayoutPanel17.Controls.Add(star2);
+            flowLayoutPanel17.Controls.Add(star3);
+            flowLayoutPanel17.Controls.Add(star4);
+            flowLayoutPanel17.Dock = DockStyle.Bottom;
+            flowLayoutPanel17.Location = new Point(0, 108);
             flowLayoutPanel17.Name = "flowLayoutPanel17";
-            flowLayoutPanel17.Size = new Size(398, 30);
+            flowLayoutPanel17.Padding = new Padding(10, 0, 0, 0);
+            flowLayoutPanel17.Size = new Size(398, 44);
             flowLayoutPanel17.TabIndex = 3;
+            // 
+            // star5
+            // 
+            star5.Image = Properties.Resources.Rating;
+            star5.Location = new Point(13, 3);
+            star5.Name = "star5";
+            star5.Size = new Size(30, 30);
+            star5.SizeMode = PictureBoxSizeMode.StretchImage;
+            star5.TabIndex = 4;
+            star5.TabStop = false;
+            // 
+            // star1
+            // 
+            star1.Image = Properties.Resources.Rating;
+            star1.Location = new Point(49, 3);
+            star1.Name = "star1";
+            star1.Size = new Size(30, 30);
+            star1.SizeMode = PictureBoxSizeMode.StretchImage;
+            star1.TabIndex = 0;
+            star1.TabStop = false;
+            // 
+            // star2
+            // 
+            star2.Image = Properties.Resources.Rating;
+            star2.Location = new Point(85, 3);
+            star2.Name = "star2";
+            star2.Size = new Size(30, 30);
+            star2.SizeMode = PictureBoxSizeMode.StretchImage;
+            star2.TabIndex = 1;
+            star2.TabStop = false;
+            // 
+            // star3
+            // 
+            star3.Image = Properties.Resources.Rating;
+            star3.Location = new Point(121, 3);
+            star3.Name = "star3";
+            star3.Size = new Size(30, 30);
+            star3.SizeMode = PictureBoxSizeMode.StretchImage;
+            star3.TabIndex = 2;
+            star3.TabStop = false;
+            // 
+            // star4
+            // 
+            star4.Image = Properties.Resources.Rating;
+            star4.Location = new Point(157, 3);
+            star4.Name = "star4";
+            star4.Size = new Size(30, 30);
+            star4.SizeMode = PictureBoxSizeMode.StretchImage;
+            star4.TabIndex = 3;
+            star4.TabStop = false;
             // 
             // flowLayoutPanel16
             // 
             flowLayoutPanel16.Controls.Add(DecriptionText);
             flowLayoutPanel16.Dock = DockStyle.Top;
-            flowLayoutPanel16.Location = new Point(0, 97);
+            flowLayoutPanel16.Location = new Point(0, 91);
             flowLayoutPanel16.Name = "flowLayoutPanel16";
-            flowLayoutPanel16.Size = new Size(398, 29);
+            flowLayoutPanel16.Size = new Size(398, 30);
             flowLayoutPanel16.TabIndex = 2;
             // 
             // DecriptionText
@@ -468,7 +537,7 @@
             flowLayoutPanel13.Location = new Point(0, 39);
             flowLayoutPanel13.Name = "flowLayoutPanel13";
             flowLayoutPanel13.Padding = new Padding(10, 5, 5, 5);
-            flowLayoutPanel13.Size = new Size(398, 58);
+            flowLayoutPanel13.Size = new Size(398, 52);
             flowLayoutPanel13.TabIndex = 1;
             // 
             // NameTaskText
@@ -486,6 +555,7 @@
             // 
             flowLayoutPanel14.BackColor = Color.Transparent;
             flowLayoutPanel14.Controls.Add(label11);
+            flowLayoutPanel14.Controls.Add(pictureBox3);
             flowLayoutPanel14.Dock = DockStyle.Top;
             flowLayoutPanel14.Location = new Point(0, 0);
             flowLayoutPanel14.Name = "flowLayoutPanel14";
@@ -498,11 +568,22 @@
             label11.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label11.BackColor = Color.Transparent;
             label11.Font = new Font("Inter", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label11.Location = new Point(13, 10);
+            label11.Location = new Point(13, 12);
             label11.Name = "label11";
-            label11.Size = new Size(248, 26);
+            label11.Size = new Size(336, 26);
             label11.TabIndex = 0;
             label11.Text = "Current Task";
+            // 
+            // pictureBox3
+            // 
+            pictureBox3.Image = Properties.Resources.Trash;
+            pictureBox3.Location = new Point(355, 13);
+            pictureBox3.Name = "pictureBox3";
+            pictureBox3.Size = new Size(25, 25);
+            pictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox3.TabIndex = 1;
+            pictureBox3.TabStop = false;
+            pictureBox3.Click += pictureBox3_Click;
             // 
             // flowLayoutPanel18
             // 
@@ -634,9 +715,16 @@
             flowLayoutPanel11.ResumeLayout(false);
             flowLayoutPanel12.ResumeLayout(false);
             CurrentTaskDisplay.ResumeLayout(false);
+            flowLayoutPanel17.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)star5).EndInit();
+            ((System.ComponentModel.ISupportInitialize)star1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)star2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)star3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)star4).EndInit();
             flowLayoutPanel16.ResumeLayout(false);
             flowLayoutPanel13.ResumeLayout(false);
             flowLayoutPanel14.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             flowLayoutPanel18.ResumeLayout(false);
             TimeDisplayPanel.ResumeLayout(false);
             flowLayoutPanel21.ResumeLayout(false);
@@ -695,5 +783,11 @@
         private Label NameNextTaskText;
         private FlowLayoutPanel flowLayoutPanel23;
         private Label label10;
+        private PictureBox star1;
+        private PictureBox star2;
+        private PictureBox star3;
+        private PictureBox star4;
+        private PictureBox star5;
+        private PictureBox pictureBox3;
     }
 }
