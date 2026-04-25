@@ -60,9 +60,9 @@ namespace Inflow
             value = 0;
             error = null;
 
-            if (!int.TryParse(tensBox.Text, out int tens) || tens < 0 || tens > 2)
+            if (!int.TryParse(tensBox.Text, out int tens) || tens < 0 || tens > 5)
             {
-                error = $"Invalid tens digit '{tensBox.Text}' (must be 0-2)";
+                error = $"Invalid tens digit '{tensBox.Text}' (must be 0-5)";
                 return false;
             }
             if (!int.TryParse(unitsBox.Text, out int units) || units < 0 || units > 9)
