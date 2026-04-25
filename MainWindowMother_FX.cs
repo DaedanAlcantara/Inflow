@@ -27,6 +27,7 @@ namespace Inflow
         private PictureBox pictureBox4;
         private bool isRestoringFromMinimized = false;
         private bool isInitializing = true;
+        private User_BX currentUser;
 
         private System.Windows.Forms.Timer animationTimer;
         private int targetWidth;
@@ -644,6 +645,10 @@ namespace Inflow
 
             var dashboard = new Dashboard_FX();
             dashboard.Dock = DockStyle.Fill;
+            if (currentUser != null)
+            {
+                dashboard.SetUser(currentUser);
+            }
             // Remove the duplicate Dock assignment and AutoSize line
 
             panel1.Controls.Add(dashboard);
@@ -658,6 +663,11 @@ namespace Inflow
                     this.Size = normalFormSize;
                 }
             }
+        }
+
+        internal void SetUser(User_BX user)
+        {
+            currentUser = user;
         }
 
         private void ShowPlanner()

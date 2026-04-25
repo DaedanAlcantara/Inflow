@@ -6,6 +6,7 @@ namespace Inflow
 {
     public partial class Dashboard_FX : UserControl
     {
+        private System.Windows.Forms.Timer timeTimer;
         public Dashboard_FX()
         {
             InitializeComponent();
@@ -25,7 +26,17 @@ namespace Inflow
             TimeDisplayPanel.BackColor = System.Drawing.ColorTranslator.FromHtml("#FFBCF0");
             NextTaskDisplay.BackColor = System.Drawing.ColorTranslator.FromHtml("#90B3FF");
 
-           
+            DateTime now = DateTime.Now;
+            MonthText.Text = now.ToString("MMMM");
+            DayText.Text = now.ToString("dd");
+            YearText.Text = now.ToString("yyyy");
+
+            UpdateCurrentTime();
+
+            timeTimer = new System.Windows.Forms.Timer();
+            timeTimer.Interval = 1000; // 1 second
+            timeTimer.Tick += TimeTimer_Tick;
+            timeTimer.Start();
 
             // Configure all controls properly
             ConfigureAllControls();
@@ -54,7 +65,7 @@ namespace Inflow
 
             label1.AutoSize = false;
             label1.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            label1.TextAlign = ContentAlignment.MiddleLeft;
+            label1.TextAlign = ContentAlignment.MiddleCenter;
 
             flowLayoutPanel3.Dock = DockStyle.Fill;
             flowLayoutPanel3.FlowDirection = FlowDirection.LeftToRight;
@@ -63,7 +74,7 @@ namespace Inflow
 
             label2.AutoSize = false;
             label2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            label2.TextAlign = ContentAlignment.MiddleRight;
+            label2.TextAlign = ContentAlignment.MiddleCenter;
 
             // Stats section - Finished
             flowLayoutPanel5.Height = 40;
@@ -71,13 +82,13 @@ namespace Inflow
 
             label5.AutoSize = false;
             label5.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            label5.TextAlign = ContentAlignment.MiddleLeft;
+            label5.TextAlign = ContentAlignment.MiddleCenter;
 
             flowLayoutPanel4.Dock = DockStyle.Fill;
 
             label3.AutoSize = false;
             label3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            label3.TextAlign = ContentAlignment.MiddleRight;
+            label3.TextAlign = ContentAlignment.MiddleCenter;
 
             // Stats section - Dropped
             flowLayoutPanel9.Height = 40;
@@ -85,13 +96,13 @@ namespace Inflow
 
             label7.AutoSize = false;
             label7.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            label7.TextAlign = ContentAlignment.MiddleLeft;
+            label7.TextAlign = ContentAlignment.MiddleCenter;
 
             flowLayoutPanel8.Dock = DockStyle.Fill;
 
             label6.AutoSize = false;
             label6.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            label6.TextAlign = ContentAlignment.MiddleRight;
+            label6.TextAlign = ContentAlignment.MiddleCenter;
 
             // Date panel
             flowLayoutPanel12.Height = 45;
@@ -99,28 +110,28 @@ namespace Inflow
 
             MonthText.AutoSize = false;
             MonthText.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            MonthText.TextAlign = ContentAlignment.MiddleLeft;
+            MonthText.TextAlign = ContentAlignment.MiddleCenter;
 
             flowLayoutPanel11.Dock = DockStyle.Fill;
 
             DayText.AutoSize = false;
             DayText.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            DayText.TextAlign = ContentAlignment.MiddleLeft;
+            DayText.TextAlign = ContentAlignment.MiddleCenter;
 
             flowLayoutPanel15.Height = 35;
             flowLayoutPanel15.Dock = DockStyle.Bottom;
 
             YearText.AutoSize = false;
             YearText.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            YearText.TextAlign = ContentAlignment.MiddleLeft;
+            YearText.TextAlign = ContentAlignment.MiddleCenter;
 
             // Current task panel
             flowLayoutPanel14.Height = 40;
-            flowLayoutPanel14.Dock = DockStyle.Top;
+            flowLayoutPanel14.Dock = DockStyle.Bottom;
 
             label11.AutoSize = false;
             label11.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            label11.TextAlign = ContentAlignment.MiddleLeft;
+            label11.TextAlign = ContentAlignment.MiddleCenter;
 
             flowLayoutPanel13.Dock = DockStyle.Fill;
 
@@ -148,7 +159,7 @@ namespace Inflow
 
             label10.AutoSize = false;
             label10.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            label10.TextAlign = ContentAlignment.MiddleLeft;
+            label10.TextAlign = ContentAlignment.MiddleCenter;
 
             flowLayoutPanel22.Dock = DockStyle.Fill;
 
@@ -196,6 +207,17 @@ namespace Inflow
             if (!string.IsNullOrEmpty(userName) && NamePlaceholder != null)
             {
                 NamePlaceholder.Text = userName;
+            }
+        }
+
+        private User_BX currentUser;
+
+        internal void SetUser(User_BX user)
+        {
+            if (user != null && NamePlaceholder != null)
+            {
+                currentUser = user;
+                NamePlaceholder.Text = user.Username;
             }
         }
 
@@ -506,5 +528,76 @@ namespace Inflow
             }
         }
 
+        private void UpdateCurrentTime()
+        {
+            if (Timetext != null && !Timetext.IsDisposed)
+            {
+                Timetext.Text = DateTime.Now.ToString("hh:mm:ss tt");
+            }
+        }
+        private void TimeTimer_Tick(object sender, EventArgs e)
+        {
+            UpdateCurrentTime();
+        }
+
+        private void NamePlaceholder_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DayText_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MonthText_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void YearText_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void NameTaskText_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DecriptionText_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Timetext_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void NameNextTaskText_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
