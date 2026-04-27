@@ -250,6 +250,7 @@ namespace Inflow
             label3.TabIndex = 1;
             label3.Tag = "Nitro";
             label3.Text = "Nitro";
+            label3.Click += label3_Click;
             // 
             // flowLayoutPanel3
             // 
@@ -700,13 +701,24 @@ namespace Inflow
             panel1.Controls.Clear();
 
             var nitro = new Label
+            var nitro = new Nitro_FX();
+            nitro.Dock = DockStyle.Fill;
+            if (currentUser != null)
             {
-                Text = "Nitro View - Coming Soon",
-                Dock = DockStyle.Fill,
-                TextAlign = ContentAlignment.MiddleCenter,
-                Font = new Font("Inter", 18F)
-            };
+                nitro.SetUser(currentUser);
+            }
+
             panel1.Controls.Add(nitro);
+
+            panel1.PerformLayout();
+
+            if (!isInitializing && this.WindowState == FormWindowState.Normal)
+            {
+                if (normalFormSize.Width > this.MinimumSize.Width)
+                {
+                    this.Size = normalFormSize;
+                }
+            }
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -730,6 +742,12 @@ namespace Inflow
                 planner.SetUser();     // re‑reads AppState.CurrentUser and refreshes task list
                 planner.RefreshTaskDisplay();
             }
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+            panel1.Controls.Clear();
+            ShowNitro();
         }
     }
 }

@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
+  <!--
+    Microsoft ResX Schema
+
     Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
     associated with the data types.
-    
+
     Example:
-    
+
     ... ado.net/XML headers & schema ...
     <resheader name="resmimetype">text/microsoft-resx</resheader>
     <resheader name="version">2.0</resheader>
@@ -26,36 +26,36 @@
         <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
         <comment>This is a comment</comment>
     </data>
-                
-    There are any number of "resheader" rows that contain simple 
+
+    There are any number of "resheader" rows that contain simple
     name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
     mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
     extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
     read any of the formats listed below.
-    
+
     mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
-    
+
     mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
             : and then encoded with base64 encoding.
 
     mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
+    value   : The object must be serialized into a byte array
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
@@ -117,44 +117,26 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="NextButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\NextButton.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="LogoStart" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\LogoStart.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Maximize" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\Maximize.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Fire" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\Fire.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="LogoMark" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\LogoMark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Close" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\Close.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Minimize" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\Minimize.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Dashboard" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\Dashboard.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="LogoMark1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\LogoMark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Rating" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\Rating.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="AutoSort" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\AutoSort.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Trash" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\Trash.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Stop" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\Stop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="pictureBox2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAEwAAABMCAYAAADHl1ErAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
+        DwAACw8BkvkDpQAAAA50RVh0U29mdHdhcmUARmlnbWGesZZjAAADVUlEQVR4Xu2bO68NURiGH3EXEQpB
+        RUSNH0BoXQpalz9AqBGh1PEDKNBRoCKCoHVJTntUKgq3hsJd3mSv5MuX2bPMPrPntr8neWOO2WvPe941
+        a501a62BIAiCIAiCIAiCIAiCobEIWAks8ydaQn7ssbxJFvuZRlkNnAIeAzeBXe58a8aATcA54OFIOt5o
+        zrfi7STwDfg70lvgBLDCf7BhFNZt4I/xJt1yoTWKQnngDEnfgWvAFl+gQXQ3eV+SAjzb1t21CnhujPja
+        fAns94UaQBV534VkfelcKy1AHemTghq0P38CLgLrTLlp164q8mmBn3Ssc/pM4ygwdfY2IG8u6S6ww5Wf
+        VnBFFWmlc50LrEhvgOPAEv9FNZPzpXOdDszebV+BK8B6/2U1kvPV+cAk30RVbrf/wprI+epFYJIP7R1w
+        2pmvo1/L+epNYEk2uJ/AdWCb//IFkPPVu8Akf7fNAYcKngMnIeerl4El2eC+ABeANeYak4SW89XrwCQ/
+        uLwDbPcXq0DOV+8Dk3wT1ZjtKLDYX/Q/yPkaRGBFSmO2qrMLOV+DC8zfbc+APe7aZX1bztfgAkuywb2v
+        MGbL+RpsYJIN7QdwA9jqjThyvgYdmOSb6CvgoDdjyPkafGCSD+3zaOZUawrCNs+cr5kILMkG9xu4BCyv
+        6GumAvP6AOys6GsmA0t32scILK8U1q9Rk/QLGjlfMxOY7b/U6WspLf3i0emX6DVwwITkB7A5X4MOzE82
+        xsC1RDasKtPZOV+DDMyGpdX1ve7a48ISOV+DCswGpU0umt7RxpIq5HwNKrCkeeDIhIu+OV+9D8w/7sQU
+        dYlsWFoEOR+LIONlw9Iy2+FYZhuvFFYs5FZQmnb2z4ILJeerF4GpM/em/Qbiusj56nxgfmx1ObY7jZcN
+        S4uzx9zYatKOvYycr84GlsLSv/cKtmxOC/nq7JbNImN+3kqbgtf6wlNEYaRNwUVqbVOwLmq3nXtjL4B9
+        U2p2Zfht516tbTsve7HhKrDZF2gIVZBmY4sqUTrjCzSFjOk1maJXZ+zSV9N3mNAGFr0mY4NSgK2+OiPU
+        LPVy1qOOvJxlr7dhtNibXs7ScathWdQ8l/r/bAlfSfrjJH91PKcGQRAEQRAEQRAEQRB0jH+i96VNwMk/
+        KQAAAABJRU5ErkJggg==
+</value>
   </data>
 </root>
