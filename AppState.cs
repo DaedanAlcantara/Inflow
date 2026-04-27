@@ -6,6 +6,6 @@ namespace Inflow
 {
     internal class AppState
     {
-        public static User_BX CurrentUser { get; set; }
+        public static User_BX CurrentUser { get; set;  }
     }
 }
