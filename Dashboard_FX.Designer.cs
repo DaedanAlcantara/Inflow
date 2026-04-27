@@ -454,11 +454,11 @@
             // 
             // flowLayoutPanel17
             // 
-            flowLayoutPanel17.Controls.Add(star5);
             flowLayoutPanel17.Controls.Add(star1);
             flowLayoutPanel17.Controls.Add(star2);
             flowLayoutPanel17.Controls.Add(star3);
             flowLayoutPanel17.Controls.Add(star4);
+            flowLayoutPanel17.Controls.Add(star5);
             flowLayoutPanel17.Dock = DockStyle.Bottom;
             flowLayoutPanel17.Location = new Point(0, 108);
             flowLayoutPanel17.Name = "flowLayoutPanel17";
@@ -469,7 +469,7 @@
             // star5
             // 
             star5.Image = Properties.Resources.Rating;
-            star5.Location = new Point(13, 3);
+            star5.Location = new Point(157, 3);
             star5.Name = "star5";
             star5.Size = new Size(30, 30);
             star5.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -480,7 +480,7 @@
             // star1
             // 
             star1.Image = Properties.Resources.Rating;
-            star1.Location = new Point(49, 3);
+            star1.Location = new Point(13, 3);
             star1.Name = "star1";
             star1.Size = new Size(30, 30);
             star1.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -491,7 +491,7 @@
             // star2
             // 
             star2.Image = Properties.Resources.Rating;
-            star2.Location = new Point(85, 3);
+            star2.Location = new Point(49, 3);
             star2.Name = "star2";
             star2.Size = new Size(30, 30);
             star2.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -502,7 +502,7 @@
             // star3
             // 
             star3.Image = Properties.Resources.Rating;
-            star3.Location = new Point(121, 3);
+            star3.Location = new Point(85, 3);
             star3.Name = "star3";
             star3.Size = new Size(30, 30);
             star3.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -513,7 +513,7 @@
             // star4
             // 
             star4.Image = Properties.Resources.Rating;
-            star4.Location = new Point(157, 3);
+            star4.Location = new Point(121, 3);
             star4.Name = "star4";
             star4.Size = new Size(30, 30);
             star4.SizeMode = PictureBoxSizeMode.StretchImage;

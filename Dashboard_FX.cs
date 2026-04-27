@@ -280,10 +280,6 @@ namespace Inflow
 
                 if (control.HasChildren)
                     EnableDoubleBufferingRecursive(control);
-                }
-            }
-        }
-
             }
         }
 
@@ -299,7 +295,6 @@ namespace Inflow
                 star4,  // 4th star
                 star5   // 5th star
             };
-            stars = new PictureBox[] { star1, star2, star3, star4, star5 };
 
             foreach (var star in stars)
             {
@@ -322,16 +317,17 @@ namespace Inflow
         }
 
         public void UpdateUserName(string userName)
+        {
+            if (!string.IsNullOrEmpty(userName) && NamePlaceholder != null)
+                NamePlaceholder.Text = userName;
+        }
+
         /// <summary>Creates a dimmed/grayscale version of an image for empty stars.</summary>
         private Image CreateDimmedImage(Image original)
         {
-            if (!string.IsNullOrEmpty(userName) && NamePlaceholder != null)
             var dimmed = new Bitmap(original.Width, original.Height);
             using (var g = Graphics.FromImage(dimmed))
             {
-                NamePlaceholder.Text = userName;
-            }
-        }
                 var colorMatrix = new System.Drawing.Imaging.ColorMatrix(new float[][]
                 {
                     new float[] { 0.3f,  0.3f,  0.3f,  0,    0 },
@@ -341,16 +337,6 @@ namespace Inflow
                     new float[] { 0,     0,     0,     0,    1 }
                 });
 
-        // ========== UPDATED: Parameter-less SetUser using AppState, IMPORTANT ==========
-        internal void SetUser()
-        {
-            currentUser = AppState.CurrentUser;
-            if (currentUser != null)
-            {
-                NamePlaceholder.Text = currentUser.Username;
-                UpdateCurrentAndNextTasks();
-            }
-        }
                 using (var attributes = new System.Drawing.Imaging.ImageAttributes())
                 {
                     attributes.SetColorMatrix(colorMatrix);
@@ -363,20 +349,25 @@ namespace Inflow
             return dimmed;
         }
 
+        // ========== UPDATED: Parameter-less SetUser using AppState, IMPORTANT ==========
+        internal void SetUser()
+        {
+            currentUser = AppState.CurrentUser;
+            if (currentUser != null)
+            {
+                NamePlaceholder.Text = currentUser.Username;
+                UpdateCurrentAndNextTasks();
+            }
+        }
 
         // IMPORTANT
         protected override void OnVisibleChanged(EventArgs e)
-        // ── User ──────────────────────────────────────────────────────────────
-        public void UpdateUserName(string userName)
         {
             base.OnVisibleChanged(e);
             if (this.Visible && AppState.CurrentUser != null)
             {
                 SetUser();  // re‑sync and refresh tasks
             }
-        }
-            if (!string.IsNullOrEmpty(userName) && NamePlaceholder != null)
-                NamePlaceholder.Text = userName;
         }
 
         // IMPORTANT
@@ -614,7 +605,6 @@ namespace Inflow
         {
             if (Timetext != null && !Timetext.IsDisposed)
                 Timetext.Text = DateTime.Now.ToString("hh:mm:ss tt");
-            }
         }
 
         private void TimeTimer_Tick(object sender, EventArgs e)
@@ -675,7 +665,7 @@ namespace Inflow
             {
                 NameTaskText.Text = taskList[0].Name;
                 DecriptionText.Text = taskList[0].Description ?? "";
-                SetStars(taskList[0].Priority); 
+                SetStars(taskList[0].Priority);
             }
             else
             {
@@ -744,36 +734,15 @@ namespace Inflow
         {
 
         }
-        }
 
         private void star3_Click(object sender, EventArgs e)
         {
 
         }
-        private void TimeTimer_Tick(object sender, EventArgs e) => UpdateCurrentTime();
 
         private void star4_Click(object sender, EventArgs e)
         {
-        // ── Empty click handlers (kept for designer wiring) ───────────────────
-        private void NamePlaceholder_Click(object sender, EventArgs e) { }
-        private void label2_Click(object sender, EventArgs e) { }
-        private void label3_Click(object sender, EventArgs e) { }
-        private void label6_Click(object sender, EventArgs e) { }
-        private void DayText_Click(object sender, EventArgs e) { }
-        private void MonthText_Click(object sender, EventArgs e) { }
-        private void YearText_Click(object sender, EventArgs e) { }
-        private void NameTaskText_Click(object sender, EventArgs e) { }
-        private void DecriptionText_Click(object sender, EventArgs e) { }
-        private void Timetext_Click(object sender, EventArgs e) { }
-        private void NameNextTaskText_Click(object sender, EventArgs e) { }
-        private void label4_Click(object sender, EventArgs e) { }
 
-        }
-        private void pictureBox3_Click(object sender, EventArgs e)
-        {
-            NameTaskText.Text = "No current task";
-            DecriptionText.Text = "";
-            SetTaskRating(0);
         }
     }
 }

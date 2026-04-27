@@ -49,11 +49,11 @@ namespace Inflow
             NextTaskButton.Left = startX + StopButton.Width + 55;
         }
 
-        internal void SetUser(User_BX user)
+        internal void SetUser()
         {
             if (currentUser == null)
             {
-                currentUser = user;
+                currentUser = AppState.CurrentUser;
             }
             else
             {

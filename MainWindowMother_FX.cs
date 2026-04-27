@@ -700,15 +700,15 @@ namespace Inflow
         {
             panel1.Controls.Clear();
 
-            var nitro = new Label
-            var nitro = new Nitro_FX();
-            nitro.Dock = DockStyle.Fill;
-            if (currentUser != null)
+            var nitro = new Label();
+            var nitroFX = new Nitro_FX();
+            nitroFX.Dock = DockStyle.Fill;
+            if (AppState.CurrentUser != null)
             {
-                nitro.SetUser(currentUser);
+                nitroFX.SetUser();
             }
 
-            panel1.Controls.Add(nitro);
+            panel1.Controls.Add(nitroFX);
 
             panel1.PerformLayout();
 

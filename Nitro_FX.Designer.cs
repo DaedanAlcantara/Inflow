@@ -118,9 +118,9 @@
             CurrentTaskDisplayPanel.Controls.Add(flowLayoutPanel4);
             CurrentTaskDisplayPanel.Controls.Add(flowLayoutPanel3);
             CurrentTaskDisplayPanel.Controls.Add(flowLayoutPanel2);
-            CurrentTaskDisplayPanel.Location = new Point(43, 91);
+            CurrentTaskDisplayPanel.Location = new Point(17, 94);
             CurrentTaskDisplayPanel.Name = "CurrentTaskDisplayPanel";
-            CurrentTaskDisplayPanel.Size = new Size(538, 184);
+            CurrentTaskDisplayPanel.Size = new Size(589, 184);
             CurrentTaskDisplayPanel.TabIndex = 1;
             // 
             // flowLayoutPanel5
@@ -133,7 +133,7 @@
             flowLayoutPanel5.Dock = DockStyle.Top;
             flowLayoutPanel5.Location = new Point(0, 141);
             flowLayoutPanel5.Name = "flowLayoutPanel5";
-            flowLayoutPanel5.Size = new Size(538, 41);
+            flowLayoutPanel5.Size = new Size(589, 41);
             flowLayoutPanel5.TabIndex = 3;
             // 
             // star1
@@ -193,7 +193,7 @@
             flowLayoutPanel4.Location = new Point(0, 110);
             flowLayoutPanel4.Name = "flowLayoutPanel4";
             flowLayoutPanel4.Padding = new Padding(20, 0, 0, 20);
-            flowLayoutPanel4.Size = new Size(538, 31);
+            flowLayoutPanel4.Size = new Size(589, 31);
             flowLayoutPanel4.TabIndex = 2;
             // 
             // DescriptionPlaceholder
@@ -213,7 +213,7 @@
             flowLayoutPanel3.Location = new Point(0, 31);
             flowLayoutPanel3.Name = "flowLayoutPanel3";
             flowLayoutPanel3.Padding = new Padding(20);
-            flowLayoutPanel3.Size = new Size(538, 79);
+            flowLayoutPanel3.Size = new Size(589, 79);
             flowLayoutPanel3.TabIndex = 1;
             // 
             // TaskNamePlaceholder
@@ -233,7 +233,7 @@
             flowLayoutPanel2.Dock = DockStyle.Top;
             flowLayoutPanel2.Location = new Point(0, 0);
             flowLayoutPanel2.Name = "flowLayoutPanel2";
-            flowLayoutPanel2.Size = new Size(538, 31);
+            flowLayoutPanel2.Size = new Size(589, 31);
             flowLayoutPanel2.TabIndex = 0;
             // 
             // pictureBox1
@@ -250,7 +250,7 @@
             // 
             NextTaskDisplayPanel.BackColor = Color.DarkGray;
             NextTaskDisplayPanel.Controls.Add(flowLayoutPanel6);
-            NextTaskDisplayPanel.Location = new Point(66, 281);
+            NextTaskDisplayPanel.Location = new Point(66, 293);
             NextTaskDisplayPanel.Name = "NextTaskDisplayPanel";
             NextTaskDisplayPanel.Size = new Size(490, 44);
             NextTaskDisplayPanel.TabIndex = 2;
@@ -278,7 +278,7 @@
             // 
             NextTask2DisplayPanel.BackColor = Color.LightGray;
             NextTask2DisplayPanel.Controls.Add(flowLayoutPanel7);
-            NextTask2DisplayPanel.Location = new Point(82, 331);
+            NextTask2DisplayPanel.Location = new Point(81, 352);
             NextTask2DisplayPanel.Name = "NextTask2DisplayPanel";
             NextTask2DisplayPanel.Size = new Size(450, 44);
             NextTask2DisplayPanel.TabIndex = 3;
@@ -306,7 +306,7 @@
             // 
             NextTask3DisplayPanel.BackColor = Color.Gainsboro;
             NextTask3DisplayPanel.Controls.Add(flowLayoutPanel8);
-            NextTask3DisplayPanel.Location = new Point(104, 381);
+            NextTask3DisplayPanel.Location = new Point(102, 408);
             NextTask3DisplayPanel.Name = "NextTask3DisplayPanel";
             NextTask3DisplayPanel.Size = new Size(399, 44);
             NextTask3DisplayPanel.TabIndex = 4;
