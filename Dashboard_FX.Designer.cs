@@ -121,7 +121,7 @@
             // 
             label4.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label4.BackColor = Color.Transparent;
-            label4.Font = new Font("Inter", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label4.Font = new Font("Microsoft Sans Serif", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label4.Location = new Point(3, 0);
             label4.Name = "label4";
             label4.Size = new Size(257, 36);
@@ -475,6 +475,7 @@
             star5.SizeMode = PictureBoxSizeMode.StretchImage;
             star5.TabIndex = 4;
             star5.TabStop = false;
+            star5.Click += star5_Click;
             // 
             // star1
             // 
@@ -485,6 +486,7 @@
             star1.SizeMode = PictureBoxSizeMode.StretchImage;
             star1.TabIndex = 0;
             star1.TabStop = false;
+            star1.Click += star1_Click;
             // 
             // star2
             // 
@@ -495,6 +497,7 @@
             star2.SizeMode = PictureBoxSizeMode.StretchImage;
             star2.TabIndex = 1;
             star2.TabStop = false;
+            star2.Click += star2_Click;
             // 
             // star3
             // 
@@ -505,6 +508,7 @@
             star3.SizeMode = PictureBoxSizeMode.StretchImage;
             star3.TabIndex = 2;
             star3.TabStop = false;
+            star3.Click += star3_Click;
             // 
             // star4
             // 
@@ -515,6 +519,7 @@
             star4.SizeMode = PictureBoxSizeMode.StretchImage;
             star4.TabIndex = 3;
             star4.TabStop = false;
+            star4.Click += star4_Click;
             // 
             // flowLayoutPanel16
             // 
@@ -528,13 +533,14 @@
             // DecriptionText
             // 
             DecriptionText.Anchor = AnchorStyles.Left;
-            DecriptionText.Font = new Font("Inter", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            DecriptionText.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             DecriptionText.Location = new Point(3, 0);
             DecriptionText.Name = "DecriptionText";
             DecriptionText.Size = new Size(92, 29);
             DecriptionText.TabIndex = 0;
             DecriptionText.Text = "Description";
             DecriptionText.TextAlign = ContentAlignment.MiddleCenter;
+            DecriptionText.Click += DecriptionText_Click_1;
             // 
             // flowLayoutPanel13
             // 
@@ -575,7 +581,7 @@
             // 
             label11.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label11.BackColor = Color.Transparent;
-            label11.Font = new Font("Inter", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label11.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label11.Location = new Point(13, 12);
             label11.Name = "label11";
             label11.Size = new Size(336, 26);
@@ -663,13 +669,14 @@
             // NameNextTaskText
             // 
             NameNextTaskText.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            NameNextTaskText.Font = new Font("Inter", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            NameNextTaskText.Font = new Font("Microsoft Sans Serif", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             NameNextTaskText.Location = new Point(13, 5);
             NameNextTaskText.Name = "NameNextTaskText";
             NameNextTaskText.Size = new Size(202, 40);
             NameNextTaskText.TabIndex = 2;
             NameNextTaskText.Text = "Name of Task";
             NameNextTaskText.TextAlign = ContentAlignment.MiddleCenter;
+            NameNextTaskText.Click += NameNextTaskText_Click_1;
             // 
             // flowLayoutPanel23
             // 
@@ -686,7 +693,7 @@
             // 
             label10.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label10.BackColor = Color.Transparent;
-            label10.Font = new Font("Inter", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label10.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label10.Location = new Point(13, 10);
             label10.Name = "label10";
             label10.Size = new Size(248, 26);

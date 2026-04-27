@@ -174,7 +174,8 @@ namespace Inflow
 
             // Create the schedule object
             UserSchedule_BX schedule = new UserSchedule_BX(Username, morningStart, morningEnd, afternoonStart, afternoonEnd);
-            User_BX currentUser = new User_BX(Username, schedule); // OBJECT CREATION FOR USERRRRRR
+            User_BX newUser = new User_BX(Username, schedule);
+            AppState.CurrentUser = newUser;// OBJECT CREATION FOR USERRRRRR
 
             // Debug output, not permanent
             MessageBox.Show($"User: {schedule.Username}\n" +
@@ -184,7 +185,6 @@ namespace Inflow
 
             MainWindowMother_FX mainWindow = new MainWindowMother_FX();
             this.Close();
-            mainWindow.SetUser(currentUser);
             mainWindow.Show();
             mainWindow.TopMost = true;
         }

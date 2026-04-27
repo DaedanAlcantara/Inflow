@@ -650,15 +650,17 @@ namespace Inflow
         }
 
         // task display with sorting
-        private void RefreshTaskDisplay()
+        public void RefreshTaskDisplay()
         {
             if (taskListPanel == null || currentUser == null) return;
 
             taskListPanel.SuspendLayout();
             taskListPanel.Controls.Clear();
 
-            // Morning tasks section
-            if (currentUser.MorningTasks.Count() > 0)
+            var morningList = currentUser.MorningTasks.ToList();
+            var afternoonList = currentUser.AfternoonTasks.ToList();
+
+            if (morningList.Count > 0)
             {
                 Label morningHeader = new Label
                 {
@@ -669,36 +671,26 @@ namespace Inflow
                     AutoSize = true
                 };
                 taskListPanel.Controls.Add(morningHeader);
-
-                foreach (Task_BX task in currentUser.MorningTasks)
-                {
-                    TaskCard_CMP card = CreateTaskCardFromTask(task);
-                    taskListPanel.Controls.Add(card);
-                }
+                foreach (var task in morningList)
+                    taskListPanel.Controls.Add(CreateTaskCardFromTask(task));
             }
 
-            // Afternoon tasks section
-            if (currentUser.AfternoonTasks.Count() > 0)
+            if (afternoonList.Count > 0)
             {
                 Label afternoonHeader = new Label
                 {
-                    Text = "🌤️ Afternoon Tasks",
+                    Text = "🌙 Afternoon Tasks",
                     Font = new Font("Segoe UI", 12F, FontStyle.Bold),
                     ForeColor = Color.FromArgb(0, 120, 215),
                     Margin = new Padding(3, 15, 3, 5),
                     AutoSize = true
                 };
                 taskListPanel.Controls.Add(afternoonHeader);
-
-                foreach (Task_BX task in currentUser.AfternoonTasks)
-                {
-                    TaskCard_CMP card = CreateTaskCardFromTask(task);
-                    taskListPanel.Controls.Add(card);
-                }
+                foreach (var task in afternoonList)
+                    taskListPanel.Controls.Add(CreateTaskCardFromTask(task));
             }
 
-            // Empty state
-            if (currentUser.MorningTasks.Count() == 0 && currentUser.AfternoonTasks.Count() == 0)
+            if (morningList.Count == 0 && afternoonList.Count == 0)
             {
                 Label noTasksLabel = new Label
                 {
@@ -941,6 +933,9 @@ namespace Inflow
 
             // Refresh the display to show the sorted order
             RefreshTaskDisplay();
+
+            var mainForm = this.FindForm() as MainWindowMother_FX;
+            mainForm?.RefreshCurrentContent();
         }
 
         // Helper methods to get form values
@@ -1079,15 +1074,11 @@ namespace Inflow
             }
         }
 
-        internal void SetUser(User_BX user)
+        internal void SetUser()
         {
-            currentUser = user;
-
-            // Optional: Load user data here
+            currentUser = AppState.CurrentUser;
             if (currentUser != null)
-            {
-                // Example: usernameTextbox.Text = currentUser.Name;
-            }
+                RefreshTaskDisplay();
         }
 
         // Public methods to get task data

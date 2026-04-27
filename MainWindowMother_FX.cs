@@ -27,7 +27,6 @@ namespace Inflow
         private PictureBox pictureBox4;
         private bool isRestoringFromMinimized = false;
         private bool isInitializing = true;
-        private User_BX currentUser;
 
         private System.Windows.Forms.Timer animationTimer;
         private int targetWidth;
@@ -58,8 +57,8 @@ namespace Inflow
 
             Sidebar.BackColor = System.Drawing.ColorTranslator.FromHtml("#0E24F0");
 
-            this.Size = new Size(1200, 800);  // Adjust these values as needed
-            this.MinimumSize = new Size(800, 600);  // Set minimum size
+            this.Size = new Size(1200, 800);
+            this.MinimumSize = new Size(800, 600);
 
             // Use Shown event instead of Load for proper sizing
             this.Shown += MainWindowMother_FX_Shown;
@@ -421,7 +420,6 @@ namespace Inflow
             this.WindowState = FormWindowState.Minimized;
         }
 
-
         private void Form1_Resize(object sender, EventArgs e)
         {
             AdjustForm();
@@ -647,15 +645,12 @@ namespace Inflow
 
             var dashboard = new Dashboard_FX();
             dashboard.Dock = DockStyle.Fill;
-            if (currentUser != null)
+            if (AppState.CurrentUser != null)
             {
-                dashboard.SetUser(currentUser);
+                dashboard.SetUser();
             }
-            // Remove the duplicate Dock assignment and AutoSize line
 
             panel1.Controls.Add(dashboard);
-
-            // Force layout update
             dashboard.PerformLayout();
 
             if (!isInitializing && this.WindowState == FormWindowState.Normal)
@@ -667,27 +662,28 @@ namespace Inflow
             }
         }
 
-        internal void SetUser(User_BX user)
+        // This method is kept for compatibility but is not used externally.
+        // The dashboard and planner read AppState.CurrentUser directly.
+        internal void SetUser()
         {
-            currentUser = user;
+            if (AppState.CurrentUser != null && panel1.Controls.Count > 0 && panel1.Controls[0] is Dashboard_FX dashboard)
+            {
+                dashboard.SetUser();
+            }
         }
 
         private void ShowPlanner()
         {
-            // Clear existing content
             panel1.Controls.Clear();
 
             var planner = new Planner_FX();
             planner.Dock = DockStyle.Fill;
-            if (currentUser != null)
+            if (AppState.CurrentUser != null)
             {
-                planner.SetUser(currentUser);
+                planner.SetUser();
             }
-            // Remove the duplicate Dock assignment and AutoSize line
 
             panel1.Controls.Add(planner);
-
-            // Force layout update
             planner.PerformLayout();
 
             if (!isInitializing && this.WindowState == FormWindowState.Normal)
@@ -697,15 +693,12 @@ namespace Inflow
                     this.Size = normalFormSize;
                 }
             }
-
         }
 
         private void ShowNitro()
         {
-            // Clear existing content
             panel1.Controls.Clear();
 
-            // TODO: Create and add Nitro control
             var nitro = new Label
             {
                 Text = "Nitro View - Coming Soon",
@@ -718,14 +711,25 @@ namespace Inflow
 
         private void label1_Click(object sender, EventArgs e)
         {
-            panel1.Controls.Clear();
             ShowDashboard();
         }
 
         private void label2_Click(object sender, EventArgs e)
         {
-            panel1.Controls.Clear();
             ShowPlanner();
+        }
+        public void RefreshCurrentContent()
+        {
+            if (panel1.Controls.Count > 0 && panel1.Controls[0] is Dashboard_FX dashboard)
+            {
+                dashboard.SetUser();   // re‑reads AppState.CurrentUser and updates tasks
+                dashboard.UpdateCurrentAndNextTasks();
+            }
+            else if (panel1.Controls.Count > 0 && panel1.Controls[0] is Planner_FX planner)
+            {
+                planner.SetUser();     // re‑reads AppState.CurrentUser and refreshes task list
+                planner.RefreshTaskDisplay();
+            }
         }
     }
 }

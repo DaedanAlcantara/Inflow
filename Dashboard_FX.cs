@@ -3,7 +3,6 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
-
 namespace Inflow
 {
     public partial class Dashboard_FX : UserControl
@@ -13,6 +12,8 @@ namespace Inflow
         private bool isInitializing = true;
         private PictureBox[] stars;
         private int currentRating = 0;
+        private User_BX currentUser;
+
         public Dashboard_FX()
         {
             this.DoubleBuffered = true;
@@ -27,7 +28,6 @@ namespace Inflow
             System.Threading.Tasks.Task.Run(() => InitializeContent());
 
             this.Load += Dashboard_FX_Load;
-            
         }
 
         private void CreateLoadingPanel()
@@ -39,7 +39,6 @@ namespace Inflow
                 Visible = true
             };
 
-            
             var loadingLabel = new Label
             {
                 Text = "Loading Dashboard...",
@@ -53,10 +52,7 @@ namespace Inflow
             this.Controls.Add(loadingPanel);
             loadingPanel.BringToFront();
         }
-        
 
-            // Configure all controls properly
-            
         private void InitializeContent()
         {
             // Simulate loading time (remove in production)
@@ -101,7 +97,6 @@ namespace Inflow
             timeTimer.Interval = 1000; // 1 second
             timeTimer.Tick += TimeTimer_Tick;
             timeTimer.Start();
-
         }
 
         private void ConfigureControls()
@@ -128,8 +123,6 @@ namespace Inflow
             pictureBox3.Visible = true;
 
             flowLayoutPanel14.ResumeLayout(false);
-
-
 
             // Greeting section
             label4.AutoSize = false;
@@ -282,16 +275,17 @@ namespace Inflow
                 }
             }
         }
+
         private void InitializeStarRating()
         {
             // Collect all star PictureBoxes into an array (ordered correctly)
             stars = new PictureBox[]
             {
-        star1,  // 1st star
-        star2,  // 2nd star
-        star3,  // 3rd star
-        star4,  // 4th star
-        star5   // 5th star
+                star1,  // 1st star
+                star2,  // 2nd star
+                star3,  // 3rd star
+                star4,  // 4th star
+                star5   // 5th star
             };
 
             // Optionally disable clicking if you want to ensure no user interaction
@@ -330,34 +324,6 @@ namespace Inflow
             }
         }
 
-        /// <summary>
-        /// Creates a dimmed/grayscale version of an image for empty stars
-        /// </summary>
-        private Image CreateDimmedImage(Image original)
-        {
-            Bitmap dimmed = new Bitmap(original.Width, original.Height);
-            using (Graphics g = Graphics.FromImage(dimmed))
-            {
-                var colorMatrix = new System.Drawing.Imaging.ColorMatrix(
-                    new float[][]
-                    {
-                new float[] {0.3f, 0.3f, 0.3f, 0, 0},
-                new float[] {0.59f, 0.59f, 0.59f, 0, 0},
-                new float[] {0.11f, 0.11f, 0.11f, 0, 0},
-                new float[] {0, 0, 0, 0.5f, 0},
-                new float[] {0, 0, 0, 0, 1}
-                    });
-
-                using (var attributes = new System.Drawing.Imaging.ImageAttributes())
-                {
-                    attributes.SetColorMatrix(colorMatrix);
-                    g.DrawImage(original, new Rectangle(0, 0, original.Width, original.Height),
-                        0, 0, original.Width, original.Height, GraphicsUnit.Pixel, attributes);
-                }
-            }
-            return dimmed;
-        }
-
         public void UpdateUserName(string userName)
         {
             if (!string.IsNullOrEmpty(userName) && NamePlaceholder != null)
@@ -366,14 +332,36 @@ namespace Inflow
             }
         }
 
-        private User_BX currentUser;
-
-        internal void SetUser(User_BX user)
+        // ========== UPDATED: Parameter-less SetUser using AppState, IMPORTANT ==========
+        internal void SetUser()
         {
-            if (user != null && NamePlaceholder != null)
+            currentUser = AppState.CurrentUser;
+            if (currentUser != null)
             {
-                currentUser = user;
-                NamePlaceholder.Text = user.Username;
+                NamePlaceholder.Text = currentUser.Username;
+                UpdateCurrentAndNextTasks();
+            }
+        }
+
+
+        // IMPORTANT
+        protected override void OnVisibleChanged(EventArgs e)
+        {
+            base.OnVisibleChanged(e);
+            if (this.Visible && AppState.CurrentUser != null)
+            {
+                SetUser();  // re‑sync and refresh tasks
+            }
+        }
+
+        // IMPORTANT
+        protected override void OnGotFocus(EventArgs e)
+        {
+            base.OnGotFocus(e);
+            if (AppState.CurrentUser != null)
+            {
+                currentUser = AppState.CurrentUser;
+                UpdateCurrentAndNextTasks();
             }
         }
 
@@ -447,8 +435,6 @@ namespace Inflow
                 Control[] panels1 = { StreakCounterPanel, FinishedCounter, DroppedCounter };
                 Control[] panels2 = { DateDisplayPanel, CurrentTaskDisplay };
                 Control[] panels3 = { TimeDisplayPanel, NextTaskDisplay };
-
-
 
                 ApplyStatsPanelSizes(panels1, panelWidth1, panelHeight1, panelMargin);
                 ApplyTwoPanelSizesEven(panels2, panelWidth2, panelHeight2, panelMargin);
@@ -675,76 +661,143 @@ namespace Inflow
                 Timetext.Text = DateTime.Now.ToString("hh:mm:ss tt");
             }
         }
+
         private void TimeTimer_Tick(object sender, EventArgs e)
         {
             UpdateCurrentTime();
         }
 
-        private void NamePlaceholder_Click(object sender, EventArgs e)
-        {
+        private void NamePlaceholder_Click(object sender, EventArgs e) { }
+        private void label2_Click(object sender, EventArgs e) { }
+        private void label3_Click(object sender, EventArgs e) { }
+        private void label6_Click(object sender, EventArgs e) { }
+        private void DayText_Click(object sender, EventArgs e) { }
+        private void MonthText_Click(object sender, EventArgs e) { }
+        private void YearText_Click(object sender, EventArgs e) { }
+        private void NameTaskText_Click(object sender, EventArgs e) { }
+        private void DecriptionText_Click(object sender, EventArgs e) { }
+        private void Timetext_Click(object sender, EventArgs e) { }
+        private void NameNextTaskText_Click(object sender, EventArgs e) { }
+        private void label4_Click(object sender, EventArgs e) { }
 
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label6_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void DayText_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void MonthText_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void YearText_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void NameTaskText_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void DecriptionText_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Timetext_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void NameNextTaskText_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
         private void pictureBox3_Click(object sender, EventArgs e)
         {
             // Handle trash icon click - for example, clear current task
             NameTaskText.Text = "No current task";
             DecriptionText.Text = "";
             SetTaskRating(0);
+        }
+
+        private void NameNextTaskText_Click_1(object sender, EventArgs e) { }
+
+        // IMPORTANT
+        public void UpdateCurrentAndNextTasks()
+        {
+            if (currentUser == null) return;
+
+            // Safety: if schedule is null, show tasks from both lists combined
+            if (currentUser.Schedule == null)
+            {
+                var allTasks = currentUser.MorningTasks.Concat(currentUser.AfternoonTasks).ToList();
+                NameTaskText.Text = allTasks.Count > 0 ? allTasks[0].Name : "No tasks";
+                NameNextTaskText.Text = allTasks.Count > 1 ? allTasks[1].Name : "No tasks";
+                return;
+            }
+
+            TimeSpan now = DateTime.Now.TimeOfDay;
+            bool isMorning = (now >= currentUser.Schedule.MorningStart && now <= currentUser.Schedule.MorningEnd);
+            var tasks = isMorning ? currentUser.MorningTasks : currentUser.AfternoonTasks;
+            var taskList = tasks.ToList();
+
+            // If no tasks in the current period, fallback to the other period
+            if (taskList.Count == 0)
+            {
+                var otherTasks = isMorning ? currentUser.AfternoonTasks : currentUser.MorningTasks;
+                taskList = otherTasks.ToList();
+            }
+
+            if (taskList.Count > 0)
+            {
+                NameTaskText.Text = taskList[0].Name;
+                DecriptionText.Text = taskList[0].Description ?? "";
+                SetStars(taskList[0].Priority); 
+            }
+            else
+            {
+                NameTaskText.Text = "No tasks";
+                DecriptionText.Text = "";
+                SetStars(0);
+            }
+
+            NameTaskText.Text = taskList.Count > 0 ? taskList[0].Name : "No tasks";
+            NameNextTaskText.Text = taskList.Count > 1 ? taskList[1].Name : "No tasks";
+        }
+
+        private void SetStars(int priority)
+        {
+            if (priority < 0) priority = 0;
+            if (priority > 5) priority = 5;
+
+            PictureBox[] stars = { star1, star2, star3, star4, star5 };
+            for (int i = 0; i < stars.Length; i++)
+            {
+                if (i < priority)
+                    stars[i].Image = Properties.Resources.Rating; // gold star
+                else
+                    stars[i].Image = CreateDimmedStar(Properties.Resources.Rating);
+            }
+        }
+
+        private Image CreateDimmedStar(Image original)
+        {
+            Bitmap dimmed = new Bitmap(original.Width, original.Height);
+            using (Graphics g = Graphics.FromImage(dimmed))
+            {
+                float[][] matrix = {
+            new float[] {0.3f, 0.3f, 0.3f, 0, 0},
+            new float[] {0.59f, 0.59f, 0.59f, 0, 0},
+            new float[] {0.11f, 0.11f, 0.11f, 0, 0},
+            new float[] {0, 0, 0, 0.4f, 0},
+            new float[] {0, 0, 0, 0, 1}
+        };
+                using (var attributes = new System.Drawing.Imaging.ImageAttributes())
+                {
+                    attributes.SetColorMatrix(new System.Drawing.Imaging.ColorMatrix(matrix));
+                    g.DrawImage(original, new Rectangle(0, 0, original.Width, original.Height),
+                        0, 0, original.Width, original.Height, GraphicsUnit.Pixel, attributes);
+                }
+            }
+            return dimmed;
+        }
+
+        private void DecriptionText_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void star5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void star1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void star2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void star3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void star4_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
