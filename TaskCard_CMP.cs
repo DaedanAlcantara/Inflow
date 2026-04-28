@@ -12,8 +12,8 @@ namespace Inflow
         private Label timeLabel;
         private FlowLayoutPanel starContainer;
         private PictureBox[] stars;
-        private Button deleteButton;
-
+        private PictureBox deleteButton;  // CHANGE THIS: Button to PictureBox
+        private Color TaskColor;
         private string taskName;
         private string description;
         private string timePeriod;
@@ -37,14 +37,13 @@ namespace Inflow
 
         private void InitializeComponent()
         {
-            this.Size = new Size(280, 120);
+            this.Size = new Size(400, 120);
             this.Margin = new Padding(5);
 
             cardPanel = new Panel
             {
                 Dock = DockStyle.Fill,
                 BackColor = Color.White,
-                BorderStyle = BorderStyle.FixedSingle,
                 Padding = new Padding(5)
             };
 
@@ -78,17 +77,16 @@ namespace Inflow
                 FlowDirection = FlowDirection.LeftToRight
             };
 
-            deleteButton = new Button
+            deleteButton = new PictureBox  // This is now correct since deleteButton is PictureBox
             {
-                Text = "✗",
-                Font = new Font("Segoe UI", 10F, FontStyle.Bold),
-                Location = new Point(245, 5),
-                Size = new Size(25, 25),
-                FlatStyle = FlatStyle.Flat,
-                ForeColor = Color.Red,
+                Image = Properties.Resources.Remove,
+                SizeMode = PictureBoxSizeMode.StretchImage,
+                Location = new Point(370, 5),
+                Size = new Size(20, 20),
+                Cursor = Cursors.Hand,
                 BackColor = Color.Transparent
             };
-            deleteButton.FlatAppearance.BorderSize = 0;
+            
             deleteButton.Click += (s, e) => DeleteClicked?.Invoke(this, EventArgs.Empty);
 
             stars = new PictureBox[5];
@@ -115,13 +113,47 @@ namespace Inflow
 
         private void SetupCard()
         {
-            cardPanel.BackColor = Color.FromArgb(250, 250, 250);
+            cardPanel.BackColor = RandomColorGenerate();
+            this.TaskColor = cardPanel.BackColor;
+
 
             // Add hover effect
             this.MouseEnter += (s, e) => cardPanel.BackColor = Color.FromArgb(240, 240, 255);
             this.MouseLeave += (s, e) => cardPanel.BackColor = Color.FromArgb(250, 250, 250);
         }
+        private Color RandomColorGenerate()
+        {
+            // List of pleasant, readable hex colors for task cards
+            string[] colorHexList = new string[]
+            {
+        "#FFE5E5", // Soft Red
+        "#E5FFE5", // Soft Green
+        "#E5E5FF", // Soft Blue
+        "#FFFCE5", // Soft Yellow
+        "#FFE5F0", // Soft Pink
+        "#E5F0FF", // Soft Light Blue
+        "#F0E5FF", // Soft Purple
+        "#E5FFF0", // Soft Mint
+        "#FFE5CC", // Soft Orange
+        "#F5E6E8", // Soft Rose
+        "#E6F5F5", // Soft Cyan
+        "#F5F5E6", // Soft Cream
+        "#E8E8E8", // Soft Gray
+        "#FFF0E6", // Soft Peach
+        "#E6FFF0"  // Soft Seafoam
+            };
 
+            // Generate random index
+            Random random = new Random();
+            int randomIndex = random.Next(colorHexList.Length);
+
+            // Convert hex string to Color
+            string hexCode = colorHexList[randomIndex];
+            Color chosenColor = ColorTranslator.FromHtml(hexCode);
+
+
+            return chosenColor;
+        }
         private void DisplayTaskInfo()
         {
             taskNameLabel.Text = taskName;
@@ -146,7 +178,5 @@ namespace Inflow
 
         public string TaskName => taskName;
         public int Priority => priority;
-
-
     }
 }

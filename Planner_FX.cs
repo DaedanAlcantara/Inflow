@@ -97,6 +97,7 @@ namespace Inflow
             flowLayoutPanel10 = new FlowLayoutPanel();
             button1 = new Button();
             button2 = new Button();
+            deploybutton = new Button();
             flowLayoutPanel1.SuspendLayout();
             panel1.SuspendLayout();
             taskListPanel.SuspendLayout();
@@ -160,9 +161,9 @@ namespace Inflow
             // pictureBox1
             // 
             pictureBox1.Image = Properties.Resources.AutoSort;
-            pictureBox1.Location = new Point(3, 3);
+            pictureBox1.Location = new Point(5, 5);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(25, 25);
+            pictureBox1.Size = new Size(20, 20);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
@@ -263,7 +264,7 @@ namespace Inflow
             flowLayoutPanel5.Controls.Add(flowLayoutPanel8);
             flowLayoutPanel5.Location = new Point(13, 240);
             flowLayoutPanel5.Name = "flowLayoutPanel5";
-            flowLayoutPanel5.Size = new Size(269, 253);
+            flowLayoutPanel5.Size = new Size(269, 237);
             flowLayoutPanel5.TabIndex = 2;
             // 
             // flowLayoutPanel6
@@ -273,7 +274,7 @@ namespace Inflow
             flowLayoutPanel6.Controls.Add(PMButton);
             flowLayoutPanel6.Location = new Point(3, 3);
             flowLayoutPanel6.Name = "flowLayoutPanel6";
-            flowLayoutPanel6.Size = new Size(133, 103);
+            flowLayoutPanel6.Size = new Size(133, 83);
             flowLayoutPanel6.TabIndex = 0;
             // 
             // label3
@@ -316,7 +317,7 @@ namespace Inflow
             // 
             flowLayoutPanel7.Controls.Add(label4);
             flowLayoutPanel7.Controls.Add(TimePicker1);
-            flowLayoutPanel7.Location = new Point(3, 112);
+            flowLayoutPanel7.Location = new Point(3, 92);
             flowLayoutPanel7.Name = "flowLayoutPanel7";
             flowLayoutPanel7.Size = new Size(213, 79);
             flowLayoutPanel7.TabIndex = 1;
@@ -416,7 +417,7 @@ namespace Inflow
             // 
             flowLayoutPanel8.Controls.Add(label6);
             flowLayoutPanel8.Controls.Add(flowLayoutPanel9);
-            flowLayoutPanel8.Location = new Point(3, 197);
+            flowLayoutPanel8.Location = new Point(3, 177);
             flowLayoutPanel8.Name = "flowLayoutPanel8";
             flowLayoutPanel8.Size = new Size(213, 59);
             flowLayoutPanel8.TabIndex = 2;
@@ -502,7 +503,8 @@ namespace Inflow
             // 
             flowLayoutPanel10.Controls.Add(button1);
             flowLayoutPanel10.Controls.Add(button2);
-            flowLayoutPanel10.Location = new Point(13, 499);
+            flowLayoutPanel10.Controls.Add(deploybutton);
+            flowLayoutPanel10.Location = new Point(13, 483);
             flowLayoutPanel10.Name = "flowLayoutPanel10";
             flowLayoutPanel10.Size = new Size(270, 68);
             flowLayoutPanel10.TabIndex = 3;
@@ -528,6 +530,17 @@ namespace Inflow
             button2.Text = "Reset Planner";
             button2.UseVisualStyleBackColor = true;
             button2.Click += button2_Click;
+            // 
+            // deploybutton
+            // 
+            deploybutton.Font = new Font("Microsoft Sans Serif", 7.8F, FontStyle.Bold);
+            deploybutton.Location = new Point(3, 71);
+            deploybutton.Name = "deploybutton";
+            deploybutton.Size = new Size(213, 28);
+            deploybutton.TabIndex = 2;
+            deploybutton.Text = "Deploy Planner";
+            deploybutton.UseVisualStyleBackColor = true;
+            deploybutton.Click += deploybutton_Click;
             // 
             // Planner_FX
             // 
@@ -604,6 +617,7 @@ namespace Inflow
         private FlowLayoutPanel flowLayoutPanel2;
         private Panel AutoSortBTN;
         private PictureBox pictureBox1;
+        private Button deploybutton;
         private int taskCounter = 0;
 
         // getting duration
@@ -690,25 +704,15 @@ namespace Inflow
                     taskListPanel.Controls.Add(CreateTaskCardFromTask(task));
             }
 
-            if (morningList.Count == 0 && afternoonList.Count == 0)
-            {
-                Label noTasksLabel = new Label
-                {
-                    Text = "No tasks yet. Create your first task!",
-                    Font = new Font("Segoe UI", 10F, FontStyle.Italic),
-                    ForeColor = Color.Gray,
-                    TextAlign = ContentAlignment.MiddleCenter,
-                    Dock = DockStyle.Top,
-                    Height = 50,
-                    Margin = new Padding(3, 20, 3, 0)
-                };
-                taskListPanel.Controls.Add(noTasksLabel);
-            }
+            
 
             taskListPanel.ResumeLayout(false);
             taskListPanel.PerformLayout();
-        }
 
+            // Force update of scrollbar
+            taskListPanel.AutoScrollPosition = new Point(0, 0);
+            taskListPanel.Invalidate();
+        }
         private void DeleteTask(TaskCard_CMP taskCard)
         {
             if (currentUser == null) return;
@@ -833,19 +837,29 @@ namespace Inflow
                 BackColor = Color.FromArgb(240, 240, 240)
             };
 
-            // Use the existing taskListPanel from designer, don't create a new one
+            // Use the existing taskListPanel from designer
             if (taskListPanel == null)
             {
                 taskListPanel = new FlowLayoutPanel();
             }
 
+            // Configure taskListPanel for proper scrolling
             taskListPanel.Dock = DockStyle.Fill;
             taskListPanel.FlowDirection = FlowDirection.TopDown;
-            taskListPanel.WrapContents = false;
-            taskListPanel.AutoScroll = true;
+            taskListPanel.WrapContents = false;  // This ensures vertical scrolling only
+            taskListPanel.AutoScroll = true;      // Enable scrollbars
             taskListPanel.Padding = new Padding(5);
             taskListPanel.BackColor = Color.White;
-            taskListPanel.Controls.Clear(); // Clear existing controls (except AutoSortBTN if needed)
+            taskListPanel.Controls.Clear();
+
+            // Set a minimum height to ensure content triggers scrolling
+            taskListPanel.MinimumSize = new Size(0, 0);
+
+            // Ensure the panel can grow vertically as content is added
+            taskListPanel.AutoSize = false;
+
+            // Explicitly set the AutoScrollMinSize to enable scrolling
+            taskListPanel.AutoScrollMinSize = new Size(0, 0);
 
             Panel bottomPanel = new Panel
             {
@@ -912,6 +926,9 @@ namespace Inflow
             panel1.Controls.Add(containerPanel);
 
             containerPanel.BringToFront();
+
+            // Force a layout update
+            taskListPanel.PerformLayout();
         }
 
         private void AutoSortBTN_Paint(object sender, PaintEventArgs e)
@@ -1273,6 +1290,11 @@ namespace Inflow
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             SortTasksByPriority();
+        }
+
+        private void deploybutton_Click(object sender, EventArgs e)
+        {
+
         }
 
         // Then in SetupStarRatingSelection, update the click event:

@@ -14,12 +14,12 @@ namespace Inflow
         // ── Loading ───────────────────────────────────────────────────────────
         private Panel loadingPanel;
         private bool isInitializing = true;
+        private bool _isInitialized = false;
 
         // ── Star rating ───────────────────────────────────────────────────────
         private PictureBox[] stars;
         private int currentRating = 0;
         private User_BX currentUser;
-
 
         // ── Font caches (avoids re-allocating Font on every resize) ───────────
         private float _lastStreakFontSize = -1f;
@@ -51,11 +51,11 @@ namespace Inflow
 
             InitializeComponent();
 
-            // ── Static configuration moved here (no longer delayed 2 s) ──────
+            // ── Static configuration ──────────────────────────────────────────
             InitializeStarRating();
             ConfigureStaticControlProperties();
 
-            // ── Double-buffer all child panels using cached PropertyInfo ──────
+            // ── Double-buffer all child panels ────────────────────────────────
             EnableDoubleBufferingRecursive(this);
 
             // ── Resize debounce timer (50 ms) ─────────────────────────────────
@@ -68,9 +68,6 @@ namespace Inflow
 
             // ── Loading overlay ───────────────────────────────────────────────
             CreateLoadingPanel();
-
-            // ── Async: only truly async work (e.g. DB/network calls) here ────
-            System.Threading.Tasks.Task.Run(() => InitializeContent());
 
             this.Load += Dashboard_FX_Load;
         }
@@ -99,76 +96,146 @@ namespace Inflow
             loadingPanel.BringToFront();
         }
 
-
-        // ── Async initialisation (no Thread.Sleep – removed artificial delay) ─
-        private void InitializeContent()
-        {
-            // Place real async work here (database calls, network requests, etc.)
-            // The 2-second Thread.Sleep that was here has been removed.
-
-            this.Invoke(new Action(() =>
-            {
-                // Apply panel colours
-                StreakCounterPanel.BackColor = ColorTranslator.FromHtml("#FFFB96");
-                FinishedCounter.BackColor = ColorTranslator.FromHtml("#AAE4FF");
-                DroppedCounter.BackColor = ColorTranslator.FromHtml("#FFACBA");
-                DateDisplayPanel.BackColor = ColorTranslator.FromHtml("#C96BFF");
-                CurrentTaskDisplay.BackColor = ColorTranslator.FromHtml("#B38DFF");
-                TimeDisplayPanel.BackColor = ColorTranslator.FromHtml("#FFBCF0");
-                NextTaskDisplay.BackColor = ColorTranslator.FromHtml("#90B3FF");
-
-                // Set control order inside flow panels (safe – ResizeContent never changes order)
-                if (flowLayoutPanel1.Controls.Count >= 3)
-                {
-                    flowLayoutPanel1.Controls.SetChildIndex(StreakCounterPanel, 0);
-                    flowLayoutPanel1.Controls.SetChildIndex(FinishedCounter, 1);
-                    flowLayoutPanel1.Controls.SetChildIndex(DroppedCounter, 2);
-                }
-
-                if (flowLayoutPanel10.Controls.Count >= 2)
-                {
-                    flowLayoutPanel10.Controls.SetChildIndex(DateDisplayPanel, 0);
-                    flowLayoutPanel10.Controls.SetChildIndex(CurrentTaskDisplay, 1);
-                }
-
-                if (flowLayoutPanel18.Controls.Count >= 2)
-                {
-                    flowLayoutPanel18.Controls.SetChildIndex(TimeDisplayPanel, 0);
-                    flowLayoutPanel18.Controls.SetChildIndex(NextTaskDisplay, 1);
-                }
-
-                // Hide and dispose the loading overlay
-                loadingPanel.Visible = false;
-                this.Controls.Remove(loadingPanel);
-                loadingPanel.Dispose();
-                loadingPanel = null;
-
-                isInitializing = false;
-                this.Refresh();
-            }));
-        }
-
-        // ── Load event ────────────────────────────────────────────────────────
-        private void Dashboard_FX_Load(object sender, EventArgs e)
+        // ── Async initialization ─────────────────────────────────────────────
+        private async void Dashboard_FX_Load(object sender, EventArgs e)
         {
             this.Resize += Dashboard_FX_Resize;
-            ResizeContent();
 
-            DateTime now = DateTime.Now;
-            MonthText.Text = now.ToString("MMMM");
-            DayText.Text = now.ToString("dd");
-            YearText.Text = now.ToString("yyyy");
+            // Show loading panel
+            if (loadingPanel != null)
+                loadingPanel.Visible = true;
 
-            UpdateCurrentTime();
+            try
+            {
+                // Do async work here (database, network, etc.)
+                await InitializeContentAsync();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error in InitializeContent: {ex.Message}");
+            }
+            finally
+            {
+                // Hide loading panel on UI thread
+                if (loadingPanel != null && !this.IsDisposed)
+                {
+                    loadingPanel.Visible = false;
+                    this.Controls.Remove(loadingPanel);
+                    loadingPanel.Dispose();
+                    loadingPanel = null;
+                }
 
-            timeTimer = new System.Windows.Forms.Timer { Interval = 1000 };
-            timeTimer.Tick += TimeTimer_Tick;
-            timeTimer.Start();
+                isInitializing = false;
+
+                // Apply UI updates after loading
+                ApplyUISettings();
+
+                // Start timers and set initial values
+                DateTime now = DateTime.Now;
+                MonthText.Text = now.ToString("MMMM");
+                DayText.Text = now.ToString("dd");
+                YearText.Text = now.ToString("yyyy");
+
+                UpdateCurrentTime();
+
+                timeTimer = new System.Windows.Forms.Timer { Interval = 1000 };
+                timeTimer.Tick += TimeTimer_Tick;
+                timeTimer.Start();
+
+                ResizeContent();
+                this.Refresh();
+            }
         }
 
-        // ── Static control configuration (anchors, alignment, flow direction) ─
-        //    These properties never change at runtime, so set them once at
-        //    construction time rather than after a 2-second async delay.
+        // Async initialization method
+        private async System.Threading.Tasks.Task InitializeContentAsync()
+        {
+            // Simulate async work (database calls, API calls, etc.)
+            // Replace with your actual async work
+            await System.Threading.Tasks.Task.Delay(100); // Small delay for loading panel visibility
+            // await yourDatabaseCallAsync();
+            // await yourNetworkCallAsync();
+        }
+
+        // Separate method for UI updates (called on UI thread)
+        private void ApplyUISettings()
+        {
+            if (this.IsDisposed) return;
+
+            // Apply panel colours
+            if (StreakCounterPanel != null && !StreakCounterPanel.IsDisposed)
+                StreakCounterPanel.BackColor = ColorTranslator.FromHtml("#FFFB96");
+
+            if (FinishedCounter != null && !FinishedCounter.IsDisposed)
+                FinishedCounter.BackColor = ColorTranslator.FromHtml("#AAE4FF");
+
+            if (DroppedCounter != null && !DroppedCounter.IsDisposed)
+                DroppedCounter.BackColor = ColorTranslator.FromHtml("#FFACBA");
+
+            if (DateDisplayPanel != null && !DateDisplayPanel.IsDisposed)
+                DateDisplayPanel.BackColor = ColorTranslator.FromHtml("#C96BFF");
+
+            if (CurrentTaskDisplay != null && !CurrentTaskDisplay.IsDisposed)
+                CurrentTaskDisplay.BackColor = ColorTranslator.FromHtml("#B38DFF");
+
+            if (TimeDisplayPanel != null && !TimeDisplayPanel.IsDisposed)
+                TimeDisplayPanel.BackColor = ColorTranslator.FromHtml("#FFBCF0");
+
+            if (NextTaskDisplay != null && !NextTaskDisplay.IsDisposed)
+                NextTaskDisplay.BackColor = ColorTranslator.FromHtml("#90B3FF");
+
+            // Set control order inside flow panels
+            if (flowLayoutPanel1 != null && !flowLayoutPanel1.IsDisposed &&
+                flowLayoutPanel1.Controls.Count >= 3 &&
+                StreakCounterPanel != null && !StreakCounterPanel.IsDisposed &&
+                FinishedCounter != null && !FinishedCounter.IsDisposed &&
+                DroppedCounter != null && !DroppedCounter.IsDisposed)
+            {
+                flowLayoutPanel1.Controls.SetChildIndex(StreakCounterPanel, 0);
+                flowLayoutPanel1.Controls.SetChildIndex(FinishedCounter, 1);
+                flowLayoutPanel1.Controls.SetChildIndex(DroppedCounter, 2);
+            }
+
+            if (flowLayoutPanel10 != null && !flowLayoutPanel10.IsDisposed &&
+                flowLayoutPanel10.Controls.Count >= 2 &&
+                DateDisplayPanel != null && !DateDisplayPanel.IsDisposed &&
+                CurrentTaskDisplay != null && !CurrentTaskDisplay.IsDisposed)
+            {
+                flowLayoutPanel10.Controls.SetChildIndex(DateDisplayPanel, 0);
+                flowLayoutPanel10.Controls.SetChildIndex(CurrentTaskDisplay, 1);
+            }
+
+            if (flowLayoutPanel18 != null && !flowLayoutPanel18.IsDisposed &&
+                flowLayoutPanel18.Controls.Count >= 2 &&
+                TimeDisplayPanel != null && !TimeDisplayPanel.IsDisposed &&
+                NextTaskDisplay != null && !NextTaskDisplay.IsDisposed)
+            {
+                flowLayoutPanel18.Controls.SetChildIndex(TimeDisplayPanel, 0);
+                flowLayoutPanel18.Controls.SetChildIndex(NextTaskDisplay, 1);
+            }
+        }
+
+        // ── Cleanup on handle destroyed ───────────────────────────────────────
+        protected override void OnHandleDestroyed(EventArgs e)
+        {
+            if (timeTimer != null)
+            {
+                timeTimer.Stop();
+                timeTimer.Dispose();
+                timeTimer = null;
+            }
+
+            if (_resizeDebounceTimer != null)
+            {
+                _resizeDebounceTimer.Stop();
+                _resizeDebounceTimer.Dispose();
+                _resizeDebounceTimer = null;
+            }
+
+            base.OnHandleDestroyed(e);
+        }
+
+        // ── Static control configuration ──────────────────────────────────────
         private void ConfigureStaticControlProperties()
         {
             // flowLayoutPanel14 – Current Task header
@@ -192,7 +259,6 @@ namespace Inflow
             flowLayoutPanel14.ResumeLayout(false);
 
             // Greeting section
-            // Greeting
             label4.AutoSize = false;
             label4.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label4.TextAlign = ContentAlignment.MiddleLeft;
@@ -263,14 +329,16 @@ namespace Inflow
                                         flowLayoutPanel1, flowLayoutPanel10,
                                         flowLayoutPanel18 })
             {
-                flp.WrapContents = false;
-                flp.Margin = new Padding(0);
-                flp.Padding = new Padding(0);
+                if (flp != null)
+                {
+                    flp.WrapContents = false;
+                    flp.Margin = new Padding(0);
+                    flp.Padding = new Padding(0);
+                }
             }
         }
 
         // ── Double-buffering helpers ──────────────────────────────────────────
-        //    Uses cached PropertyInfo instead of InvokeMember string lookup.
         private void EnableDoubleBufferingRecursive(Control parent)
         {
             foreach (Control control in parent.Controls)
@@ -286,21 +354,19 @@ namespace Inflow
         // ── Star rating ───────────────────────────────────────────────────────
         private void InitializeStarRating()
         {
-            // Collect all star PictureBoxes into an array (ordered correctly)
             stars = new PictureBox[]
             {
-                star1,  // 1st star
-                star2,  // 2nd star
-                star3,  // 3rd star
-                star4,  // 4th star
-                star5   // 5th star
+                star1, star2, star3, star4, star5
             };
 
             foreach (var star in stars)
             {
-                star.Enabled = false;
-                star.Cursor = Cursors.Default;
-                star.SizeMode = PictureBoxSizeMode.StretchImage;
+                if (star != null)
+                {
+                    star.Enabled = false;
+                    star.Cursor = Cursors.Default;
+                    star.SizeMode = PictureBoxSizeMode.StretchImage;
+                }
             }
         }
 
@@ -311,70 +377,47 @@ namespace Inflow
 
             for (int i = 0; i < stars.Length; i++)
             {
-                stars[i].Image = Properties.Resources.Rating;
-                stars[i].Enabled = i < rating;
+                if (stars[i] != null)
+                {
+                    stars[i].Image = Properties.Resources.Rating;
+                    stars[i].Enabled = i < rating;
+                }
             }
         }
 
         public void UpdateUserName(string userName)
         {
-            if (!string.IsNullOrEmpty(userName) && NamePlaceholder != null)
+            if (!string.IsNullOrEmpty(userName) && NamePlaceholder != null && !NamePlaceholder.IsDisposed)
                 NamePlaceholder.Text = userName;
         }
 
-        /// <summary>Creates a dimmed/grayscale version of an image for empty stars.</summary>
-        private Image CreateDimmedImage(Image original)
-        {
-            var dimmed = new Bitmap(original.Width, original.Height);
-            using (var g = Graphics.FromImage(dimmed))
-            {
-                var colorMatrix = new System.Drawing.Imaging.ColorMatrix(new float[][]
-                {
-                    new float[] { 0.3f,  0.3f,  0.3f,  0,    0 },
-                    new float[] { 0.59f, 0.59f, 0.59f, 0,    0 },
-                    new float[] { 0.11f, 0.11f, 0.11f, 0,    0 },
-                    new float[] { 0,     0,     0,     0.5f, 0 },
-                    new float[] { 0,     0,     0,     0,    1 }
-                });
-
-                using (var attributes = new System.Drawing.Imaging.ImageAttributes())
-                {
-                    attributes.SetColorMatrix(colorMatrix);
-                    g.DrawImage(original,
-                        new Rectangle(0, 0, original.Width, original.Height),
-                        0, 0, original.Width, original.Height,
-                        GraphicsUnit.Pixel, attributes);
-                }
-            }
-            return dimmed;
-        }
-
-        // ========== UPDATED: Parameter-less SetUser using AppState, IMPORTANT ==========
+        // ── User management ───────────────────────────────────────────────────
         internal void SetUser()
         {
+            if (_isInitialized && currentUser == AppState.CurrentUser) return;
+
             currentUser = AppState.CurrentUser;
-            if (currentUser != null)
+            if (currentUser != null && !isInitializing && NamePlaceholder != null && !NamePlaceholder.IsDisposed)
             {
                 NamePlaceholder.Text = currentUser.Username;
                 UpdateCurrentAndNextTasks();
+                _isInitialized = true;
             }
         }
 
-        // IMPORTANT
         protected override void OnVisibleChanged(EventArgs e)
         {
             base.OnVisibleChanged(e);
-            if (this.Visible && AppState.CurrentUser != null)
+            if (this.Visible && AppState.CurrentUser != null && !isInitializing)
             {
-                SetUser();  // re‑sync and refresh tasks
+                SetUser();
             }
         }
 
-        // IMPORTANT
         protected override void OnGotFocus(EventArgs e)
         {
             base.OnGotFocus(e);
-            if (AppState.CurrentUser != null)
+            if (AppState.CurrentUser != null && !isInitializing)
             {
                 currentUser = AppState.CurrentUser;
                 UpdateCurrentAndNextTasks();
@@ -382,13 +425,13 @@ namespace Inflow
         }
 
         // ── Resize (debounced) ────────────────────────────────────────────────
-        //    The Resize event fires continuously during a window drag.
-        //    Instead of running the full layout pass each time, we restart a
-        //    50 ms timer and only do real work when dragging stops briefly.
         private void Dashboard_FX_Resize(object sender, EventArgs e)
         {
-            _resizeDebounceTimer.Stop();
-            _resizeDebounceTimer.Start();
+            if (_resizeDebounceTimer != null)
+            {
+                _resizeDebounceTimer.Stop();
+                _resizeDebounceTimer.Start();
+            }
         }
 
         public void ResizeContent()
@@ -419,18 +462,28 @@ namespace Inflow
                 int greetingTopHeight = Math.Max(40, greetingTotalHeight / 3);
                 int greetingBottomHeight = Math.Max(40, greetingTotalHeight - greetingTopHeight);
 
-                flowLayoutPanel6.Height = greetingTopHeight;
-                flowLayoutPanel7.Height = greetingBottomHeight;
-                flowLayoutPanel1.Height = Math.Max(100, statsHeight);
-                flowLayoutPanel10.Height = Math.Max(120, currentTaskHeight);
-                flowLayoutPanel18.Height = Math.Max(80, timeHeight);
+                if (flowLayoutPanel6 != null)
+                    flowLayoutPanel6.Height = greetingTopHeight;
+                if (flowLayoutPanel7 != null)
+                    flowLayoutPanel7.Height = greetingBottomHeight;
+                if (flowLayoutPanel1 != null)
+                    flowLayoutPanel1.Height = Math.Max(100, statsHeight);
+                if (flowLayoutPanel10 != null)
+                    flowLayoutPanel10.Height = Math.Max(120, currentTaskHeight);
+                if (flowLayoutPanel18 != null)
+                    flowLayoutPanel18.Height = Math.Max(80, timeHeight);
 
                 int fullWidth = this.ClientSize.Width;
-                flowLayoutPanel6.Width = fullWidth;
-                flowLayoutPanel7.Width = fullWidth;
-                flowLayoutPanel1.Width = fullWidth;
-                flowLayoutPanel10.Width = fullWidth;
-                flowLayoutPanel18.Width = fullWidth;
+                if (flowLayoutPanel6 != null)
+                    flowLayoutPanel6.Width = fullWidth;
+                if (flowLayoutPanel7 != null)
+                    flowLayoutPanel7.Width = fullWidth;
+                if (flowLayoutPanel1 != null)
+                    flowLayoutPanel1.Width = fullWidth;
+                if (flowLayoutPanel10 != null)
+                    flowLayoutPanel10.Width = fullWidth;
+                if (flowLayoutPanel18 != null)
+                    flowLayoutPanel18.Width = fullWidth;
 
                 int gapsBetweenPanels1 = panelMargin * 2;
                 int gapsBetweenPanels2 = panelMargin * 1;
@@ -449,10 +502,6 @@ namespace Inflow
                 int panelWidth3 = availableWidth2 / 2;
                 int panelHeight3 = flowLayoutPanel18.ClientSize.Height - (panelMargin * 2);
 
-                Control[] panels1 = { StreakCounterPanel, FinishedCounter, DroppedCounter };
-                Control[] panels2 = { DateDisplayPanel, CurrentTaskDisplay };
-                Control[] panels3 = { TimeDisplayPanel, NextTaskDisplay };
-
                 ApplyStatsPanelSizes(
                     new Control[] { StreakCounterPanel, FinishedCounter, DroppedCounter },
                     panelWidth1, panelHeight1, panelMargin);
@@ -468,14 +517,16 @@ namespace Inflow
                 SetLabelWidths();
                 FixCurrentTaskHeaderLayout();
 
-                // Only create new Font objects when the size has actually changed
                 UpdateDynamicFontSizes(statsHeight, currentTaskHeight, timeHeight);
             }
             finally
             {
-                flowLayoutPanel1.ResumeLayout();
-                flowLayoutPanel18.ResumeLayout();
-                flowLayoutPanel10.ResumeLayout();
+                if (flowLayoutPanel1 != null)
+                    flowLayoutPanel1.ResumeLayout();
+                if (flowLayoutPanel18 != null)
+                    flowLayoutPanel18.ResumeLayout();
+                if (flowLayoutPanel10 != null)
+                    flowLayoutPanel10.ResumeLayout();
             }
         }
 
@@ -542,8 +593,7 @@ namespace Inflow
             SetLabelSize(label10, flowLayoutPanel23, widthOffset: 20, heightOffset: 0);
             SetLabelSize(NameNextTaskText, flowLayoutPanel22, widthOffset: 20, heightOffset: 0);
 
-            // label2 and label3/label6 have special offsets
-            if (label2 != null && flowLayoutPanel3 != null)
+            if (label2 != null && flowLayoutPanel3 != null && pictureBox1 != null)
             {
                 label2.Width = flowLayoutPanel3.ClientSize.Width - pictureBox1.Width - 40;
                 label2.Height = flowLayoutPanel3.ClientSize.Height - 20;
@@ -560,16 +610,14 @@ namespace Inflow
             }
         }
 
-        // Helper to avoid repetition in SetLabelWidths
         private static void SetLabelSize(Control label, Control container,
                                          int widthOffset, int heightOffset)
         {
-            if (label == null || container == null) return;
+            if (label == null || label.IsDisposed || container == null || container.IsDisposed) return;
             label.Width = container.ClientSize.Width - widthOffset;
             label.Height = container.ClientSize.Height - heightOffset;
         }
 
-        // ── Font size updates (cached – no new Font created unless size changed) ──
         private void UpdateDynamicFontSizes(int statsHeight, int taskHeight, int timeHeight)
         {
             float streakSize = Math.Max(12, Math.Min(28, statsHeight / 2.5f));
@@ -585,14 +633,10 @@ namespace Inflow
             SetCachedFont(Timetext, ref _lastTimeFontSize, timeSize, "Segoe UI", FontStyle.Bold);
         }
 
-        /// <summary>
-        /// Only allocates and assigns a new Font when the target size has changed
-        /// by more than 0.5 pt, preventing GC pressure during continuous resize events.
-        /// </summary>
         private static void SetCachedFont(Control control, ref float cachedSize,
                                           float newSize, string family, FontStyle style)
         {
-            if (control == null) return;
+            if (control == null || control.IsDisposed) return;
             if (Math.Abs(newSize - cachedSize) <= 0.5f) return;
 
             control.Font?.Dispose();
@@ -612,6 +656,102 @@ namespace Inflow
             UpdateCurrentTime();
         }
 
+        // ── Task management ───────────────────────────────────────────────────
+        public void UpdateCurrentAndNextTasks()
+        {
+            if (currentUser == null) return;
+
+            try
+            {
+                if (currentUser.Schedule == null)
+                {
+                    var allTasks = currentUser.MorningTasks.Concat(currentUser.AfternoonTasks).ToList();
+                    if (NameTaskText != null && !NameTaskText.IsDisposed)
+                        NameTaskText.Text = allTasks.Count > 0 ? allTasks[0].Name : "No tasks";
+                    if (NameNextTaskText != null && !NameNextTaskText.IsDisposed)
+                        NameNextTaskText.Text = allTasks.Count > 1 ? allTasks[1].Name : "No tasks";
+                    return;
+                }
+
+                TimeSpan now = DateTime.Now.TimeOfDay;
+                bool isMorning = (now >= currentUser.Schedule.MorningStart && now <= currentUser.Schedule.MorningEnd);
+                var tasks = isMorning ? currentUser.MorningTasks : currentUser.AfternoonTasks;
+                var taskList = tasks.ToList();
+
+                if (taskList.Count == 0)
+                {
+                    var otherTasks = isMorning ? currentUser.AfternoonTasks : currentUser.MorningTasks;
+                    taskList = otherTasks.ToList();
+                }
+
+                if (taskList.Count > 0 && NameTaskText != null && !NameTaskText.IsDisposed)
+                {
+                    NameTaskText.Text = taskList[0].Name;
+                    if (DecriptionText != null && !DecriptionText.IsDisposed)
+                        DecriptionText.Text = taskList[0].Description ?? "";
+                    SetStars(taskList[0].Priority);
+                }
+                else
+                {
+                    if (NameTaskText != null && !NameTaskText.IsDisposed)
+                        NameTaskText.Text = "No tasks";
+                    if (DecriptionText != null && !DecriptionText.IsDisposed)
+                        DecriptionText.Text = "";
+                    SetStars(0);
+                }
+
+                if (NameNextTaskText != null && !NameNextTaskText.IsDisposed)
+                    NameNextTaskText.Text = taskList.Count > 1 ? taskList[1].Name : "No tasks";
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error in UpdateCurrentAndNextTasks: {ex.Message}");
+            }
+        }
+
+        private void SetStars(int priority)
+        {
+            if (priority < 0) priority = 0;
+            if (priority > 5) priority = 5;
+
+            PictureBox[] starsArray = { star1, star2, star3, star4, star5 };
+            for (int i = 0; i < starsArray.Length; i++)
+            {
+                if (starsArray[i] != null && !starsArray[i].IsDisposed)
+                {
+                    if (i < priority)
+                        starsArray[i].Image = Properties.Resources.Rating;
+                    else
+                        starsArray[i].Image = CreateDimmedStar(Properties.Resources.Rating);
+                }
+            }
+        }
+
+        private Image CreateDimmedStar(Image original)
+        {
+            if (original == null) return null;
+
+            Bitmap dimmed = new Bitmap(original.Width, original.Height);
+            using (Graphics g = Graphics.FromImage(dimmed))
+            {
+                float[][] matrix = {
+                    new float[] {0.3f, 0.3f, 0.3f, 0, 0},
+                    new float[] {0.59f, 0.59f, 0.59f, 0, 0},
+                    new float[] {0.11f, 0.11f, 0.11f, 0, 0},
+                    new float[] {0, 0, 0, 0.4f, 0},
+                    new float[] {0, 0, 0, 0, 1}
+                };
+                using (var attributes = new System.Drawing.Imaging.ImageAttributes())
+                {
+                    attributes.SetColorMatrix(new System.Drawing.Imaging.ColorMatrix(matrix));
+                    g.DrawImage(original, new Rectangle(0, 0, original.Width, original.Height),
+                        0, 0, original.Width, original.Height, GraphicsUnit.Pixel, attributes);
+                }
+            }
+            return dimmed;
+        }
+
+        // ── Event handlers ────────────────────────────────────────────────────
         private void NamePlaceholder_Click(object sender, EventArgs e) { }
         private void label2_Click(object sender, EventArgs e) { }
         private void label3_Click(object sender, EventArgs e) { }
@@ -624,125 +764,21 @@ namespace Inflow
         private void Timetext_Click(object sender, EventArgs e) { }
         private void NameNextTaskText_Click(object sender, EventArgs e) { }
         private void label4_Click(object sender, EventArgs e) { }
+        private void DecriptionText_Click_1(object sender, EventArgs e) { }
+        private void star5_Click(object sender, EventArgs e) { }
+        private void star1_Click(object sender, EventArgs e) { }
+        private void star2_Click(object sender, EventArgs e) { }
+        private void star3_Click(object sender, EventArgs e) { }
+        private void star4_Click(object sender, EventArgs e) { }
+        private void NameNextTaskText_Click_1(object sender, EventArgs e) { }
 
         private void pictureBox3_Click(object sender, EventArgs e)
         {
-            // Handle trash icon click - for example, clear current task
-            NameTaskText.Text = "No current task";
-            DecriptionText.Text = "";
-            SetTaskRating(0);
-        }
-
-        private void NameNextTaskText_Click_1(object sender, EventArgs e) { }
-
-        // IMPORTANT
-        public void UpdateCurrentAndNextTasks()
-        {
-            if (currentUser == null) return;
-
-            // Safety: if schedule is null, show tasks from both lists combined
-            if (currentUser.Schedule == null)
-            {
-                var allTasks = currentUser.MorningTasks.Concat(currentUser.AfternoonTasks).ToList();
-                NameTaskText.Text = allTasks.Count > 0 ? allTasks[0].Name : "No tasks";
-                NameNextTaskText.Text = allTasks.Count > 1 ? allTasks[1].Name : "No tasks";
-                return;
-            }
-
-            TimeSpan now = DateTime.Now.TimeOfDay;
-            bool isMorning = (now >= currentUser.Schedule.MorningStart && now <= currentUser.Schedule.MorningEnd);
-            var tasks = isMorning ? currentUser.MorningTasks : currentUser.AfternoonTasks;
-            var taskList = tasks.ToList();
-
-            // If no tasks in the current period, fallback to the other period
-            if (taskList.Count == 0)
-            {
-                var otherTasks = isMorning ? currentUser.AfternoonTasks : currentUser.MorningTasks;
-                taskList = otherTasks.ToList();
-            }
-
-            if (taskList.Count > 0)
-            {
-                NameTaskText.Text = taskList[0].Name;
-                DecriptionText.Text = taskList[0].Description ?? "";
-                SetStars(taskList[0].Priority);
-            }
-            else
-            {
-                NameTaskText.Text = "No tasks";
+            if (NameTaskText != null && !NameTaskText.IsDisposed)
+                NameTaskText.Text = "No current task";
+            if (DecriptionText != null && !DecriptionText.IsDisposed)
                 DecriptionText.Text = "";
-                SetStars(0);
-            }
-
-            NameTaskText.Text = taskList.Count > 0 ? taskList[0].Name : "No tasks";
-            NameNextTaskText.Text = taskList.Count > 1 ? taskList[1].Name : "No tasks";
-        }
-
-        private void SetStars(int priority)
-        {
-            if (priority < 0) priority = 0;
-            if (priority > 5) priority = 5;
-
-            PictureBox[] stars = { star1, star2, star3, star4, star5 };
-            for (int i = 0; i < stars.Length; i++)
-            {
-                if (i < priority)
-                    stars[i].Image = Properties.Resources.Rating; // gold star
-                else
-                    stars[i].Image = CreateDimmedStar(Properties.Resources.Rating);
-            }
-        }
-
-        private Image CreateDimmedStar(Image original)
-        {
-            Bitmap dimmed = new Bitmap(original.Width, original.Height);
-            using (Graphics g = Graphics.FromImage(dimmed))
-            {
-                float[][] matrix = {
-            new float[] {0.3f, 0.3f, 0.3f, 0, 0},
-            new float[] {0.59f, 0.59f, 0.59f, 0, 0},
-            new float[] {0.11f, 0.11f, 0.11f, 0, 0},
-            new float[] {0, 0, 0, 0.4f, 0},
-            new float[] {0, 0, 0, 0, 1}
-        };
-                using (var attributes = new System.Drawing.Imaging.ImageAttributes())
-                {
-                    attributes.SetColorMatrix(new System.Drawing.Imaging.ColorMatrix(matrix));
-                    g.DrawImage(original, new Rectangle(0, 0, original.Width, original.Height),
-                        0, 0, original.Width, original.Height, GraphicsUnit.Pixel, attributes);
-                }
-            }
-            return dimmed;
-        }
-
-        private void DecriptionText_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void star5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void star1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void star2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void star3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void star4_Click(object sender, EventArgs e)
-        {
-
+            SetTaskRating(0);
         }
     }
 }
