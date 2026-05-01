@@ -6,6 +6,8 @@ namespace Inflow
 {
     internal class AppState
     {
+        public static int NitroElapsedSeconds = 0;
+
         public static User_BX CurrentUser { get; set;  }
     }
 }

@@ -7,18 +7,199 @@ namespace Inflow
 {
     public partial class Nitro_FX : UserControl
     {
+        // ── Variables ───────────────────────────────────────────────────────
         private User_BX currentUser;
+        private List<Task_BX> masterQueue = new List<Task_BX>();
+        private int currentTaskIndex = 0;
+
+        // Stats Tracking
+        private int currentStreak = 0;
+        private int finishedCount = 0;
+        private int droppedCount = 0;
+
+        private System.Windows.Forms.Timer sessionTimer;
+        private TimeSpan userTaskDuration = TimeSpan.Zero;
 
         public Nitro_FX()
         {
             InitializeComponent();
+            SetupTimer();
+            AttachEvents();
         }
 
         private void Nitro_FX_Load(object sender, EventArgs e)
         {
+            currentUser = AppState.CurrentUser;
+            LoadTasksToQueue();
+
+            if (masterQueue.Count > 0)
+            {
+                DisplayCurrentTask();
+                if (!sessionTimer.Enabled) sessionTimer.Start();
+            }
+            else
+            {
+                FinishSession();
+            }
+
             CenterAllControls();
         }
+        // ── Timer Logic ─────────────────────────────────────────────────────
+        private void SetupTimer()
+        {
+            if (sessionTimer != null)
+            {
+                sessionTimer.Stop();
+                sessionTimer.Tick -= Timer_Tick_Logic; 
+                sessionTimer.Dispose();
+            }
 
+            sessionTimer.Tick += Timer_Tick_Logic;
+        }
+        private void Timer_Tick_Logic(object sender, EventArgs e)
+        {
+            AppState.NitroElapsedSeconds++;
+            TimeSpan elapsed = TimeSpan.FromSeconds(AppState.NitroElapsedSeconds);
+
+            if (TimePlaceholderText != null)
+                TimePlaceholderText.Text = elapsed.ToString(@"mm\:ss");
+
+            if (currentTaskIndex < masterQueue.Count)
+            {
+                var task = masterQueue[currentTaskIndex];
+
+                // Console.WriteLine($"Elapsed: {AppState.NitroElapsedSeconds}, Limit: {userTaskDuration.TotalSeconds}");
+
+                double limitInSeconds = userTaskDuration.TotalSeconds;
+
+                // TRIGGER CHECK
+                if (limitInSeconds > 0 && AppState.NitroElapsedSeconds >= (int)limitInSeconds)
+                {
+                    TriggerAutoDrop(task.Name);
+                }
+            }
+        }
+        public void SetSessionDuration(TimeSpan duration)
+        {
+            this.userTaskDuration = duration;
+        }
+        // ── Event Handlers ──────────────────────────────────────────────────
+        private void AttachEvents()
+        {
+            if (NextTaskButton != null)
+            {
+                NextTaskButton.Click -= HandleComplete;
+                NextTaskButton.Click += HandleComplete;
+            }
+
+            if (StopButton != null)
+            {
+                StopButton.Click -= HandleStop;
+                StopButton.Click += HandleStop;
+            }
+
+            var dropBtn = this.Controls.Find("btnDropTask", true).FirstOrDefault() as Button;
+            if (dropBtn != null)
+            {
+                dropBtn.Click -= HandleDrop;
+                dropBtn.Click += HandleDrop;
+            }
+        }
+        private void HandleComplete(object sender, EventArgs e) => AdvanceTask(isFinished: true);
+
+        private void HandleDrop(object sender, EventArgs e) => AdvanceTask(isFinished: false);
+
+        private void HandleStop(object sender, EventArgs e)
+        {
+            sessionTimer?.Stop();
+            this.Visible = false;
+        }
+
+        private void TriggerAutoDrop(string taskName)
+        {
+            sessionTimer.Stop();
+            MessageBox.Show($"Time is up for '{taskName}'!", "Nitro Auto-Drop", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            HandleDrop(null, null);
+            if (currentTaskIndex < masterQueue.Count) sessionTimer.Start();
+        }
+        private void AdvanceTask(bool isFinished)
+        {
+            if (currentTaskIndex >= masterQueue.Count) return;
+
+            if (isFinished)
+            {
+                finishedCount++;
+                currentStreak++;
+            }
+            else
+            {
+                droppedCount++;
+                currentStreak = 0;
+            }
+            currentUser?.RemoveTask(masterQueue[currentTaskIndex]);
+
+            currentTaskIndex++;
+            AppState.NitroElapsedSeconds = 0; 
+
+            DisplayCurrentTask();
+        }
+        // ── UI Helpers ──────────────────────────────────────────────────────
+        private void LoadTasksToQueue()
+        {
+            masterQueue.Clear();
+            if (currentUser == null) return;
+            if (currentUser.MorningTasks != null) masterQueue.AddRange(currentUser.MorningTasks);
+            if (currentUser.AfternoonTasks != null) masterQueue.AddRange(currentUser.AfternoonTasks);
+        }
+
+        private void DisplayCurrentTask()
+        {
+            if (currentTaskIndex < masterQueue.Count)
+            {
+                var task = masterQueue[currentTaskIndex];
+                if (TaskNamePlaceholder != null) TaskNamePlaceholder.Text = task.Name;
+                if (DescriptionPlaceholder != null) DescriptionPlaceholder.Text = task.Description;
+
+                var streakLabel = this.Controls.Find("StreakCounterLabel", true).FirstOrDefault() as Label;
+                if (streakLabel != null) streakLabel.Text = currentStreak.ToString();
+
+                UpdatePriorityStars(task.Priority);
+                UpdateQueuePreview();
+                CenterAllControls();
+            }
+            else
+            {
+                FinishSession();
+            }
+        }
+        private void FinishSession()
+        {
+            sessionTimer?.Stop();
+            if (TaskNamePlaceholder != null) TaskNamePlaceholder.Text = "TASK CLEARED";
+            if (DescriptionPlaceholder != null) DescriptionPlaceholder.Text = "You finished this task!!.";
+            MessageBox.Show($"Session Finished!\nCompleted: {finishedCount}\nDropped: {droppedCount}", "Nitro Result");
+        }
+
+        private void UpdatePriorityStars(int priority)
+        {
+            if (flowLayoutPanel10 == null) return;
+            for (int i = 0; i < flowLayoutPanel10.Controls.Count; i++)
+                flowLayoutPanel10.Controls[i].Visible = (i < priority);
+        }
+
+        private void UpdateQueuePreview()
+        {
+            SetPreviewText(NextTaskPlaceholder, 1);
+            SetPreviewText(NextTask2Placeholder, 2);
+            SetPreviewText(NextTask3Placeholder, 3);
+        }
+
+        private void SetPreviewText(Label lbl, int offset)
+        {
+            if (lbl != null)
+                lbl.Text = (currentTaskIndex + offset < masterQueue.Count)
+                    ? masterQueue[currentTaskIndex + offset].Name : "---";
+        }
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
