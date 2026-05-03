@@ -12,8 +12,8 @@ namespace Inflow
         private Label timeLabel;
         private FlowLayoutPanel starContainer;
         private PictureBox[] stars;
-        private PictureBox deleteButton;  // CHANGE THIS: Button to PictureBox
-        private Color TaskColor;
+        private PictureBox deleteButton;
+        private Color taskColor;
         private string taskName;
         private string description;
         private string timePeriod;
@@ -22,6 +22,24 @@ namespace Inflow
 
         public event EventHandler DeleteClicked;
 
+        // Primary constructor - accepts Task_BX directly (uses stored color)
+        internal TaskCard_CMP(Task_BX task)
+        {
+            taskName = task.Name;
+            description = task.Description;
+            timePeriod = (task.TimePreference == TimePreference_BX.Morning) ? "Morning" : "Afternoon";
+            duration = $"{task.Duration.Hours:D2}:{task.Duration.Minutes:D2}";
+            priority = task.Priority;
+            taskColor = task.CardColor;  // Use the permanent color from the task
+
+            InitializeComponent();
+            SetupCard();
+            DisplayTaskInfo();
+        }
+
+        // Secondary constructor - for backward compatibility (generates new random color)
+        // Marked as obsolete to encourage using the Task_BX constructor
+        [Obsolete("Use TaskCard_CMP(Task_BX) constructor instead for permanent colors.")]
         public TaskCard_CMP(string name, string desc, string timeOfDay, string taskDuration, int rating)
         {
             taskName = name;
@@ -29,6 +47,7 @@ namespace Inflow
             timePeriod = timeOfDay;
             duration = taskDuration;
             priority = rating;
+            taskColor = GenerateRandomColor();  // Generate new random color for this constructor
 
             InitializeComponent();
             SetupCard();
@@ -77,7 +96,7 @@ namespace Inflow
                 FlowDirection = FlowDirection.LeftToRight
             };
 
-            deleteButton = new PictureBox  // This is now correct since deleteButton is PictureBox
+            deleteButton = new PictureBox
             {
                 Image = Properties.Resources.Remove,
                 SizeMode = PictureBoxSizeMode.StretchImage,
@@ -86,7 +105,7 @@ namespace Inflow
                 Cursor = Cursors.Hand,
                 BackColor = Color.Transparent
             };
-            
+
             deleteButton.Click += (s, e) => DeleteClicked?.Invoke(this, EventArgs.Empty);
 
             stars = new PictureBox[5];
@@ -113,47 +132,43 @@ namespace Inflow
 
         private void SetupCard()
         {
-            cardPanel.BackColor = RandomColorGenerate();
-            this.TaskColor = cardPanel.BackColor;
+            cardPanel.BackColor = taskColor;
 
+            // Store the original color for hover effect
+            Color originalColor = taskColor;
 
             // Add hover effect
             this.MouseEnter += (s, e) => cardPanel.BackColor = Color.FromArgb(240, 240, 255);
-            this.MouseLeave += (s, e) => cardPanel.BackColor = Color.FromArgb(250, 250, 250);
+            this.MouseLeave += (s, e) => cardPanel.BackColor = originalColor;
         }
-        private Color RandomColorGenerate()
+
+        private Color GenerateRandomColor()
         {
             // List of pleasant, readable hex colors for task cards
             string[] colorHexList = new string[]
             {
-        "#FFE5E5", // Soft Red
-        "#E5FFE5", // Soft Green
-        "#E5E5FF", // Soft Blue
-        "#FFFCE5", // Soft Yellow
-        "#FFE5F0", // Soft Pink
-        "#E5F0FF", // Soft Light Blue
-        "#F0E5FF", // Soft Purple
-        "#E5FFF0", // Soft Mint
-        "#FFE5CC", // Soft Orange
-        "#F5E6E8", // Soft Rose
-        "#E6F5F5", // Soft Cyan
-        "#F5F5E6", // Soft Cream
-        "#E8E8E8", // Soft Gray
-        "#FFF0E6", // Soft Peach
-        "#E6FFF0"  // Soft Seafoam
+                "#FFE5E5", // Soft Red
+                "#E5FFE5", // Soft Green
+                "#E5E5FF", // Soft Blue
+                "#FFFCE5", // Soft Yellow
+                "#FFE5F0", // Soft Pink
+                "#E5F0FF", // Soft Light Blue
+                "#F0E5FF", // Soft Purple
+                "#E5FFF0", // Soft Mint
+                "#FFE5CC", // Soft Orange
+                "#F5E6E8", // Soft Rose
+                "#E6F5F5", // Soft Cyan
+                "#F5F5E6", // Soft Cream
+                "#E8E8E8", // Soft Gray
+                "#FFF0E6", // Soft Peach
+                "#E6FFF0"  // Soft Seafoam
             };
 
-            // Generate random index
             Random random = new Random();
             int randomIndex = random.Next(colorHexList.Length);
-
-            // Convert hex string to Color
-            string hexCode = colorHexList[randomIndex];
-            Color chosenColor = ColorTranslator.FromHtml(hexCode);
-
-
-            return chosenColor;
+            return ColorTranslator.FromHtml(colorHexList[randomIndex]);
         }
+
         private void DisplayTaskInfo()
         {
             taskNameLabel.Text = taskName;
@@ -165,7 +180,7 @@ namespace Inflow
             {
                 if (i < priority)
                 {
-                    stars[i].Image = Properties.Resources.Rating;  // gold star
+                    stars[i].Image = Properties.Resources.Rating;
                     stars[i].Enabled = true;
                 }
                 else

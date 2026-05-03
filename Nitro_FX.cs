@@ -33,11 +33,8 @@ namespace Inflow
         private void Nitro_FX_Load(object sender, EventArgs e)
         {
             currentUser = AppState.CurrentUser;
-            if (!tasksLoaded)
-            {
-                LoadTasksToQueue();
-                tasksLoaded = true;
-            }
+
+            LoadTasksToQueue();
 
             if (taskSequence != null && taskSequence.Count > 0)
             {
@@ -166,7 +163,8 @@ namespace Inflow
             if (TimePlaceholderText != null)
             {
                 TimePlaceholderText.Text = "00:00:00";
-                TimePlaceholderText.ForeColor = Color.LimeGreen;
+                TimePlaceholderText.ForeColor = Color.White;
+                panel1.BackColor = Color.Green;
             }
         }
 
@@ -215,7 +213,8 @@ namespace Inflow
                 if (TimePlaceholderText != null)
                 {
                     TimePlaceholderText.Text = "PAUSED";
-                    TimePlaceholderText.ForeColor = Color.Orange;
+                    TimePlaceholderText.ForeColor = Color.White;
+                    panel1.BackColor = Color.Orange;
                 }
 
                 MessageBox.Show("The task has been PAUSED.\nClick OK when you are ready to resume.",

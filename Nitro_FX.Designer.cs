@@ -92,9 +92,8 @@
             flowLayoutPanel1.Controls.Add(panel1);
             flowLayoutPanel1.Dock = DockStyle.Top;
             flowLayoutPanel1.Location = new Point(0, 0);
-            flowLayoutPanel1.Margin = new Padding(4);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(790, 106);
+            flowLayoutPanel1.Size = new Size(632, 85);
             flowLayoutPanel1.TabIndex = 0;
             flowLayoutPanel1.WrapContents = false;
             // 
@@ -102,19 +101,18 @@
             // 
             panel1.BackColor = Color.Gray;
             panel1.Controls.Add(TimePlaceholderText);
-            panel1.Location = new Point(4, 4);
-            panel1.Margin = new Padding(4);
+            panel1.Location = new Point(3, 3);
             panel1.Name = "panel1";
-            panel1.Size = new Size(782, 81);
+            panel1.Size = new Size(626, 65);
             panel1.TabIndex = 0;
             // 
             // TimePlaceholderText
             // 
+            TimePlaceholderText.BackColor = Color.Transparent;
             TimePlaceholderText.Font = new Font("Microsoft Sans Serif", 31.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             TimePlaceholderText.Location = new Point(0, 0);
-            TimePlaceholderText.Margin = new Padding(4, 0, 4, 0);
             TimePlaceholderText.Name = "TimePlaceholderText";
-            TimePlaceholderText.Size = new Size(782, 81);
+            TimePlaceholderText.Size = new Size(626, 65);
             TimePlaceholderText.TabIndex = 0;
             TimePlaceholderText.Text = "00:00";
             TimePlaceholderText.TextAlign = ContentAlignment.MiddleCenter;
@@ -126,20 +124,18 @@
             CurrentTaskDisplayPanel.Controls.Add(flowLayoutPanel4);
             CurrentTaskDisplayPanel.Controls.Add(flowLayoutPanel3);
             CurrentTaskDisplayPanel.Controls.Add(flowLayoutPanel2);
-            CurrentTaskDisplayPanel.Location = new Point(21, 118);
-            CurrentTaskDisplayPanel.Margin = new Padding(4);
+            CurrentTaskDisplayPanel.Location = new Point(17, 94);
             CurrentTaskDisplayPanel.Name = "CurrentTaskDisplayPanel";
-            CurrentTaskDisplayPanel.Size = new Size(736, 230);
+            CurrentTaskDisplayPanel.Size = new Size(589, 184);
             CurrentTaskDisplayPanel.TabIndex = 1;
             // 
             // flowLayoutPanel5
             // 
             flowLayoutPanel5.Controls.Add(flowLayoutPanel10);
             flowLayoutPanel5.Dock = DockStyle.Top;
-            flowLayoutPanel5.Location = new Point(0, 177);
-            flowLayoutPanel5.Margin = new Padding(4);
+            flowLayoutPanel5.Location = new Point(0, 141);
             flowLayoutPanel5.Name = "flowLayoutPanel5";
-            flowLayoutPanel5.Size = new Size(736, 51);
+            flowLayoutPanel5.Size = new Size(589, 41);
             flowLayoutPanel5.TabIndex = 3;
             // 
             // flowLayoutPanel10
@@ -149,19 +145,17 @@
             flowLayoutPanel10.Controls.Add(star3);
             flowLayoutPanel10.Controls.Add(star4);
             flowLayoutPanel10.Controls.Add(star5);
-            flowLayoutPanel10.Location = new Point(4, 4);
-            flowLayoutPanel10.Margin = new Padding(4);
+            flowLayoutPanel10.Location = new Point(3, 3);
             flowLayoutPanel10.Name = "flowLayoutPanel10";
-            flowLayoutPanel10.Size = new Size(230, 50);
+            flowLayoutPanel10.Size = new Size(184, 40);
             flowLayoutPanel10.TabIndex = 0;
             // 
             // star1
             // 
             star1.Image = Properties.Resources.Rating;
-            star1.Location = new Point(4, 4);
-            star1.Margin = new Padding(4);
+            star1.Location = new Point(3, 3);
             star1.Name = "star1";
-            star1.Size = new Size(38, 38);
+            star1.Size = new Size(30, 30);
             star1.SizeMode = PictureBoxSizeMode.StretchImage;
             star1.TabIndex = 15;
             star1.TabStop = false;
@@ -169,10 +163,9 @@
             // star2
             // 
             star2.Image = Properties.Resources.Rating;
-            star2.Location = new Point(50, 4);
-            star2.Margin = new Padding(4);
+            star2.Location = new Point(39, 3);
             star2.Name = "star2";
-            star2.Size = new Size(38, 38);
+            star2.Size = new Size(30, 30);
             star2.SizeMode = PictureBoxSizeMode.StretchImage;
             star2.TabIndex = 16;
             star2.TabStop = false;
@@ -180,10 +173,9 @@
             // star3
             // 
             star3.Image = Properties.Resources.Rating;
-            star3.Location = new Point(96, 4);
-            star3.Margin = new Padding(4);
+            star3.Location = new Point(75, 3);
             star3.Name = "star3";
-            star3.Size = new Size(38, 38);
+            star3.Size = new Size(30, 30);
             star3.SizeMode = PictureBoxSizeMode.StretchImage;
             star3.TabIndex = 17;
             star3.TabStop = false;
@@ -191,10 +183,9 @@
             // star4
             // 
             star4.Image = Properties.Resources.Rating;
-            star4.Location = new Point(142, 4);
-            star4.Margin = new Padding(4);
+            star4.Location = new Point(111, 3);
             star4.Name = "star4";
-            star4.Size = new Size(38, 38);
+            star4.Size = new Size(30, 30);
             star4.SizeMode = PictureBoxSizeMode.StretchImage;
             star4.TabIndex = 18;
             star4.TabStop = false;
@@ -202,10 +193,9 @@
             // star5
             // 
             star5.Image = Properties.Resources.Rating;
-            star5.Location = new Point(188, 4);
-            star5.Margin = new Padding(4);
+            star5.Location = new Point(147, 3);
             star5.Name = "star5";
-            star5.Size = new Size(38, 38);
+            star5.Size = new Size(30, 30);
             star5.SizeMode = PictureBoxSizeMode.StretchImage;
             star5.TabIndex = 19;
             star5.TabStop = false;
@@ -214,11 +204,10 @@
             // 
             flowLayoutPanel4.Controls.Add(DescriptionPlaceholder);
             flowLayoutPanel4.Dock = DockStyle.Top;
-            flowLayoutPanel4.Location = new Point(0, 138);
-            flowLayoutPanel4.Margin = new Padding(4);
+            flowLayoutPanel4.Location = new Point(0, 110);
             flowLayoutPanel4.Name = "flowLayoutPanel4";
-            flowLayoutPanel4.Padding = new Padding(25, 0, 0, 25);
-            flowLayoutPanel4.Size = new Size(736, 39);
+            flowLayoutPanel4.Padding = new Padding(20, 0, 0, 20);
+            flowLayoutPanel4.Size = new Size(589, 31);
             flowLayoutPanel4.TabIndex = 2;
             // 
             // DescriptionPlaceholder
@@ -226,10 +215,9 @@
             DescriptionPlaceholder.Anchor = AnchorStyles.None;
             DescriptionPlaceholder.BackColor = Color.Transparent;
             DescriptionPlaceholder.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            DescriptionPlaceholder.Location = new Point(29, 0);
-            DescriptionPlaceholder.Margin = new Padding(4, 0, 4, 0);
+            DescriptionPlaceholder.Location = new Point(23, 0);
             DescriptionPlaceholder.Name = "DescriptionPlaceholder";
-            DescriptionPlaceholder.Size = new Size(686, 24);
+            DescriptionPlaceholder.Size = new Size(549, 19);
             DescriptionPlaceholder.TabIndex = 0;
             DescriptionPlaceholder.Text = "label2";
             DescriptionPlaceholder.TextAlign = ContentAlignment.MiddleCenter;
@@ -239,21 +227,19 @@
             flowLayoutPanel3.Controls.Add(TaskNamePlaceholder);
             flowLayoutPanel3.Dock = DockStyle.Top;
             flowLayoutPanel3.FlowDirection = FlowDirection.TopDown;
-            flowLayoutPanel3.Location = new Point(0, 39);
-            flowLayoutPanel3.Margin = new Padding(4);
+            flowLayoutPanel3.Location = new Point(0, 31);
             flowLayoutPanel3.Name = "flowLayoutPanel3";
-            flowLayoutPanel3.Padding = new Padding(25);
-            flowLayoutPanel3.Size = new Size(736, 99);
+            flowLayoutPanel3.Padding = new Padding(20);
+            flowLayoutPanel3.Size = new Size(589, 79);
             flowLayoutPanel3.TabIndex = 1;
             // 
             // TaskNamePlaceholder
             // 
             TaskNamePlaceholder.Anchor = AnchorStyles.None;
             TaskNamePlaceholder.Font = new Font("Microsoft Sans Serif", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            TaskNamePlaceholder.Location = new Point(29, 25);
-            TaskNamePlaceholder.Margin = new Padding(4, 0, 4, 0);
+            TaskNamePlaceholder.Location = new Point(23, 20);
             TaskNamePlaceholder.Name = "TaskNamePlaceholder";
-            TaskNamePlaceholder.Size = new Size(686, 51);
+            TaskNamePlaceholder.Size = new Size(549, 41);
             TaskNamePlaceholder.TabIndex = 0;
             TaskNamePlaceholder.Text = "Task Name";
             TaskNamePlaceholder.TextAlign = ContentAlignment.MiddleCenter;
@@ -264,18 +250,17 @@
             flowLayoutPanel2.Dock = DockStyle.Top;
             flowLayoutPanel2.FlowDirection = FlowDirection.RightToLeft;
             flowLayoutPanel2.Location = new Point(0, 0);
-            flowLayoutPanel2.Margin = new Padding(4);
             flowLayoutPanel2.Name = "flowLayoutPanel2";
-            flowLayoutPanel2.Size = new Size(736, 39);
+            flowLayoutPanel2.Size = new Size(589, 31);
             flowLayoutPanel2.TabIndex = 0;
             // 
             // pictureBox1
             // 
             pictureBox1.Image = Properties.Resources.Trash;
-            pictureBox1.Location = new Point(686, 4);
-            pictureBox1.Margin = new Padding(0, 4, 12, 4);
+            pictureBox1.Location = new Point(549, 3);
+            pictureBox1.Margin = new Padding(0, 3, 10, 3);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(38, 38);
+            pictureBox1.Size = new Size(30, 30);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
@@ -285,10 +270,9 @@
             // 
             NextTaskDisplayPanel.BackColor = Color.DarkGray;
             NextTaskDisplayPanel.Controls.Add(flowLayoutPanel6);
-            NextTaskDisplayPanel.Location = new Point(74, 370);
-            NextTaskDisplayPanel.Margin = new Padding(4);
+            NextTaskDisplayPanel.Location = new Point(59, 296);
             NextTaskDisplayPanel.Name = "NextTaskDisplayPanel";
-            NextTaskDisplayPanel.Size = new Size(612, 55);
+            NextTaskDisplayPanel.Size = new Size(490, 44);
             NextTaskDisplayPanel.TabIndex = 2;
             // 
             // flowLayoutPanel6
@@ -296,18 +280,17 @@
             flowLayoutPanel6.Controls.Add(NextTaskPlaceholder);
             flowLayoutPanel6.Dock = DockStyle.Top;
             flowLayoutPanel6.Location = new Point(0, 0);
-            flowLayoutPanel6.Margin = new Padding(4);
             flowLayoutPanel6.Name = "flowLayoutPanel6";
-            flowLayoutPanel6.Size = new Size(612, 52);
+            flowLayoutPanel6.Size = new Size(490, 42);
             flowLayoutPanel6.TabIndex = 0;
             // 
             // NextTaskPlaceholder
             // 
             NextTaskPlaceholder.Font = new Font("Microsoft Sans Serif", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            NextTaskPlaceholder.Location = new Point(6, 6);
-            NextTaskPlaceholder.Margin = new Padding(6);
+            NextTaskPlaceholder.Location = new Point(5, 5);
+            NextTaskPlaceholder.Margin = new Padding(5);
             NextTaskPlaceholder.Name = "NextTaskPlaceholder";
-            NextTaskPlaceholder.Size = new Size(606, 35);
+            NextTaskPlaceholder.Size = new Size(485, 28);
             NextTaskPlaceholder.TabIndex = 0;
             NextTaskPlaceholder.Text = "Task Name";
             NextTaskPlaceholder.TextAlign = ContentAlignment.MiddleCenter;
@@ -316,10 +299,9 @@
             // 
             NextTask2DisplayPanel.BackColor = Color.LightGray;
             NextTask2DisplayPanel.Controls.Add(flowLayoutPanel7);
-            NextTask2DisplayPanel.Location = new Point(99, 444);
-            NextTask2DisplayPanel.Margin = new Padding(4);
+            NextTask2DisplayPanel.Location = new Point(79, 355);
             NextTask2DisplayPanel.Name = "NextTask2DisplayPanel";
-            NextTask2DisplayPanel.Size = new Size(562, 55);
+            NextTask2DisplayPanel.Size = new Size(450, 44);
             NextTask2DisplayPanel.TabIndex = 3;
             // 
             // flowLayoutPanel7
@@ -327,18 +309,17 @@
             flowLayoutPanel7.Controls.Add(NextTask2Placeholder);
             flowLayoutPanel7.Dock = DockStyle.Top;
             flowLayoutPanel7.Location = new Point(0, 0);
-            flowLayoutPanel7.Margin = new Padding(4);
             flowLayoutPanel7.Name = "flowLayoutPanel7";
-            flowLayoutPanel7.Size = new Size(562, 52);
+            flowLayoutPanel7.Size = new Size(450, 42);
             flowLayoutPanel7.TabIndex = 0;
             // 
             // NextTask2Placeholder
             // 
             NextTask2Placeholder.Font = new Font("Microsoft Sans Serif", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            NextTask2Placeholder.Location = new Point(6, 6);
-            NextTask2Placeholder.Margin = new Padding(6);
+            NextTask2Placeholder.Location = new Point(5, 5);
+            NextTask2Placeholder.Margin = new Padding(5);
             NextTask2Placeholder.Name = "NextTask2Placeholder";
-            NextTask2Placeholder.Size = new Size(556, 35);
+            NextTask2Placeholder.Size = new Size(445, 28);
             NextTask2Placeholder.TabIndex = 0;
             NextTask2Placeholder.Text = "Task Name";
             NextTask2Placeholder.TextAlign = ContentAlignment.MiddleCenter;
@@ -347,10 +328,9 @@
             // 
             NextTask3DisplayPanel.BackColor = Color.Gainsboro;
             NextTask3DisplayPanel.Controls.Add(flowLayoutPanel8);
-            NextTask3DisplayPanel.Location = new Point(130, 518);
-            NextTask3DisplayPanel.Margin = new Padding(4);
+            NextTask3DisplayPanel.Location = new Point(104, 414);
             NextTask3DisplayPanel.Name = "NextTask3DisplayPanel";
-            NextTask3DisplayPanel.Size = new Size(499, 55);
+            NextTask3DisplayPanel.Size = new Size(399, 44);
             NextTask3DisplayPanel.TabIndex = 4;
             // 
             // flowLayoutPanel8
@@ -358,18 +338,17 @@
             flowLayoutPanel8.Controls.Add(NextTask3Placeholder);
             flowLayoutPanel8.Dock = DockStyle.Top;
             flowLayoutPanel8.Location = new Point(0, 0);
-            flowLayoutPanel8.Margin = new Padding(4);
             flowLayoutPanel8.Name = "flowLayoutPanel8";
-            flowLayoutPanel8.Size = new Size(499, 52);
+            flowLayoutPanel8.Size = new Size(399, 42);
             flowLayoutPanel8.TabIndex = 0;
             // 
             // NextTask3Placeholder
             // 
             NextTask3Placeholder.Font = new Font("Microsoft Sans Serif", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            NextTask3Placeholder.Location = new Point(6, 6);
-            NextTask3Placeholder.Margin = new Padding(6);
+            NextTask3Placeholder.Location = new Point(5, 5);
+            NextTask3Placeholder.Margin = new Padding(5);
             NextTask3Placeholder.Name = "NextTask3Placeholder";
-            NextTask3Placeholder.Size = new Size(490, 35);
+            NextTask3Placeholder.Size = new Size(392, 28);
             NextTask3Placeholder.TabIndex = 0;
             NextTask3Placeholder.Text = "Task Name";
             NextTask3Placeholder.TextAlign = ContentAlignment.MiddleCenter;
@@ -380,29 +359,26 @@
             panel2.Controls.Add(StopButton);
             panel2.Controls.Add(NextTaskButton);
             panel2.Dock = DockStyle.Bottom;
-            panel2.Location = new Point(0, 593);
-            panel2.Margin = new Padding(4);
+            panel2.Location = new Point(0, 474);
             panel2.Name = "panel2";
-            panel2.Size = new Size(790, 116);
+            panel2.Size = new Size(632, 93);
             panel2.TabIndex = 5;
             // 
             // StopButton
             // 
             StopButton.BackColor = Color.DarkGray;
             StopButton.Controls.Add(pictureBox3);
-            StopButton.Location = new Point(316, 20);
-            StopButton.Margin = new Padding(4);
+            StopButton.Location = new Point(253, 16);
             StopButton.Name = "StopButton";
-            StopButton.Size = new Size(75, 75);
+            StopButton.Size = new Size(60, 60);
             StopButton.TabIndex = 10;
             // 
             // pictureBox3
             // 
             pictureBox3.Image = Properties.Resources.Stop;
-            pictureBox3.Location = new Point(6, 6);
-            pictureBox3.Margin = new Padding(4);
+            pictureBox3.Location = new Point(5, 5);
             pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(62, 62);
+            pictureBox3.Size = new Size(50, 50);
             pictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox3.TabIndex = 0;
             pictureBox3.TabStop = false;
@@ -412,19 +388,17 @@
             // 
             NextTaskButton.BackColor = Color.DarkGray;
             NextTaskButton.Controls.Add(pictureBox2);
-            NextTaskButton.Location = new Point(399, 20);
-            NextTaskButton.Margin = new Padding(4);
+            NextTaskButton.Location = new Point(319, 16);
             NextTaskButton.Name = "NextTaskButton";
-            NextTaskButton.Size = new Size(75, 75);
+            NextTaskButton.Size = new Size(60, 60);
             NextTaskButton.TabIndex = 9;
             // 
             // pictureBox2
             // 
             pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(6, 6);
-            pictureBox2.Margin = new Padding(4);
+            pictureBox2.Location = new Point(5, 5);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(62, 62);
+            pictureBox2.Size = new Size(50, 50);
             pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox2.TabIndex = 0;
             pictureBox2.TabStop = false;
@@ -432,7 +406,7 @@
             // 
             // Nitro_FX
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Transparent;
             Controls.Add(panel2);
@@ -443,7 +417,7 @@
             Controls.Add(flowLayoutPanel1);
             Margin = new Padding(0);
             Name = "Nitro_FX";
-            Size = new Size(790, 709);
+            Size = new Size(632, 567);
             Load += Nitro_FX_Load;
             flowLayoutPanel1.ResumeLayout(false);
             panel1.ResumeLayout(false);

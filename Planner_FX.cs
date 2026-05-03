@@ -654,10 +654,8 @@ namespace Inflow
 
         private TaskCard_CMP CreateTaskCardFromTask(Task_BX task)
         {
-            string timePeriod = (task.TimePreference == TimePreference_BX.Morning) ? "Morning" : "Afternoon";
-            // Format duration as HH:MM
-            string duration = $"{task.Duration.Hours:D2}:{task.Duration.Minutes:D2}";
-            var card = new TaskCard_CMP(task.Name, task.Description, timePeriod, duration, task.Priority);
+            // Use the new constructor that takes Task_BX directly
+            var card = new TaskCard_CMP(task);
             card.Tag = task;  // store reference for deletion
             card.DeleteClicked += (s, e) => DeleteTask((TaskCard_CMP)s);
             return card;
@@ -704,8 +702,6 @@ namespace Inflow
                     taskListPanel.Controls.Add(CreateTaskCardFromTask(task));
             }
 
-            
-
             taskListPanel.ResumeLayout(false);
             taskListPanel.PerformLayout();
 
@@ -713,6 +709,7 @@ namespace Inflow
             taskListPanel.AutoScrollPosition = new Point(0, 0);
             taskListPanel.Invalidate();
         }
+
         private void DeleteTask(TaskCard_CMP taskCard)
         {
             if (currentUser == null) return;
@@ -822,9 +819,9 @@ namespace Inflow
                 ColumnCount = 1,
                 RowCount = 2,
                 RowStyles = {
-            new RowStyle(SizeType.Percent, 100F),
-            new RowStyle(SizeType.Absolute, 40F)
-        },
+                    new RowStyle(SizeType.Percent, 100F),
+                    new RowStyle(SizeType.Absolute, 40F)
+                },
                 BackColor = Color.White,
                 Padding = new Padding(0)
             };
@@ -987,6 +984,7 @@ namespace Inflow
         {
             return selectedPriority;
         }
+
         private void EnableDoubleBufferingForAllControls()
         {
             this.SetStyle(ControlStyles.AllPaintingInWmPaint |
@@ -1130,6 +1128,7 @@ namespace Inflow
             var stars = new PictureBox[] { star1, star2, star3, star4, star5 };
             UpdateStarDisplay(stars, selectedPriority);
         }
+
         private void SetupButtonEvents()
         {
             // Create Task button
@@ -1298,10 +1297,5 @@ namespace Inflow
         {
 
         }
-
-        // Then in SetupStarRatingSelection, update the click event:
-        // selectedPriority = rating;
-
-
     }
 }
