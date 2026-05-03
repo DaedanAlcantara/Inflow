@@ -1,6 +1,7 @@
-![CS-211](https://github.com/user-attachments/assets/ebf8983e-81e1-4280-862e-34c90986a0cb)
-<br/>
 # InFlow
+![inflow](https://github.com/DaedanAlcantara/Inflow/blob/master/InFlow%20Header.png?raw=true)
+<br/>
+
 ## Description
 Welcome to InFlow! Keep it in the flow with the desktop task and performance tracking application based in native C# and Windows Forms structure that enables users to create and plan schedules for different tasks throughout the day. 
 Inflow helps users to accomplish tasks -- menial or important -- with the system's time tracker and rapid task flow so you won't miss a task everyday! By incentivising users to keep completing tasks before the time limit, InFlow transforms to-do lists as an efficient, automated routine where finishing tasks can get your Flow Streak to level up.
