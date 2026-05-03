@@ -775,5 +775,10 @@ namespace Inflow
                 RefreshStats();
             }
         }
+
+        private void NextTaskBtn_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

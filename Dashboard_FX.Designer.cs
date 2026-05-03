@@ -48,11 +48,11 @@
             MonthText = new Label();
             CurrentTaskDisplay = new Panel();
             flowLayoutPanel17 = new FlowLayoutPanel();
-            star5 = new PictureBox();
             star1 = new PictureBox();
             star2 = new PictureBox();
             star3 = new PictureBox();
             star4 = new PictureBox();
+            star5 = new PictureBox();
             flowLayoutPanel16 = new FlowLayoutPanel();
             DecriptionText = new Label();
             flowLayoutPanel13 = new FlowLayoutPanel();
@@ -69,6 +69,7 @@
             NameNextTaskText = new Label();
             flowLayoutPanel23 = new FlowLayoutPanel();
             label10 = new Label();
+            NextTaskBtn = new PictureBox();
             flowLayoutPanel6.SuspendLayout();
             flowLayoutPanel7.SuspendLayout();
             flowLayoutPanel1.SuspendLayout();
@@ -89,11 +90,11 @@
             flowLayoutPanel12.SuspendLayout();
             CurrentTaskDisplay.SuspendLayout();
             flowLayoutPanel17.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)star5).BeginInit();
             ((System.ComponentModel.ISupportInitialize)star1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)star2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)star3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)star4).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)star5).BeginInit();
             flowLayoutPanel16.SuspendLayout();
             flowLayoutPanel13.SuspendLayout();
             flowLayoutPanel14.SuspendLayout();
@@ -104,6 +105,7 @@
             NextTaskDisplay.SuspendLayout();
             flowLayoutPanel22.SuspendLayout();
             flowLayoutPanel23.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)NextTaskBtn).BeginInit();
             SuspendLayout();
             // 
             // flowLayoutPanel6
@@ -466,17 +468,6 @@
             flowLayoutPanel17.Size = new Size(398, 44);
             flowLayoutPanel17.TabIndex = 3;
             // 
-            // star5
-            // 
-            star5.Image = Properties.Resources.Rating;
-            star5.Location = new Point(157, 3);
-            star5.Name = "star5";
-            star5.Size = new Size(30, 30);
-            star5.SizeMode = PictureBoxSizeMode.StretchImage;
-            star5.TabIndex = 4;
-            star5.TabStop = false;
-            star5.Click += star5_Click;
-            // 
             // star1
             // 
             star1.Image = Properties.Resources.Rating;
@@ -520,6 +511,17 @@
             star4.TabIndex = 3;
             star4.TabStop = false;
             star4.Click += star4_Click;
+            // 
+            // star5
+            // 
+            star5.Image = Properties.Resources.Rating;
+            star5.Location = new Point(157, 3);
+            star5.Name = "star5";
+            star5.Size = new Size(30, 30);
+            star5.SizeMode = PictureBoxSizeMode.StretchImage;
+            star5.TabIndex = 4;
+            star5.TabStop = false;
+            star5.Click += star5_Click;
             // 
             // flowLayoutPanel16
             // 
@@ -570,6 +572,7 @@
             flowLayoutPanel14.BackColor = Color.Transparent;
             flowLayoutPanel14.Controls.Add(label11);
             flowLayoutPanel14.Controls.Add(pictureBox3);
+            flowLayoutPanel14.Controls.Add(NextTaskBtn);
             flowLayoutPanel14.Dock = DockStyle.Top;
             flowLayoutPanel14.Location = new Point(0, 0);
             flowLayoutPanel14.Name = "flowLayoutPanel14";
@@ -584,14 +587,14 @@
             label11.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label11.Location = new Point(13, 12);
             label11.Name = "label11";
-            label11.Size = new Size(336, 26);
+            label11.Size = new Size(310, 26);
             label11.TabIndex = 0;
             label11.Text = "Current Task";
             // 
             // pictureBox3
             // 
             pictureBox3.Image = Properties.Resources.Trash;
-            pictureBox3.Location = new Point(355, 13);
+            pictureBox3.Location = new Point(329, 13);
             pictureBox3.Name = "pictureBox3";
             pictureBox3.Size = new Size(25, 25);
             pictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -700,6 +703,17 @@
             label10.TabIndex = 0;
             label10.Text = "Next Task";
             // 
+            // NextTaskBtn
+            // 
+            NextTaskBtn.Image = Properties.Resources.End;
+            NextTaskBtn.Location = new Point(360, 13);
+            NextTaskBtn.Name = "NextTaskBtn";
+            NextTaskBtn.Size = new Size(25, 25);
+            NextTaskBtn.SizeMode = PictureBoxSizeMode.StretchImage;
+            NextTaskBtn.TabIndex = 2;
+            NextTaskBtn.TabStop = false;
+            NextTaskBtn.Click += NextTaskBtn_Click;
+            // 
             // Dashboard_FX
             // 
             BackColor = Color.White;
@@ -731,11 +745,11 @@
             flowLayoutPanel12.ResumeLayout(false);
             CurrentTaskDisplay.ResumeLayout(false);
             flowLayoutPanel17.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)star5).EndInit();
             ((System.ComponentModel.ISupportInitialize)star1).EndInit();
             ((System.ComponentModel.ISupportInitialize)star2).EndInit();
             ((System.ComponentModel.ISupportInitialize)star3).EndInit();
             ((System.ComponentModel.ISupportInitialize)star4).EndInit();
+            ((System.ComponentModel.ISupportInitialize)star5).EndInit();
             flowLayoutPanel16.ResumeLayout(false);
             flowLayoutPanel13.ResumeLayout(false);
             flowLayoutPanel14.ResumeLayout(false);
@@ -746,6 +760,7 @@
             NextTaskDisplay.ResumeLayout(false);
             flowLayoutPanel22.ResumeLayout(false);
             flowLayoutPanel23.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)NextTaskBtn).EndInit();
             ResumeLayout(false);
         }
 
@@ -804,5 +819,6 @@
         private PictureBox star4;
         private PictureBox star5;
         private PictureBox pictureBox3;
+        private PictureBox NextTaskBtn;
     }
 }

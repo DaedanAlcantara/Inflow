@@ -40,23 +40,11 @@ namespace Inflow
 
         private FlowLayoutPanel TimePicker1;
         private System.Windows.Forms.Label label4;
-        private FlowLayoutPanel RadioPanel;
-        public RadioButton radioButton1;
-        public RadioButton radioButton2;
         private FlowLayoutPanel flowLayoutPanel6;
-        public RadioButton radioButton7;
-        public RadioButton radioButton8;
         private FlowLayoutPanel flowLayoutPanel5;
-        public RadioButton radioButton5;
-        public RadioButton radioButton6;
-        private FlowLayoutPanel RadioPanel4;
         private FlowLayoutPanel flowLayoutPanel4;
-        public RadioButton radioButton3;
-        public RadioButton radioButton4;
-        private FlowLayoutPanel RadioPanel3;
         private FlowLayoutPanel flowLayoutPanel3;
         private System.Windows.Forms.Label label9;
-        private FlowLayoutPanel RadioPanel2;
         private FlowLayoutPanel flowLayoutPanel2;
         private System.Windows.Forms.Label label8;
         private FlowLayoutPanel TimePicker4;

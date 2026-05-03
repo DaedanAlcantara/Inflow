@@ -196,15 +196,6 @@ namespace Inflow
             pictureBox1 = new PictureBox();
             label1 = new Label();
             panel3 = new Panel();
-            RadioPanel4 = new FlowLayoutPanel();
-            radioButton7 = new RadioButton();
-            radioButton8 = new RadioButton();
-            RadioPanel3 = new FlowLayoutPanel();
-            radioButton5 = new RadioButton();
-            radioButton6 = new RadioButton();
-            RadioPanel2 = new FlowLayoutPanel();
-            radioButton3 = new RadioButton();
-            radioButton4 = new RadioButton();
             TimePicker4 = new FlowLayoutPanel();
             textBox13 = new RoundedTextBox_CMP();
             textBox14 = new RoundedTextBox_CMP();
@@ -226,9 +217,6 @@ namespace Inflow
             label6 = new Label();
             label5 = new Label();
             label3 = new Label();
-            RadioPanel = new FlowLayoutPanel();
-            radioButton1 = new RadioButton();
-            radioButton2 = new RadioButton();
             TimePicker1 = new FlowLayoutPanel();
             MorningStartHour1 = new RoundedTextBox_CMP();
             textBox2 = new RoundedTextBox_CMP();
@@ -242,13 +230,9 @@ namespace Inflow
             panel2.SuspendLayout();
             ((ISupportInitialize)pictureBox1).BeginInit();
             panel3.SuspendLayout();
-            RadioPanel4.SuspendLayout();
-            RadioPanel3.SuspendLayout();
-            RadioPanel2.SuspendLayout();
             TimePicker4.SuspendLayout();
             TimePicker3.SuspendLayout();
             TimePicker2.SuspendLayout();
-            RadioPanel.SuspendLayout();
             TimePicker1.SuspendLayout();
             panel4.SuspendLayout();
             ((ISupportInitialize)nextButton).BeginInit();
@@ -290,7 +274,7 @@ namespace Inflow
             label1.AutoSize = true;
             label1.Font = new Font("Inter", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = SystemColors.ActiveCaptionText;
-            label1.Location = new Point(195, 49);
+            label1.Location = new Point(197, 68);
             label1.Name = "label1";
             label1.Size = new Size(297, 45);
             label1.TabIndex = 2;
@@ -300,16 +284,12 @@ namespace Inflow
             // panel3
             // 
             panel3.BackColor = Color.White;
-            panel3.Controls.Add(RadioPanel4);
-            panel3.Controls.Add(RadioPanel3);
-            panel3.Controls.Add(RadioPanel2);
             panel3.Controls.Add(TimePicker4);
             panel3.Controls.Add(TimePicker3);
             panel3.Controls.Add(TimePicker2);
             panel3.Controls.Add(label6);
             panel3.Controls.Add(label5);
             panel3.Controls.Add(label3);
-            panel3.Controls.Add(RadioPanel);
             panel3.Controls.Add(TimePicker1);
             panel3.Controls.Add(panel4);
             panel3.Controls.Add(label2);
@@ -321,126 +301,6 @@ namespace Inflow
             panel3.TabIndex = 3;
             panel3.Paint += panel3_Paint;
             // 
-            // RadioPanel4
-            // 
-            RadioPanel4.Anchor = AnchorStyles.Top;
-            RadioPanel4.AutoSize = true;
-            RadioPanel4.BackColor = Color.Transparent;
-            RadioPanel4.Controls.Add(radioButton7);
-            RadioPanel4.Controls.Add(radioButton8);
-            RadioPanel4.Location = new Point(294, 616);
-            RadioPanel4.Name = "RadioPanel4";
-            RadioPanel4.Size = new Size(116, 30);
-            RadioPanel4.TabIndex = 17;
-            // 
-            // radioButton7
-            // 
-            radioButton7.Anchor = AnchorStyles.None;
-            radioButton7.AutoSize = true;
-            radioButton7.Location = new Point(3, 3);
-            radioButton7.Name = "radioButton7";
-            radioButton7.Size = new Size(53, 24);
-            radioButton7.TabIndex = 7;
-            radioButton7.TabStop = true;
-            radioButton7.Text = "AM";
-            radioButton7.TextAlign = ContentAlignment.MiddleCenter;
-            radioButton7.UseVisualStyleBackColor = true;
-            radioButton7.CheckedChanged += radioButton7_CheckedChanged;
-            // 
-            // radioButton8
-            // 
-            radioButton8.Anchor = AnchorStyles.None;
-            radioButton8.AutoSize = true;
-            radioButton8.Location = new Point(62, 3);
-            radioButton8.Name = "radioButton8";
-            radioButton8.Size = new Size(51, 24);
-            radioButton8.TabIndex = 8;
-            radioButton8.TabStop = true;
-            radioButton8.Text = "PM";
-            radioButton8.TextAlign = ContentAlignment.MiddleCenter;
-            radioButton8.UseVisualStyleBackColor = true;
-            radioButton8.CheckedChanged += radioButton8_CheckedChanged;
-            // 
-            // RadioPanel3
-            // 
-            RadioPanel3.Anchor = AnchorStyles.Top;
-            RadioPanel3.AutoSize = true;
-            RadioPanel3.BackColor = Color.Transparent;
-            RadioPanel3.Controls.Add(radioButton5);
-            RadioPanel3.Controls.Add(radioButton6);
-            RadioPanel3.Location = new Point(291, 476);
-            RadioPanel3.Name = "RadioPanel3";
-            RadioPanel3.Size = new Size(116, 30);
-            RadioPanel3.TabIndex = 16;
-            // 
-            // radioButton5
-            // 
-            radioButton5.Anchor = AnchorStyles.None;
-            radioButton5.AutoSize = true;
-            radioButton5.Location = new Point(3, 3);
-            radioButton5.Name = "radioButton5";
-            radioButton5.Size = new Size(53, 24);
-            radioButton5.TabIndex = 7;
-            radioButton5.TabStop = true;
-            radioButton5.Text = "AM";
-            radioButton5.TextAlign = ContentAlignment.MiddleCenter;
-            radioButton5.UseVisualStyleBackColor = true;
-            radioButton5.CheckedChanged += radioButton5_CheckedChanged;
-            // 
-            // radioButton6
-            // 
-            radioButton6.Anchor = AnchorStyles.None;
-            radioButton6.AutoSize = true;
-            radioButton6.Location = new Point(62, 3);
-            radioButton6.Name = "radioButton6";
-            radioButton6.Size = new Size(51, 24);
-            radioButton6.TabIndex = 8;
-            radioButton6.TabStop = true;
-            radioButton6.Text = "PM";
-            radioButton6.TextAlign = ContentAlignment.MiddleCenter;
-            radioButton6.UseVisualStyleBackColor = true;
-            radioButton6.CheckedChanged += radioButton6_CheckedChanged;
-            // 
-            // RadioPanel2
-            // 
-            RadioPanel2.Anchor = AnchorStyles.Top;
-            RadioPanel2.AutoSize = true;
-            RadioPanel2.BackColor = Color.Transparent;
-            RadioPanel2.Controls.Add(radioButton3);
-            RadioPanel2.Controls.Add(radioButton4);
-            RadioPanel2.Location = new Point(291, 336);
-            RadioPanel2.Name = "RadioPanel2";
-            RadioPanel2.Size = new Size(116, 30);
-            RadioPanel2.TabIndex = 15;
-            // 
-            // radioButton3
-            // 
-            radioButton3.Anchor = AnchorStyles.None;
-            radioButton3.AutoSize = true;
-            radioButton3.Location = new Point(3, 3);
-            radioButton3.Name = "radioButton3";
-            radioButton3.Size = new Size(53, 24);
-            radioButton3.TabIndex = 7;
-            radioButton3.TabStop = true;
-            radioButton3.Text = "AM";
-            radioButton3.TextAlign = ContentAlignment.MiddleCenter;
-            radioButton3.UseVisualStyleBackColor = true;
-            radioButton3.CheckedChanged += radioButton3_CheckedChanged;
-            // 
-            // radioButton4
-            // 
-            radioButton4.Anchor = AnchorStyles.None;
-            radioButton4.AutoSize = true;
-            radioButton4.Location = new Point(62, 3);
-            radioButton4.Name = "radioButton4";
-            radioButton4.Size = new Size(51, 24);
-            radioButton4.TabIndex = 8;
-            radioButton4.TabStop = true;
-            radioButton4.Text = "PM";
-            radioButton4.TextAlign = ContentAlignment.MiddleCenter;
-            radioButton4.UseVisualStyleBackColor = true;
-            radioButton4.CheckedChanged += radioButton4_CheckedChanged;
-            // 
             // TimePicker4
             // 
             TimePicker4.BackColor = Color.Transparent;
@@ -449,7 +309,7 @@ namespace Inflow
             TimePicker4.Controls.Add(label9);
             TimePicker4.Controls.Add(textBox15);
             TimePicker4.Controls.Add(textBox16);
-            TimePicker4.Location = new Point(249, 553);
+            TimePicker4.Location = new Point(249, 521);
             TimePicker4.Name = "TimePicker4";
             TimePicker4.Size = new Size(201, 49);
             TimePicker4.TabIndex = 14;
@@ -530,7 +390,7 @@ namespace Inflow
             TimePicker3.Controls.Add(label8);
             TimePicker3.Controls.Add(textBox11);
             TimePicker3.Controls.Add(textBox12);
-            TimePicker3.Location = new Point(249, 413);
+            TimePicker3.Location = new Point(249, 392);
             TimePicker3.Name = "TimePicker3";
             TimePicker3.Size = new Size(201, 49);
             TimePicker3.TabIndex = 13;
@@ -689,7 +549,7 @@ namespace Inflow
             label6.Anchor = AnchorStyles.None;
             label6.AutoSize = true;
             label6.Font = new Font("Inter", 9F);
-            label6.Location = new Point(166, 524);
+            label6.Location = new Point(166, 492);
             label6.Margin = new Padding(3, 10, 3, 10);
             label6.Name = "label6";
             label6.Size = new Size(351, 19);
@@ -702,7 +562,7 @@ namespace Inflow
             label5.Anchor = AnchorStyles.None;
             label5.AutoSize = true;
             label5.Font = new Font("Inter", 9F);
-            label5.Location = new Point(166, 384);
+            label5.Location = new Point(166, 363);
             label5.Margin = new Padding(3, 10, 3, 10);
             label5.Name = "label5";
             label5.Size = new Size(356, 19);
@@ -723,46 +583,6 @@ namespace Inflow
             label3.Text = "What time do you end your morning schedule?";
             label3.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // RadioPanel
-            // 
-            RadioPanel.Anchor = AnchorStyles.Top;
-            RadioPanel.AutoSize = true;
-            RadioPanel.BackColor = Color.Transparent;
-            RadioPanel.Controls.Add(radioButton1);
-            RadioPanel.Controls.Add(radioButton2);
-            RadioPanel.Location = new Point(291, 196);
-            RadioPanel.Name = "RadioPanel";
-            RadioPanel.Size = new Size(116, 30);
-            RadioPanel.TabIndex = 5;
-            // 
-            // radioButton1
-            // 
-            radioButton1.Anchor = AnchorStyles.None;
-            radioButton1.AutoSize = true;
-            radioButton1.Location = new Point(3, 3);
-            radioButton1.Name = "radioButton1";
-            radioButton1.Size = new Size(53, 24);
-            radioButton1.TabIndex = 7;
-            radioButton1.TabStop = true;
-            radioButton1.Text = "AM";
-            radioButton1.TextAlign = ContentAlignment.MiddleCenter;
-            radioButton1.UseVisualStyleBackColor = true;
-            radioButton1.CheckedChanged += radioButton1_CheckedChanged;
-            // 
-            // radioButton2
-            // 
-            radioButton2.Anchor = AnchorStyles.None;
-            radioButton2.AutoSize = true;
-            radioButton2.Location = new Point(62, 3);
-            radioButton2.Name = "radioButton2";
-            radioButton2.Size = new Size(51, 24);
-            radioButton2.TabIndex = 8;
-            radioButton2.TabStop = true;
-            radioButton2.Text = "PM";
-            radioButton2.TextAlign = ContentAlignment.MiddleCenter;
-            radioButton2.UseVisualStyleBackColor = true;
-            radioButton2.CheckedChanged += radioButton2_CheckedChanged;
-            // 
             // TimePicker1
             // 
             TimePicker1.BackColor = Color.Transparent;
@@ -771,7 +591,7 @@ namespace Inflow
             TimePicker1.Controls.Add(label4);
             TimePicker1.Controls.Add(textBox3);
             TimePicker1.Controls.Add(textBox4);
-            TimePicker1.Location = new Point(249, 133);
+            TimePicker1.Location = new Point(249, 162);
             TimePicker1.Name = "TimePicker1";
             TimePicker1.Size = new Size(201, 49);
             TimePicker1.TabIndex = 8;
@@ -887,7 +707,7 @@ namespace Inflow
             label2.Anchor = AnchorStyles.None;
             label2.AutoSize = true;
             label2.Font = new Font("Inter", 9F);
-            label2.Location = new Point(171, 104);
+            label2.Location = new Point(171, 133);
             label2.Margin = new Padding(3, 10, 3, 10);
             label2.Name = "label2";
             label2.Size = new Size(346, 19);
@@ -914,20 +734,12 @@ namespace Inflow
             ((ISupportInitialize)pictureBox1).EndInit();
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
-            RadioPanel4.ResumeLayout(false);
-            RadioPanel4.PerformLayout();
-            RadioPanel3.ResumeLayout(false);
-            RadioPanel3.PerformLayout();
-            RadioPanel2.ResumeLayout(false);
-            RadioPanel2.PerformLayout();
             TimePicker4.ResumeLayout(false);
             TimePicker4.PerformLayout();
             TimePicker3.ResumeLayout(false);
             TimePicker3.PerformLayout();
             TimePicker2.ResumeLayout(false);
             TimePicker2.PerformLayout();
-            RadioPanel.ResumeLayout(false);
-            RadioPanel.PerformLayout();
             TimePicker1.ResumeLayout(false);
             TimePicker1.PerformLayout();
             panel4.ResumeLayout(false);
