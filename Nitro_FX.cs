@@ -14,7 +14,6 @@ namespace Inflow
         private int currentTaskIndex = 0;
 
         // Stats Tracking
-        private int consecutiveFinishes = 0;
         private int finishedCount = 0;
         private int droppedCount = 0;
         private bool isPausedByNavigation = false;
@@ -23,8 +22,7 @@ namespace Inflow
         private System.Windows.Forms.Timer taskTimer;
         private bool isPaused = false;
 
-        // Flag to prevent recursive reload
-        private bool isReloading = false;
+
 
         public Nitro_FX()
         {
@@ -122,9 +120,6 @@ namespace Inflow
 
                 taskTimer.Start();
 
-                // Apply the task's permanent CardColor to the current task display panel
-                ApplyCurrentTaskColor(task.CardColor);
-
                 UpdatePriorityStars(task.Priority);
                 UpdateQueuePreview();
                 CenterAllControls();
@@ -171,8 +166,8 @@ namespace Inflow
                 finishedCount++;
                 AppState.TotalFinishedTasks++;
 
-                consecutiveFinishes++;
-                if (consecutiveFinishes % 2 == 0)
+                AppState.ConsecutiveFinishes++;
+                if (AppState.ConsecutiveFinishes % 2 == 0)
                 {
                     AppState.CurrentStreak++;
                 }
@@ -181,7 +176,7 @@ namespace Inflow
             {
                 droppedCount++;
                 AppState.TotalDroppedTasks++;
-                consecutiveFinishes = 0;
+                AppState.ConsecutiveFinishes = 0;
                 AppState.CurrentStreak = 0;
             }
 
@@ -217,6 +212,12 @@ namespace Inflow
                 NextTask2DisplayPanel.BackColor = clearedColor;
             if (NextTask3DisplayPanel != null && !NextTask3DisplayPanel.IsDisposed)
                 NextTask3DisplayPanel.BackColor = clearedColor;
+
+            var mainForm = System.Windows.Forms.Application.OpenForms.OfType<MainWindowMother_FX>().FirstOrDefault();
+            if (mainForm != null)
+            {
+                mainForm.DeactivateNitro();
+            }
         }
 
         // ── Controls Logic (PictureBoxes) ───────────────────────────────────
@@ -293,7 +294,6 @@ namespace Inflow
             if (currentUser == null) return;
             if (currentUser.MorningTasks != null) taskSequence.AddRange(currentUser.MorningTasks);
             if (currentUser.AfternoonTasks != null) taskSequence.AddRange(currentUser.AfternoonTasks);
-            consecutiveFinishes = 0;
         }
 
         private void UpdatePriorityStars(int priority)
@@ -484,12 +484,11 @@ namespace Inflow
         {
             if (currentUser == null) currentUser = AppState.CurrentUser;
 
-            // If no task is active (timer stopped, no current task), reload tasks from user
+            // Only reload tasks if no task is currently in progress (timer not running, no active task index)
             bool isTaskActive = (taskTimer != null && taskTimer.Enabled) ||
                                 (currentTaskIndex < taskSequence.Count && AppState.NitroElapsedSeconds > 0);
-            if (!isTaskActive && !isReloading)
+            if (!isTaskActive)
             {
-                isReloading = true;
                 LoadTasksToQueue();
                 if (taskSequence.Count > 0)
                 {
@@ -500,7 +499,6 @@ namespace Inflow
                 {
                     FinishTask();
                 }
-                isReloading = false;
             }
         }
 
@@ -511,12 +509,11 @@ namespace Inflow
 
             if (this.Visible)
             {
-                // When coming back to Nitro, try to reload tasks if needed
-                SetUser();
-
+                // Resuming – if paused due to navigation, restore timer
                 if (isPausedByNavigation)
                 {
                     isPausedByNavigation = false;
+                    isPaused = false;
                     AppState.NitroElapsedSeconds = pausedRemainingSeconds;
                     UpdateTimerDisplay();
                     taskTimer.Start();
@@ -528,12 +525,13 @@ namespace Inflow
             }
             else
             {
-                // Navigating away – pause if timer running
+                
                 if (taskTimer != null && taskTimer.Enabled)
                 {
                     taskTimer.Stop();
                     isPausedByNavigation = true;
                     pausedRemainingSeconds = AppState.NitroElapsedSeconds;
+                    
                 }
             }
         }

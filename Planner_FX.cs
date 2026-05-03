@@ -652,6 +652,41 @@ namespace Inflow
             return true;
         }
 
+        private bool WouldExceedTimeLimit(TimePreference_BX timePref, TimeSpan newDuration, out string errorMessage)
+        {
+            errorMessage = null;
+            if (currentUser?.Schedule == null)
+            {
+                errorMessage = "User schedule not loaded.";
+                return true;
+            }
+
+            TimeSpan availableTime;
+            IEnumerable<Task_BX> existingTasks;
+            if (timePref == TimePreference_BX.Morning)
+            {
+                availableTime = currentUser.Schedule.MorningEnd - currentUser.Schedule.MorningStart;
+                existingTasks = currentUser.MorningTasks;
+            }
+            else
+            {
+                availableTime = currentUser.Schedule.AfternoonEnd - currentUser.Schedule.AfternoonStart;
+                existingTasks = currentUser.AfternoonTasks;
+            }
+
+            // Sum the duration of existing tasks
+            TimeSpan totalExisting = TimeSpan.Zero;
+            foreach (var task in existingTasks)
+                totalExisting += task.Duration;
+
+            if (totalExisting + newDuration > availableTime)
+            {
+                errorMessage = $"This task would exceed the available time you set.\n" +
+                               $"Available: {availableTime:hh\\:mm}, Existing total: {totalExisting:hh\\:mm}";
+                return true;
+            }
+            return false;
+        }
         private TaskCard_CMP CreateTaskCardFromTask(Task_BX task)
         {
             // Use the new constructor that takes Task_BX directly
@@ -790,6 +825,12 @@ namespace Inflow
             {
                 MessageBox.Show($"Invalid duration: {durationError}", "Validation Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (WouldExceedTimeLimit(timePref, duration, out string timeError))
+            {
+                MessageBox.Show(timeError, "Time Limit Exceeded", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
