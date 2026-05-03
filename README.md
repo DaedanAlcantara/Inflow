@@ -1,5 +1,4 @@
-# InFlow
-![inflow](https://github.com/DaedanAlcantara/Inflow/blob/master/InFlow%20Header.png?raw=true)
+![inflow](https://github.com/DaedanAlcantara/Inflow/blob/master/InFlow%20MD%20Headers/2.png?raw=true)
 <br/>
 
 ![Header1](https://github.com/DaedanAlcantara/Inflow/blob/master/InFlow%20MD%20Headers/3.png?raw=true)
@@ -20,8 +19,12 @@ Planner lets users customize their to-do lists to further optimize and improve t
 Nitro Flow is the star of InFlow's task management. If users want to be in their Flow State while working -- undisturbed and in the zone -- they can use Nitro Flow which is the app's **"Focus Mode"**. 
 In NitroFlow, tasks are automatically timed according to their specifications and if the user is not able to declare tasks as completed before the timer runs out, the task is automatically tagged as dropped and moves onto the next task in the list.
 Furthermore, users are rewarded in Nitro Flow in that completing two tasks consecutively would gain a Flow Streak.
+### Custom Title Bar
 
+### Clean UI Design
 ![Header4](https://github.com/DaedanAlcantara/Inflow/blob/master/InFlow%20MD%20Headers/6.png?raw=true)
+
+
 ![Header5](https://github.com/DaedanAlcantara/Inflow/blob/master/InFlow%20MD%20Headers/7.png?raw=true)
 ### Getting the Repository
 To be able to run the application, please clone or download the given repository and its assets and files. Make sure there are no build errors present before kickstarting. Open the `Inflow.cs` file and run the code to launch the app.
