@@ -2,12 +2,12 @@
 ![inflow](https://github.com/DaedanAlcantara/Inflow/blob/master/InFlow%20Header.png?raw=true)
 <br/>
 
-## Description
+![Header1](https://github.com/DaedanAlcantara/Inflow/blob/master/InFlow%20MD%20Headers/3.png?raw=true)
 Welcome to InFlow! Keep it in the flow with the desktop task and performance tracking application based in native C# and Windows Forms structure that enables users to create and plan schedules for different tasks throughout the day. 
 Inflow helps users to accomplish tasks -- menial or important -- with the system's time tracker and rapid task flow so you won't miss a task everyday! By incentivising users to keep completing tasks before the time limit, InFlow transforms to-do lists as an efficient, automated routine where finishing tasks can get your Flow Streak to level up.
 
-## UML Diagram
-## Features and Functionalities
+![Header2](https://github.com/DaedanAlcantara/Inflow/blob/master/InFlow%20MD%20Headers/4.png?raw=true)
+![Header3](https://github.com/DaedanAlcantara/Inflow/blob/master/InFlow%20MD%20Headers/5.png?raw=true)
 ### Dashboard
 InFlow boasts a **comprehensive and functional dashboard** that has everything you need in one go! The dashboard tracks the user's completed and dropped tasks, as well as your **Flow Streak** and tasks to be done. Additionaly, the dashboard has a **real-time integrated time and date display** so that users can quickly track of time during tasks.
 The Dashboard's Flow Streak is the app's **incentive system** where once a user is able to finish three tasks consecutively, the system counts that as one Flow Streak. After emptying the planner, the streak is saved until the next deployment. However, if the user is to break the flow by dropping a task, the Streak drops back to zero.
@@ -19,8 +19,8 @@ Nitro Flow is the star of InFlow's task management. If users want to be in their
 In NitroFlow, tasks are automatically timed according to their specifications and if the user is not able to declare tasks as completed before the timer runs out, the task is automatically tagged as dropped and moves onto the next task in the list.
 Furthermore, users are rewarded in Nitro Flow in that completing two tasks consecutively would gain a Flow Streak.
 
-## How it Works
-## How to Run
+![Header4](https://github.com/DaedanAlcantara/Inflow/blob/master/InFlow%20MD%20Headers/6.png?raw=true)
+![Header5](https://github.com/DaedanAlcantara/Inflow/blob/master/InFlow%20MD%20Headers/7.png?raw=true)
 ### Getting the Repository
 To be able to run the application, please clone or download the given repository and its assets and files. Make sure there are no build errors present before kickstarting. Open the `Inflow.cs` file and run the code to launch the app.
 ```
@@ -102,11 +102,10 @@ The InFlow app utlize on custom files as its graphic resources and assets. Some 
 └── 📄README.md
 ```
 
-## Developers
+![Header6](https://github.com/DaedanAlcantara/Inflow/blob/master/InFlow%20MD%20Headers/8.png?raw=true)
+
 |Name|  Role|  Github |
 |--|--|--|
-| Rheman Pasia |  Back-End Developer / Researcher| https://github.com/riri-cpp|
+| Rheman Pasia |  Back-End Developer / Researcher| https://github.com/riri-cpp |
 | Daedan Alcantara| UI/UX Designer |https://github.com/DaedanAlcantara |
 | Nicole Hepuller | Developer  |https://github.com/katenicolehepuller |
-
-
