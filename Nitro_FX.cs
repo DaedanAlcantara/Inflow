@@ -14,15 +14,17 @@ namespace Inflow
         private int currentTaskIndex = 0;
 
         // Stats Tracking
-        private int consecutiveFinishes = 0;   // counts consecutive finished tasks without a drop
+        private int consecutiveFinishes = 0;
         private int finishedCount = 0;
         private int droppedCount = 0;
-        private bool isPausedByNavigation = false;   // true when paused because we navigated away
-        private int pausedRemainingSeconds = 0;      // store remaining seconds when paused by navigation
-        private bool tasksLoaded = false;
+        private bool isPausedByNavigation = false;
+        private int pausedRemainingSeconds = 0;
 
         private System.Windows.Forms.Timer taskTimer;
         private bool isPaused = false;
+
+        // Flag to prevent recursive reload
+        private bool isReloading = false;
 
         public Nitro_FX()
         {
@@ -46,6 +48,7 @@ namespace Inflow
                 FinishTask();
             }
 
+            SetUser();               // load tasks if needed
             CenterAllControls();
         }
 
@@ -65,9 +68,7 @@ namespace Inflow
             if (AppState.NitroElapsedSeconds <= 0)
             {
                 taskTimer.Stop();
-
                 MessageBox.Show("Time is up! Task dropped.", "Inflow Nitro", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-
                 AdvanceTask(isFinished: false);
                 return;
             }
@@ -132,22 +133,22 @@ namespace Inflow
                 AppState.TotalFinishedTasks++;
 
                 consecutiveFinishes++;
-                if(consecutiveFinishes % 2 == 0 ) {
-
+                if (consecutiveFinishes % 2 == 0)
+                {
                     AppState.CurrentStreak++;
                 }
-                var mainForm = System.Windows.Forms.Application.OpenForms.OfType<MainWindowMother_FX>().FirstOrDefault();
-                mainForm?.RefreshDashboardStats();
             }
             else
             {
                 droppedCount++;
                 AppState.TotalDroppedTasks++;
-                consecutiveFinishes = 0;   // reset streak on drop
+                consecutiveFinishes = 0;
                 AppState.CurrentStreak = 0;
-                var mainForm = System.Windows.Forms.Application.OpenForms.OfType<MainWindowMother_FX>().FirstOrDefault();
-                mainForm?.RefreshDashboardStats();
             }
+
+            // Refresh Dashboard counters immediately
+            var mainForm = System.Windows.Forms.Application.OpenForms.OfType<MainWindowMother_FX>().FirstOrDefault();
+            mainForm?.RefreshCurrentContent();
 
             currentUser?.RemoveTask(taskSequence[currentTaskIndex]);
 
@@ -169,8 +170,7 @@ namespace Inflow
         }
 
         // ── Controls Logic (PictureBoxes) ───────────────────────────────────
-
-        private void pictureBox1_Click(object sender, EventArgs e) // Btn Drop
+        private void pictureBox1_Click(object sender, EventArgs e) // Drop
         {
             taskTimer.Stop();
             DialogResult result = MessageBox.Show("Are you sure you want to drop this task?",
@@ -186,7 +186,7 @@ namespace Inflow
             }
         }
 
-        private void pictureBox2_Click(object sender, EventArgs e) // Next Button
+        private void pictureBox2_Click(object sender, EventArgs e) // Next (Finish)
         {
             taskTimer.Stop();
             DialogResult result = MessageBox.Show("Mark this task as finished and move to the next?",
@@ -202,13 +202,13 @@ namespace Inflow
             }
         }
 
-        private void pictureBox3_Click(object sender, EventArgs e) // Stop Button
+        private void pictureBox3_Click(object sender, EventArgs e) // Pause/Resume
         {
             if (!isPaused)
             {
                 taskTimer.Stop();
                 isPaused = true;
-                isPausedByNavigation = false;   // user manually paused, so navigation flag is irrelevant
+                isPausedByNavigation = false;
 
                 if (TimePlaceholderText != null)
                 {
@@ -231,7 +231,7 @@ namespace Inflow
         private void ResumeTask()
         {
             isPaused = false;
-            isPausedByNavigation = false;   // also clear navigation flag
+            isPausedByNavigation = false;
             if (TimePlaceholderText != null) TimePlaceholderText.ForeColor = Color.White;
             UpdateTimerDisplay();
             taskTimer.Start();
@@ -243,7 +243,6 @@ namespace Inflow
             if (currentUser == null) return;
             if (currentUser.MorningTasks != null) taskSequence.AddRange(currentUser.MorningTasks);
             if (currentUser.AfternoonTasks != null) taskSequence.AddRange(currentUser.AfternoonTasks);
-
             consecutiveFinishes = 0;
         }
 
@@ -263,6 +262,8 @@ namespace Inflow
             if (NextTask3Placeholder != null)
                 NextTask3Placeholder.Text = (currentTaskIndex + 3 < taskSequence.Count) ? taskSequence[currentTaskIndex + 3].Name : "---";
         }
+
+        // ── Layout Methods (unchanged) ───────────────────────────────────────
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
@@ -428,9 +429,29 @@ namespace Inflow
             }
         }
 
+        // ── User management and navigation handling ───────────────────────────
         internal void SetUser()
         {
             if (currentUser == null) currentUser = AppState.CurrentUser;
+
+            // If no task is active (timer stopped, no current task), reload tasks from user
+            bool isTaskActive = (taskTimer != null && taskTimer.Enabled) ||
+                                (currentTaskIndex < taskSequence.Count && AppState.NitroElapsedSeconds > 0);
+            if (!isTaskActive && !isReloading)
+            {
+                isReloading = true;
+                LoadTasksToQueue();
+                if (taskSequence.Count > 0)
+                {
+                    currentTaskIndex = 0;
+                    DisplayCurrentTask();
+                }
+                else
+                {
+                    FinishTask();
+                }
+                isReloading = false;
+            }
         }
 
         protected override void OnVisibleChanged(EventArgs e)
@@ -440,7 +461,9 @@ namespace Inflow
 
             if (this.Visible)
             {
-                // Resuming – if we had paused due to navigation, restore timer
+                // When coming back to Nitro, try to reload tasks if needed
+                SetUser();
+
                 if (isPausedByNavigation)
                 {
                     isPausedByNavigation = false;
@@ -448,7 +471,6 @@ namespace Inflow
                     UpdateTimerDisplay();
                     taskTimer.Start();
                 }
-                // Also, if timer is not running but there is an active task (not cleared) and not manually paused, restart
                 else if (taskTimer != null && !taskTimer.Enabled && !isPaused && currentTaskIndex < taskSequence.Count && AppState.NitroElapsedSeconds > 0)
                 {
                     taskTimer.Start();
@@ -456,7 +478,7 @@ namespace Inflow
             }
             else
             {
-                // Becoming invisible – pause only if timer is running (and not already manually paused)
+                // Navigating away – pause if timer running
                 if (taskTimer != null && taskTimer.Enabled)
                 {
                     taskTimer.Stop();
