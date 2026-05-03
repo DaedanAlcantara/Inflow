@@ -246,16 +246,31 @@ namespace Inflow
             flowLayoutPanel14.Height = 40;
             flowLayoutPanel14.Dock = DockStyle.Top;
 
+            // Configure Current Task label
             label11.AutoSize = false;
-            label11.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
+            label11.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label11.TextAlign = ContentAlignment.MiddleLeft;
             label11.Height = flowLayoutPanel14.Height;
 
-            pictureBox3.Anchor = AnchorStyles.Right | AnchorStyles.Top;
+            // Configure trash button
             pictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox3.Width = 25;
-            pictureBox3.Height = 25;
             pictureBox3.Visible = true;
+            pictureBox3.Anchor = AnchorStyles.None;
+
+            // Configure NextTaskBtn
+            if (NextTaskBtn != null)
+            {
+                NextTaskBtn.SizeMode = PictureBoxSizeMode.StretchImage;
+                NextTaskBtn.Visible = true;
+                NextTaskBtn.BackColor = Color.Transparent;
+                NextTaskBtn.Anchor = AnchorStyles.None;
+            }
+
+            // Set control order (label first, then trash, then next button)
+            flowLayoutPanel14.Controls.SetChildIndex(label11, 0);
+            flowLayoutPanel14.Controls.SetChildIndex(pictureBox3, 1);
+            flowLayoutPanel14.Controls.SetChildIndex(NextTaskBtn, 2);
+
             flowLayoutPanel14.ResumeLayout(false);
 
             // Greeting section
@@ -326,8 +341,8 @@ namespace Inflow
 
             // Main flow containers
             foreach (var flp in new[] { flowLayoutPanel6, flowLayoutPanel7,
-                                        flowLayoutPanel1, flowLayoutPanel10,
-                                        flowLayoutPanel18 })
+                                flowLayoutPanel1, flowLayoutPanel10,
+                                flowLayoutPanel18 })
             {
                 if (flp != null)
                 {
@@ -424,6 +439,15 @@ namespace Inflow
                 _resizeDebounceTimer.Stop();
                 _resizeDebounceTimer.Start();
             }
+
+            // Update header layout on resize using BeginInvoke to ensure proper timing
+            this.BeginInvoke(new Action(() =>
+            {
+                if (!this.IsDisposed && flowLayoutPanel14 != null && !flowLayoutPanel14.IsDisposed)
+                {
+                    UpdateCurrentTaskHeaderLayout();
+                }
+            }));
         }
 
         public void ResizeContent()
@@ -507,7 +531,9 @@ namespace Inflow
                     panelWidth3, panelHeight3, panelMargin);
 
                 SetLabelWidths();
-                FixCurrentTaskHeaderLayout();
+
+                // Integrated Current Task header layout
+                UpdateCurrentTaskHeaderLayout();
 
                 UpdateDynamicFontSizes(statsHeight, currentTaskHeight, timeHeight);
             }
@@ -522,20 +548,43 @@ namespace Inflow
             }
         }
 
-        private void FixCurrentTaskHeaderLayout()
+        private void UpdateCurrentTaskHeaderLayout()
         {
             if (flowLayoutPanel14 == null || label11 == null || pictureBox3 == null) return;
 
+            if (flowLayoutPanel14.InvokeRequired)
+            {
+                flowLayoutPanel14.Invoke(new Action(UpdateCurrentTaskHeaderLayout));
+                return;
+            }
+
             flowLayoutPanel14.SuspendLayout();
 
-            label11.Width = flowLayoutPanel14.Width - pictureBox3.Width - 30;
+            int buttonSize = 25;
+            int totalButtonsWidth = (buttonSize * 2) + 15; // buttons + margins
+
+            // Update label width to fill available space
+            label11.Width = Math.Max(50, flowLayoutPanel14.Width - totalButtonsWidth - 30);
             label11.Height = flowLayoutPanel14.Height;
 
-            pictureBox3.Location = new Point(
-                flowLayoutPanel14.Width - pictureBox3.Width - 10,
-                (flowLayoutPanel14.Height - pictureBox3.Height) / 2);
+            // Update trash button position and size
+            pictureBox3.Size = new Size(buttonSize, buttonSize);
+            pictureBox3.Margin = new Padding(0, (flowLayoutPanel14.Height - buttonSize) / 2, 5, 0);
+
+            // Update NextTaskBtn position and size
+            if (NextTaskBtn != null && !NextTaskBtn.IsDisposed)
+            {
+                NextTaskBtn.Size = new Size(buttonSize, buttonSize);
+                NextTaskBtn.Margin = new Padding(0, (flowLayoutPanel14.Height - buttonSize) / 2, 10, 0);
+            }
+
+            // Ensure correct control order
+            flowLayoutPanel14.Controls.SetChildIndex(label11, 0);
+            flowLayoutPanel14.Controls.SetChildIndex(pictureBox3, 1);
+            flowLayoutPanel14.Controls.SetChildIndex(NextTaskBtn, 2);
 
             flowLayoutPanel14.ResumeLayout(false);
+            flowLayoutPanel14.PerformLayout();
         }
 
         private void ApplyTwoPanelSizesEven(Control[] panels, int width, int height, int margin)
@@ -578,12 +627,20 @@ namespace Inflow
             SetLabelSize(MonthText, flowLayoutPanel12, widthOffset: 20, heightOffset: 0);
             SetLabelSize(DayText, flowLayoutPanel11, widthOffset: 20, heightOffset: 0);
             SetLabelSize(YearText, flowLayoutPanel15, widthOffset: 20, heightOffset: 0);
-            SetLabelSize(label11, flowLayoutPanel14, widthOffset: 20, heightOffset: 0);
             SetLabelSize(NameTaskText, flowLayoutPanel13, widthOffset: 20, heightOffset: 0);
             SetLabelSize(DecriptionText, flowLayoutPanel16, widthOffset: 20, heightOffset: 0);
             SetLabelSize(Timetext, flowLayoutPanel21, widthOffset: 20, heightOffset: 0);
             SetLabelSize(label10, flowLayoutPanel23, widthOffset: 20, heightOffset: 0);
             SetLabelSize(NameNextTaskText, flowLayoutPanel22, widthOffset: 20, heightOffset: 0);
+
+            // Update Current Task header label size
+            if (label11 != null && flowLayoutPanel14 != null && !label11.IsDisposed && !flowLayoutPanel14.IsDisposed)
+            {
+                int buttonSize = 25;
+                int totalButtonsWidth = (buttonSize * 2) + 15;
+                label11.Width = Math.Max(50, flowLayoutPanel14.Width - totalButtonsWidth - 30);
+                label11.Height = flowLayoutPanel14.Height;
+            }
 
             if (label2 != null && flowLayoutPanel3 != null && pictureBox1 != null)
             {
@@ -753,6 +810,7 @@ namespace Inflow
             if (allTasks.Count == 0) return null;
             return allTasks[0];
         }
+
         private void pictureBox3_Click(object sender, EventArgs e)
         {
             // Get the current task

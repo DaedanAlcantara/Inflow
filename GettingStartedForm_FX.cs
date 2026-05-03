@@ -18,10 +18,16 @@ namespace Inflow
 
         public GettingStartedForm_FX(string username)
         {
+            InitializeComponent();
             Username = username;
             BuildUI();
             this.StartPosition = FormStartPosition.CenterScreen;
             this.MaximumSize = this.MinimumSize = this.Size;
+        }
+        private void InitializeComponent()
+        {
+            // Initalize all child textboxes in each time row to avoid designer issues
+
         }
 
         private void BuildUI()
@@ -94,14 +100,28 @@ namespace Inflow
                 Location = new Point(166, 492)
             };
 
-            // Helper to add a time row
+            // Helper to add a time row with formatting and center alignment
             RoundedTextBox_CMP[] AddTimeRow(int x, int y)
             {
                 var hhTens = new RoundedTextBox_CMP { Size = new Size(36, 46), Location = new Point(x, y) };
                 var hhUnits = new RoundedTextBox_CMP { Size = new Size(36, 46), Location = new Point(x + 42, y) };
-                var colon = new Label { Text = ":", Font = new Font("Microsoft Sans Serif", 18F), AutoSize = false, Size = new Size(20, 36), TextAlign = ContentAlignment.MiddleCenter, Location = new Point(x + 84, y + 8) };
+                var colon = new Label { Text = ":", Font = new Font("Inter Light", 18F), AutoSize = false, Size = new Size(20, 36), TextAlign = ContentAlignment.MiddleCenter, Location = new Point(x + 84, y+15) };
                 var mmTens = new RoundedTextBox_CMP { Size = new Size(36, 46), Location = new Point(x + 113, y) };
                 var mmUnits = new RoundedTextBox_CMP { Size = new Size(36, 46), Location = new Point(x + 155, y) };
+
+                // Apply formatting and center alignment to all textboxes in this row
+                var textBoxes = new[] { hhTens, hhUnits, mmTens, mmUnits };
+                foreach (var box in textBoxes)
+                {
+                    box.Anchor = AnchorStyles.None;
+                    box.BackColor = SystemColors.ControlLight;
+                    box.Font = new Font("Inter Light", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+                    box.ForeColor = SystemColors.WindowText;
+                    box.TextAlign = HorizontalAlignment.Center;  // Center text horizontally
+                    box.Margin = new Padding(0, 0, 0, 15);  // Add vertical padding to center text vertically
+                    box.Text = "";  // Clear any default text
+                }
+
                 panel3.Controls.AddRange(new Control[] { hhTens, hhUnits, colon, mmTens, mmUnits });
                 return new[] { hhTens, hhUnits, mmTens, mmUnits };
             }

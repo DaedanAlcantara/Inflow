@@ -60,6 +60,7 @@
             flowLayoutPanel14 = new FlowLayoutPanel();
             label11 = new Label();
             pictureBox3 = new PictureBox();
+            NextTaskBtn = new PictureBox();
             flowLayoutPanel18 = new FlowLayoutPanel();
             TimeDisplayPanel = new Panel();
             flowLayoutPanel21 = new FlowLayoutPanel();
@@ -69,7 +70,6 @@
             NameNextTaskText = new Label();
             flowLayoutPanel23 = new FlowLayoutPanel();
             label10 = new Label();
-            NextTaskBtn = new PictureBox();
             flowLayoutPanel6.SuspendLayout();
             flowLayoutPanel7.SuspendLayout();
             flowLayoutPanel1.SuspendLayout();
@@ -99,13 +99,13 @@
             flowLayoutPanel13.SuspendLayout();
             flowLayoutPanel14.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)NextTaskBtn).BeginInit();
             flowLayoutPanel18.SuspendLayout();
             TimeDisplayPanel.SuspendLayout();
             flowLayoutPanel21.SuspendLayout();
             NextTaskDisplay.SuspendLayout();
             flowLayoutPanel22.SuspendLayout();
             flowLayoutPanel23.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)NextTaskBtn).BeginInit();
             SuspendLayout();
             // 
             // flowLayoutPanel6
@@ -587,20 +587,31 @@
             label11.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label11.Location = new Point(13, 12);
             label11.Name = "label11";
-            label11.Size = new Size(310, 26);
+            label11.Size = new Size(259, 26);
             label11.TabIndex = 0;
             label11.Text = "Current Task";
             // 
             // pictureBox3
             // 
             pictureBox3.Image = Properties.Resources.Trash;
-            pictureBox3.Location = new Point(329, 13);
+            pictureBox3.Location = new Point(278, 13);
             pictureBox3.Name = "pictureBox3";
             pictureBox3.Size = new Size(25, 25);
             pictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox3.TabIndex = 1;
             pictureBox3.TabStop = false;
             pictureBox3.Click += pictureBox3_Click;
+            // 
+            // NextTaskBtn
+            // 
+            NextTaskBtn.Image = Properties.Resources.End;
+            NextTaskBtn.Location = new Point(309, 13);
+            NextTaskBtn.Name = "NextTaskBtn";
+            NextTaskBtn.Size = new Size(25, 25);
+            NextTaskBtn.SizeMode = PictureBoxSizeMode.StretchImage;
+            NextTaskBtn.TabIndex = 2;
+            NextTaskBtn.TabStop = false;
+            NextTaskBtn.Click += NextTaskBtn_Click;
             // 
             // flowLayoutPanel18
             // 
@@ -703,17 +714,6 @@
             label10.TabIndex = 0;
             label10.Text = "Next Task";
             // 
-            // NextTaskBtn
-            // 
-            NextTaskBtn.Image = Properties.Resources.End;
-            NextTaskBtn.Location = new Point(360, 13);
-            NextTaskBtn.Name = "NextTaskBtn";
-            NextTaskBtn.Size = new Size(25, 25);
-            NextTaskBtn.SizeMode = PictureBoxSizeMode.StretchImage;
-            NextTaskBtn.TabIndex = 2;
-            NextTaskBtn.TabStop = false;
-            NextTaskBtn.Click += NextTaskBtn_Click;
-            // 
             // Dashboard_FX
             // 
             BackColor = Color.White;
@@ -754,13 +754,13 @@
             flowLayoutPanel13.ResumeLayout(false);
             flowLayoutPanel14.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)NextTaskBtn).EndInit();
             flowLayoutPanel18.ResumeLayout(false);
             TimeDisplayPanel.ResumeLayout(false);
             flowLayoutPanel21.ResumeLayout(false);
             NextTaskDisplay.ResumeLayout(false);
             flowLayoutPanel22.ResumeLayout(false);
             flowLayoutPanel23.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)NextTaskBtn).EndInit();
             ResumeLayout(false);
         }
 
