@@ -50,6 +50,17 @@ namespace Inflow
 
             SetUser();               // load tasks if needed
             CenterAllControls();
+
+            // Delay to ensure layout is fully settled before colors are painted
+            System.Windows.Forms.Timer colorTimer = new System.Windows.Forms.Timer { Interval = 100 };
+            colorTimer.Tick += (s, ev) =>
+            {
+                colorTimer.Stop();
+                colorTimer.Dispose();
+                if (!this.IsDisposed && currentTaskIndex < taskSequence.Count)
+                    ApplyCurrentTaskColor(taskSequence[currentTaskIndex].CardColor);
+            };
+            colorTimer.Start();
         }
 
         private void SetupTimer()
@@ -111,6 +122,9 @@ namespace Inflow
 
                 taskTimer.Start();
 
+                // Apply the task's permanent CardColor to the current task display panel
+                ApplyCurrentTaskColor(task.CardColor);
+
                 UpdatePriorityStars(task.Priority);
                 UpdateQueuePreview();
                 CenterAllControls();
@@ -119,6 +133,31 @@ namespace Inflow
             {
                 FinishTask();
             }
+        }
+
+        // Apply CardColor to CurrentTaskDisplayPanel and derive tinted colors for queue panels
+        private void ApplyCurrentTaskColor(Color taskColor)
+        {
+            if (CurrentTaskDisplayPanel != null && !CurrentTaskDisplayPanel.IsDisposed)
+                CurrentTaskDisplayPanel.BackColor = taskColor;
+
+            // Tint the queue preview panels with a lightened version of the same color
+            Color queueColor = LightenColor(taskColor, 0.4f);
+            if (NextTaskDisplayPanel != null && !NextTaskDisplayPanel.IsDisposed)
+                NextTaskDisplayPanel.BackColor = queueColor;
+            if (NextTask2DisplayPanel != null && !NextTask2DisplayPanel.IsDisposed)
+                NextTask2DisplayPanel.BackColor = queueColor;
+            if (NextTask3DisplayPanel != null && !NextTask3DisplayPanel.IsDisposed)
+                NextTask3DisplayPanel.BackColor = queueColor;
+        }
+
+        // Blend a color toward white by the given factor (0 = original, 1 = white)
+        private Color LightenColor(Color color, float factor)
+        {
+            int r = color.R + (int)((255 - color.R) * factor);
+            int g = color.G + (int)((255 - color.G) * factor);
+            int b = color.B + (int)((255 - color.B) * factor);
+            return Color.FromArgb(Math.Min(255, r), Math.Min(255, g), Math.Min(255, b));
         }
 
         private void AdvanceTask(bool isFinished)
@@ -167,6 +206,17 @@ namespace Inflow
                 TimePlaceholderText.ForeColor = Color.White;
                 panel1.BackColor = Color.Green;
             }
+
+            // Reset display panels to neutral color when all tasks are done
+            Color clearedColor = ColorTranslator.FromHtml("#E5FFE5"); // Soft green to match "cleared" state
+            if (CurrentTaskDisplayPanel != null && !CurrentTaskDisplayPanel.IsDisposed)
+                CurrentTaskDisplayPanel.BackColor = clearedColor;
+            if (NextTaskDisplayPanel != null && !NextTaskDisplayPanel.IsDisposed)
+                NextTaskDisplayPanel.BackColor = clearedColor;
+            if (NextTask2DisplayPanel != null && !NextTask2DisplayPanel.IsDisposed)
+                NextTask2DisplayPanel.BackColor = clearedColor;
+            if (NextTask3DisplayPanel != null && !NextTask3DisplayPanel.IsDisposed)
+                NextTask3DisplayPanel.BackColor = clearedColor;
         }
 
         // ── Controls Logic (PictureBoxes) ───────────────────────────────────

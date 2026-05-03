@@ -144,6 +144,16 @@ namespace Inflow
 
                 ResizeContent();
                 this.Refresh();
+
+                // Delay to ensure layout is fully settled before applying task colors
+                System.Windows.Forms.Timer colorTimer = new System.Windows.Forms.Timer { Interval = 100 };
+                colorTimer.Tick += (s2, e2) =>
+                {
+                    colorTimer.Stop();
+                    colorTimer.Dispose();
+                    RefreshAll();
+                };
+                colorTimer.Start();
             }
         }
 
@@ -175,8 +185,7 @@ namespace Inflow
             if (DateDisplayPanel != null && !DateDisplayPanel.IsDisposed)
                 DateDisplayPanel.BackColor = ColorTranslator.FromHtml("#C96BFF");
 
-            if (CurrentTaskDisplay != null && !CurrentTaskDisplay.IsDisposed)
-                CurrentTaskDisplay.BackColor = ColorTranslator.FromHtml("#B38DFF");
+            // CurrentTaskDisplay color is set dynamically in UpdateCurrentAndNextTasks — not set here
 
             if (TimeDisplayPanel != null && !TimeDisplayPanel.IsDisposed)
                 TimeDisplayPanel.BackColor = ColorTranslator.FromHtml("#FFBCF0");
@@ -312,7 +321,7 @@ namespace Inflow
             DayText.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             DayText.TextAlign = ContentAlignment.MiddleLeft;
             YearText.AutoSize = false;
-            YearText.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            DayText.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             YearText.TextAlign = ContentAlignment.MiddleLeft;
 
             // Current task
@@ -410,19 +419,25 @@ namespace Inflow
         internal void SetUser()
         {
             currentUser = AppState.CurrentUser;
-            if (currentUser != null && !isInitializing)
+            if (currentUser != null)
             {
                 NamePlaceholder.Text = currentUser.Username;
-                RefreshAll();
+
+                // FIX: Force immediate refresh even during initialization
+                if (this.IsHandleCreated && !this.IsDisposed)
+                {
+                    this.BeginInvoke(new Action(() =>
+                    {
+                        if (!this.IsDisposed && CurrentTaskDisplay != null)
+                        {
+                            RefreshAll();
+                        }
+                    }));
+                }
             }
         }
 
-        protected override void OnVisibleChanged(EventArgs e)
-        {
-            base.OnVisibleChanged(e);
-            if (this.Visible && !isInitializing)
-                RefreshAll();
-        }
+
 
         protected override void OnGotFocus(EventArgs e)
         {
@@ -717,10 +732,14 @@ namespace Inflow
 
                 if (allTasks.Count > 0 && NameTaskText != null && !NameTaskText.IsDisposed)
                 {
-                    NameTaskText.Text = allTasks[0].Name;
+                    Task_BX currentTask = allTasks[0];
+                    NameTaskText.Text = currentTask.Name;
                     if (DecriptionText != null && !DecriptionText.IsDisposed)
-                        DecriptionText.Text = allTasks[0].Description ?? "";
-                    SetStars(allTasks[0].Priority);
+                        DecriptionText.Text = currentTask.Description ?? "";
+                    SetStars(currentTask.Priority);
+
+                    // NEW: Update the CurrentTaskDisplay panel color to match the task's card color
+                    UpdateCurrentTaskDisplayColor(currentTask.CardColor);
                 }
                 else
                 {
@@ -729,6 +748,9 @@ namespace Inflow
                     if (DecriptionText != null && !DecriptionText.IsDisposed)
                         DecriptionText.Text = "";
                     SetStars(0);
+
+                    // NEW: Reset to default color when no tasks
+                    ResetCurrentTaskDisplayColor();
                 }
 
                 if (NameNextTaskText != null && !NameNextTaskText.IsDisposed)
@@ -738,6 +760,45 @@ namespace Inflow
             {
                 System.Diagnostics.Debug.WriteLine($"Error in UpdateCurrentAndNextTasks: {ex.Message}");
             }
+        }
+
+        // NEW: Method to update CurrentTaskDisplay color based on task's card color
+        private void UpdateCurrentTaskDisplayColor(Color taskColor)
+        {
+            if (CurrentTaskDisplay != null && !CurrentTaskDisplay.IsDisposed)
+            {
+                CurrentTaskDisplay.BackColor = taskColor;
+
+                // Optional: Adjust text colors for better contrast based on background
+                // You can calculate luminance and adjust text colors accordingly
+                if (NameTaskText != null && !NameTaskText.IsDisposed)
+                    NameTaskText.ForeColor = GetContrastColor(taskColor);
+                if (DecriptionText != null && !DecriptionText.IsDisposed)
+                    DecriptionText.ForeColor = GetContrastColor(taskColor);
+            }
+        }
+
+        // NEW: Reset to default color
+        private void ResetCurrentTaskDisplayColor()
+        {
+            if (CurrentTaskDisplay != null && !CurrentTaskDisplay.IsDisposed)
+                CurrentTaskDisplay.BackColor = ColorTranslator.FromHtml("#B38DFF");
+
+            // Reset text colors to default
+            if (NameTaskText != null && !NameTaskText.IsDisposed)
+                NameTaskText.ForeColor = SystemColors.ControlText;
+            if (DecriptionText != null && !DecriptionText.IsDisposed)
+                DecriptionText.ForeColor = SystemColors.ControlText;
+        }
+
+        // NEW: Helper method to determine contrasting text color (black or white)
+        private Color GetContrastColor(Color backgroundColor)
+        {
+            // Calculate luminance - formula: (0.299*R + 0.587*G + 0.114*B)
+            double luminance = (0.299 * backgroundColor.R + 0.587 * backgroundColor.G + 0.114 * backgroundColor.B) / 255;
+
+            // Return white for dark backgrounds, black for light backgrounds
+            return luminance > 0.5 ? Color.Black : Color.White;
         }
 
         private void SetStars(int priority)
@@ -878,6 +939,73 @@ namespace Inflow
 
             // Refresh dashboard
             RefreshAll();
+        }
+
+        public void ForceRefreshDashboard()
+        {
+            if (this.IsDisposed) return;
+
+            if (this.InvokeRequired)
+            {
+                this.BeginInvoke(new Action(ForceRefreshDashboard));
+                return;
+            }
+
+            currentUser = AppState.CurrentUser;
+            if (currentUser != null)
+            {
+                NamePlaceholder.Text = currentUser.Username;
+
+                var allTasks = currentUser.MorningTasks.Concat(currentUser.AfternoonTasks).ToList();
+
+                if (allTasks.Count > 0)
+                {
+                    Task_BX currentTask = allTasks[0];
+                    NameTaskText.Text = currentTask.Name;
+                    DecriptionText.Text = currentTask.Description ?? "";
+                    SetStars(currentTask.Priority);
+
+                    // Force color update
+                    if (CurrentTaskDisplay != null && !CurrentTaskDisplay.IsDisposed)
+                    {
+                        CurrentTaskDisplay.BackColor = currentTask.CardColor;
+                    }
+                }
+                else
+                {
+                    NameTaskText.Text = "No tasks";
+                    DecriptionText.Text = "";
+                    SetStars(0);
+
+                    if (CurrentTaskDisplay != null && !CurrentTaskDisplay.IsDisposed)
+                    {
+                        CurrentTaskDisplay.BackColor = ColorTranslator.FromHtml("#B38DFF");
+                    }
+                }
+
+                RefreshStats();
+            }
+        }
+
+        // Override OnVisibleChanged to refresh when dashboard becomes visible
+        protected override void OnVisibleChanged(EventArgs e)
+        {
+            base.OnVisibleChanged(e);
+
+            // Guard against firing during async init — colors aren't ready yet
+            if (this.Visible && !this.IsDisposed && !isInitializing)
+            {
+                // Delay to ensure control is ready
+                System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
+                timer.Interval = 50;
+                timer.Tick += (s, args) =>
+                {
+                    timer.Stop();
+                    timer.Dispose();
+                    ForceRefreshDashboard();
+                };
+                timer.Start();
+            }
         }
     }
 }
