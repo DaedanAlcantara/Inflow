@@ -27,6 +27,7 @@ namespace Inflow
         private PictureBox pictureBox4;
         private bool isRestoringFromMinimized = false;
         private bool isInitializing = true;
+        private Nitro_FX nitroControl = null;
 
         private System.Windows.Forms.Timer animationTimer;
         private int targetWidth;
@@ -643,24 +644,15 @@ namespace Inflow
         private void ShowDashboard()
         {
             panel1.Controls.Clear();
-
             var dashboard = new Dashboard_FX();
             dashboard.Dock = DockStyle.Fill;
-            if (AppState.CurrentUser != null)
-            {
-                dashboard.SetUser();
-            }
-
             panel1.Controls.Add(dashboard);
+            dashboard.RefreshAll();   // force immediate update
             dashboard.PerformLayout();
 
             if (!isInitializing && this.WindowState == FormWindowState.Normal)
-            {
                 if (normalFormSize.Width > this.MinimumSize.Width)
-                {
                     this.Size = normalFormSize;
-                }
-            }
         }
 
         // This method is kept for compatibility but is not used externally.
@@ -700,17 +692,18 @@ namespace Inflow
         {
             panel1.Controls.Clear();
 
-            var nitro = new Label();
-            var nitroFX = new Nitro_FX();
-            nitroFX.Dock = DockStyle.Fill;
-            if (AppState.CurrentUser != null)
+            if (nitroControl == null)
             {
-                nitroFX.SetUser();
+                nitroControl = new Nitro_FX();
+                nitroControl.Dock = DockStyle.Fill;
+                if (AppState.CurrentUser != null)
+                {
+                    nitroControl.SetUser();   // this should only set the user, not reload tasks if already loaded
+                }
             }
 
-            panel1.Controls.Add(nitroFX);
-
-            panel1.PerformLayout();
+            panel1.Controls.Add(nitroControl);
+            nitroControl.PerformLayout();
 
             if (!isInitializing && this.WindowState == FormWindowState.Normal)
             {
@@ -734,12 +727,10 @@ namespace Inflow
         {
             if (panel1.Controls.Count > 0 && panel1.Controls[0] is Dashboard_FX dashboard)
             {
-                dashboard.SetUser();   // re‑reads AppState.CurrentUser and updates tasks
-                dashboard.UpdateCurrentAndNextTasks();
+                dashboard.RefreshAll();
             }
             else if (panel1.Controls.Count > 0 && panel1.Controls[0] is Planner_FX planner)
             {
-                planner.SetUser();     // re‑reads AppState.CurrentUser and refreshes task list
                 planner.RefreshTaskDisplay();
             }
         }
@@ -748,6 +739,13 @@ namespace Inflow
         {
             panel1.Controls.Clear();
             ShowNitro();
+        }
+        public void RefreshDashboardStats()
+        {
+            if (panel1.Controls.Count > 0 && panel1.Controls[0] is Dashboard_FX dashboard)
+            {
+                dashboard.RefreshStats();
+            }
         }
     }
 }

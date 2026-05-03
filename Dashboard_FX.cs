@@ -394,34 +394,26 @@ namespace Inflow
         // ── User management ───────────────────────────────────────────────────
         internal void SetUser()
         {
-            if (_isInitialized && currentUser == AppState.CurrentUser) return;
-
             currentUser = AppState.CurrentUser;
-            if (currentUser != null && !isInitializing && NamePlaceholder != null && !NamePlaceholder.IsDisposed)
+            if (currentUser != null && !isInitializing)
             {
                 NamePlaceholder.Text = currentUser.Username;
-                UpdateCurrentAndNextTasks();
-                _isInitialized = true;
+                RefreshAll();
             }
         }
 
         protected override void OnVisibleChanged(EventArgs e)
         {
             base.OnVisibleChanged(e);
-            if (this.Visible && AppState.CurrentUser != null && !isInitializing)
-            {
-                SetUser();
-            }
+            if (this.Visible && !isInitializing)
+                RefreshAll();
         }
 
         protected override void OnGotFocus(EventArgs e)
         {
             base.OnGotFocus(e);
-            if (AppState.CurrentUser != null && !isInitializing)
-            {
-                currentUser = AppState.CurrentUser;
-                UpdateCurrentAndNextTasks();
-            }
+            if (!isInitializing)
+                RefreshAll();
         }
 
         // ── Resize (debounced) ────────────────────────────────────────────────
@@ -663,33 +655,15 @@ namespace Inflow
 
             try
             {
-                if (currentUser.Schedule == null)
-                {
-                    var allTasks = currentUser.MorningTasks.Concat(currentUser.AfternoonTasks).ToList();
-                    if (NameTaskText != null && !NameTaskText.IsDisposed)
-                        NameTaskText.Text = allTasks.Count > 0 ? allTasks[0].Name : "No tasks";
-                    if (NameNextTaskText != null && !NameNextTaskText.IsDisposed)
-                        NameNextTaskText.Text = allTasks.Count > 1 ? allTasks[1].Name : "No tasks";
-                    return;
-                }
+                // Combine morning and afternoon tasks – no time‑of‑day filtering
+                var allTasks = currentUser.MorningTasks.Concat(currentUser.AfternoonTasks).ToList();
 
-                TimeSpan now = DateTime.Now.TimeOfDay;
-                bool isMorning = (now >= currentUser.Schedule.MorningStart && now <= currentUser.Schedule.MorningEnd);
-                var tasks = isMorning ? currentUser.MorningTasks : currentUser.AfternoonTasks;
-                var taskList = tasks.ToList();
-
-                if (taskList.Count == 0)
+                if (allTasks.Count > 0 && NameTaskText != null && !NameTaskText.IsDisposed)
                 {
-                    var otherTasks = isMorning ? currentUser.AfternoonTasks : currentUser.MorningTasks;
-                    taskList = otherTasks.ToList();
-                }
-
-                if (taskList.Count > 0 && NameTaskText != null && !NameTaskText.IsDisposed)
-                {
-                    NameTaskText.Text = taskList[0].Name;
+                    NameTaskText.Text = allTasks[0].Name;
                     if (DecriptionText != null && !DecriptionText.IsDisposed)
-                        DecriptionText.Text = taskList[0].Description ?? "";
-                    SetStars(taskList[0].Priority);
+                        DecriptionText.Text = allTasks[0].Description ?? "";
+                    SetStars(allTasks[0].Priority);
                 }
                 else
                 {
@@ -701,7 +675,7 @@ namespace Inflow
                 }
 
                 if (NameNextTaskText != null && !NameNextTaskText.IsDisposed)
-                    NameNextTaskText.Text = taskList.Count > 1 ? taskList[1].Name : "No tasks";
+                    NameNextTaskText.Text = allTasks.Count > 1 ? allTasks[1].Name : "No tasks";
             }
             catch (Exception ex)
             {
@@ -779,6 +753,27 @@ namespace Inflow
             if (DecriptionText != null && !DecriptionText.IsDisposed)
                 DecriptionText.Text = "";
             SetTaskRating(0);
+        }
+
+        public void RefreshStats()
+        {
+            if (label2 != null && !label2.IsDisposed)
+                label2.Text = AppState.CurrentStreak.ToString();
+            if (label3 != null && !label3.IsDisposed)
+                label3.Text = AppState.TotalFinishedTasks.ToString();
+            if (label6 != null && !label6.IsDisposed)
+                label6.Text = AppState.TotalDroppedTasks.ToString();
+        }
+
+        public void RefreshAll()
+        {
+            if (AppState.CurrentUser != null)
+            {
+                currentUser = AppState.CurrentUser;
+                NamePlaceholder.Text = currentUser.Username;
+                UpdateCurrentAndNextTasks();
+                RefreshStats();
+            }
         }
     }
 }

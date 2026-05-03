@@ -808,6 +808,8 @@ namespace Inflow
             ClearTaskForm();
 
             taskCounter++;
+            var mainForm = this.FindForm() as MainWindowMother_FX;
+            mainForm?.RefreshCurrentContent();
         }
 
         private void InitializeTaskDisplay()
