@@ -3,10 +3,12 @@
 <br/>
 
 ![Header1](https://github.com/DaedanAlcantara/Inflow/blob/master/InFlow%20MD%20Headers/3.png?raw=true)
-Welcome to InFlow! Keep it in the flow with the desktop task and performance tracking application based in native C# and Windows Forms structure that enables users to create and plan schedules for different tasks throughout the day. 
+<div align = center>Welcome to InFlow! Keep it in the flow with the desktop task and performance tracking application based in native C# and Windows Forms structure that enables users to create and plan schedules for different tasks throughout the day. 
 Inflow helps users to accomplish tasks -- menial or important -- with the system's time tracker and rapid task flow so you won't miss a task everyday! By incentivising users to keep completing tasks before the time limit, InFlow transforms to-do lists as an efficient, automated routine where finishing tasks can get your Flow Streak to level up.
+</div>
 
 ![Header2](https://github.com/DaedanAlcantara/Inflow/blob/master/InFlow%20MD%20Headers/4.png?raw=true)
+![UML](https://raw.githubusercontent.com/DaedanAlcantara/Inflow/7e59f16dc46265f3b4cea28a44860b7145a66d03/AOOP%20UML.png)
 ![Header3](https://github.com/DaedanAlcantara/Inflow/blob/master/InFlow%20MD%20Headers/5.png?raw=true)
 ### Dashboard
 InFlow boasts a **comprehensive and functional dashboard** that has everything you need in one go! The dashboard tracks the user's completed and dropped tasks, as well as your **Flow Streak** and tasks to be done. Additionaly, the dashboard has a **real-time integrated time and date display** so that users can quickly track of time during tasks.
