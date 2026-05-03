@@ -357,8 +357,10 @@ namespace Inflow
             nextForm.Show();
 
             this.Hide();
+            nextForm.Show();
+            this.Close();
 
-            
+
         }
 
         private void passwordText_TextChanged(object sender, EventArgs e)

@@ -746,13 +746,31 @@ namespace Inflow
         private void star4_Click(object sender, EventArgs e) { }
         private void NameNextTaskText_Click_1(object sender, EventArgs e) { }
 
+        private Task_BX GetCurrentTask()
+        {
+            if (currentUser == null) return null;
+            var allTasks = currentUser.MorningTasks.Concat(currentUser.AfternoonTasks).ToList();
+            if (allTasks.Count == 0) return null;
+            return allTasks[0];
+        }
         private void pictureBox3_Click(object sender, EventArgs e)
         {
-            if (NameTaskText != null && !NameTaskText.IsDisposed)
-                NameTaskText.Text = "No current task";
-            if (DecriptionText != null && !DecriptionText.IsDisposed)
-                DecriptionText.Text = "";
-            SetTaskRating(0);
+            // Get the current task
+            Task_BX currentTask = GetCurrentTask();
+            if (currentTask == null) return;
+
+            DialogResult result = MessageBox.Show($"Drop task '{currentTask.Name}'?", "Drop Task",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (result != DialogResult.Yes) return;
+
+            // Increment dropped counter
+            AppState.TotalDroppedTasks++;
+
+            // Remove task
+            currentUser?.RemoveTask(currentTask);
+
+            // Refresh dashboard
+            RefreshAll();
         }
 
         public void RefreshStats()
@@ -778,7 +796,23 @@ namespace Inflow
 
         private void NextTaskBtn_Click(object sender, EventArgs e)
         {
+            // Get the current task (first in combined list)
+            Task_BX currentTask = GetCurrentTask();
+            if (currentTask == null) return;
 
+            // Confirm with user
+            DialogResult result = MessageBox.Show($"Finish task '{currentTask.Name}'?", "Complete Task",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result != DialogResult.Yes) return;
+
+            // Increment finished counter
+            AppState.TotalFinishedTasks++;
+
+            // Remove task from user
+            currentUser?.RemoveTask(currentTask);
+
+            // Refresh dashboard
+            RefreshAll();
         }
     }
 }
