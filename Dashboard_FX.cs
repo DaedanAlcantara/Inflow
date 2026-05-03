@@ -823,6 +823,8 @@ namespace Inflow
 
             // Increment dropped counter
             AppState.TotalDroppedTasks++;
+            AppState.ConsecutiveFinishes = 0;
+            AppState.CurrentStreak = 0;
 
             // Remove task
             currentUser?.RemoveTask(currentTask);
@@ -865,6 +867,11 @@ namespace Inflow
 
             // Increment finished counter
             AppState.TotalFinishedTasks++;
+            AppState.ConsecutiveFinishes++;
+            if (AppState.ConsecutiveFinishes % 2 == 0)
+            {
+                AppState.CurrentStreak++;
+            }
 
             // Remove task from user
             currentUser?.RemoveTask(currentTask);
