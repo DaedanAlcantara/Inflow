@@ -892,6 +892,9 @@ namespace Inflow
 
             // Refresh dashboard
             RefreshAll();
+
+            var mainForm = this.FindForm() as MainWindowMother_FX;
+            mainForm?.RefreshNitroTasks();
         }
 
         public void RefreshStats()
@@ -939,6 +942,9 @@ namespace Inflow
 
             // Refresh dashboard
             RefreshAll();
+
+            var mainForm = this.FindForm() as MainWindowMother_FX;
+            mainForm?.RefreshNitroTasks();
         }
 
         public void ForceRefreshDashboard()

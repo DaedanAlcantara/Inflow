@@ -190,7 +190,7 @@ namespace Inflow
             DisplayCurrentTask();
         }
 
-        private void FinishTask()
+        private void FinishTask(bool silent = false)
         {
             taskTimer?.Stop();
             if (TaskNamePlaceholder != null) TaskNamePlaceholder.Text = "TASK CLEARED";
@@ -502,6 +502,32 @@ namespace Inflow
             }
         }
 
+        public void ReloadTasks()
+        {
+            if (currentUser == null) currentUser = AppState.CurrentUser;
+            if (currentUser == null) return;
+
+            // Stop any running timer
+            taskTimer?.Stop();
+            isPaused = false;
+            isPausedByNavigation = false;
+
+            // Clear and reload the task sequence
+            taskSequence.Clear();
+            taskSequence.AddRange(currentUser.MorningTasks);
+            taskSequence.AddRange(currentUser.AfternoonTasks);
+            currentTaskIndex = 0;
+
+            if (taskSequence.Count > 0)
+            {
+                DisplayCurrentTask();
+            }
+            else
+            {
+                FinishTask(silent: true);
+            }
+        }
+
         protected override void OnVisibleChanged(EventArgs e)
         {
             base.OnVisibleChanged(e);
@@ -509,7 +535,22 @@ namespace Inflow
 
             if (this.Visible)
             {
-                // Resuming – if paused due to navigation, restore timer
+                // Check if there are any tasks in the user object
+                bool hasTasks = currentUser != null &&
+                                (currentUser.MorningTasks.Any() || currentUser.AfternoonTasks.Any());
+
+                // Check if the local view is in a finished state (no tasks in queue or showing "TASK CLEARED")
+                bool isFinishedState = taskSequence.Count == 0 ||
+                                        (TaskNamePlaceholder != null && TaskNamePlaceholder.Text == "TASK CLEARED");
+
+                // If there are tasks but Nitro is showing the finished screen, reload
+                if (hasTasks && isFinishedState)
+                {
+                    ReloadTasks();
+                    return;
+                }
+
+                // Otherwise, handle normal resume (timer pause/resume)
                 if (isPausedByNavigation)
                 {
                     isPausedByNavigation = false;
@@ -518,20 +559,20 @@ namespace Inflow
                     UpdateTimerDisplay();
                     taskTimer.Start();
                 }
-                else if (taskTimer != null && !taskTimer.Enabled && !isPaused && currentTaskIndex < taskSequence.Count && AppState.NitroElapsedSeconds > 0)
+                else if (taskTimer != null && !taskTimer.Enabled && !isPaused &&
+                         currentTaskIndex < taskSequence.Count && AppState.NitroElapsedSeconds > 0)
                 {
                     taskTimer.Start();
                 }
             }
             else
             {
-                
+                // Navigating away – pause timer if running
                 if (taskTimer != null && taskTimer.Enabled)
                 {
                     taskTimer.Stop();
                     isPausedByNavigation = true;
                     pausedRemainingSeconds = AppState.NitroElapsedSeconds;
-                    
                 }
             }
         }

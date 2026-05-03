@@ -809,6 +809,14 @@ namespace Inflow
             hasShownNitroWarning = false;
         }
 
+        public void RefreshNitroTasks()
+        {
+            if (nitroControl != null && isNitroActive)
+            {
+                nitroControl.ReloadTasks();
+            }
+        }
+
         private void pictureBox2_Click(object sender, EventArgs e)
         {
 
