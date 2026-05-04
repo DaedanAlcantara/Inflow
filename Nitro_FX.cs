@@ -93,6 +93,14 @@ namespace Inflow
                 TimeSpan remaining = TimeSpan.FromSeconds(AppState.NitroElapsedSeconds);
                 TimePlaceholderText.Text = remaining.ToString(@"hh\:mm\:ss");
             }
+            if (panel1 != null)
+            {
+                if (AppState.NitroElapsedSeconds <= 10)
+                {
+                    panel1.BackColor = Color.Red;
+                }
+                
+            }
         }
 
         // ── Core Task Management ─────────────────────────────────────────────
@@ -100,11 +108,15 @@ namespace Inflow
         {
             if (currentTaskIndex < taskSequence.Count)
             {
+                if (flowLayoutPanel10 != null)
+                {
+                    flowLayoutPanel10.Visible = true;
+                }
                 var task = taskSequence[currentTaskIndex];
 
                 if (TaskNamePlaceholder != null) TaskNamePlaceholder.Text = task.Name;
                 if (DescriptionPlaceholder != null) DescriptionPlaceholder.Text = task.Description;
-
+                ApplyCurrentTaskColor(task.CardColor);
                 isPaused = false;
                 isPausedByNavigation = false;
                 taskTimer.Stop();
@@ -130,20 +142,19 @@ namespace Inflow
             }
         }
 
-        // Apply CardColor to CurrentTaskDisplayPanel and derive tinted colors for queue panels
+        
         private void ApplyCurrentTaskColor(Color taskColor)
         {
+            // Only change the current task panel
             if (CurrentTaskDisplayPanel != null && !CurrentTaskDisplayPanel.IsDisposed)
                 CurrentTaskDisplayPanel.BackColor = taskColor;
 
-            // Tint the queue preview panels with a lightened version of the same color
-            Color queueColor = LightenColor(taskColor, 0.4f);
             if (NextTaskDisplayPanel != null && !NextTaskDisplayPanel.IsDisposed)
-                NextTaskDisplayPanel.BackColor = queueColor;
+                NextTaskDisplayPanel.BackColor = Color.DarkGray;
             if (NextTask2DisplayPanel != null && !NextTask2DisplayPanel.IsDisposed)
-                NextTask2DisplayPanel.BackColor = queueColor;
+                NextTask2DisplayPanel.BackColor = Color.LightGray;
             if (NextTask3DisplayPanel != null && !NextTask3DisplayPanel.IsDisposed)
-                NextTask3DisplayPanel.BackColor = queueColor;
+                NextTask3DisplayPanel.BackColor = Color.Gainsboro;
         }
 
         // Blend a color toward white by the given factor (0 = original, 1 = white)
@@ -195,6 +206,11 @@ namespace Inflow
             taskTimer?.Stop();
             if (TaskNamePlaceholder != null) TaskNamePlaceholder.Text = "TASK CLEARED";
             if (DescriptionPlaceholder != null) DescriptionPlaceholder.Text = "All assigned tasks are now finished";
+            if (TaskNamePlaceholder != null) 
+            {
+                if (flowLayoutPanel10 != null)
+                    flowLayoutPanel10.Visible = false;
+            }
             if (TimePlaceholderText != null)
             {
                 TimePlaceholderText.Text = "00:00:00";
@@ -202,16 +218,7 @@ namespace Inflow
                 panel1.BackColor = Color.Green;
             }
 
-            // Reset display panels to neutral color when all tasks are done
-            Color clearedColor = ColorTranslator.FromHtml("#E5FFE5"); // Soft green to match "cleared" state
-            if (CurrentTaskDisplayPanel != null && !CurrentTaskDisplayPanel.IsDisposed)
-                CurrentTaskDisplayPanel.BackColor = clearedColor;
-            if (NextTaskDisplayPanel != null && !NextTaskDisplayPanel.IsDisposed)
-                NextTaskDisplayPanel.BackColor = clearedColor;
-            if (NextTask2DisplayPanel != null && !NextTask2DisplayPanel.IsDisposed)
-                NextTask2DisplayPanel.BackColor = clearedColor;
-            if (NextTask3DisplayPanel != null && !NextTask3DisplayPanel.IsDisposed)
-                NextTask3DisplayPanel.BackColor = clearedColor;
+            
 
             var mainForm = System.Windows.Forms.Application.OpenForms.OfType<MainWindowMother_FX>().FirstOrDefault();
             if (mainForm != null)
@@ -272,6 +279,7 @@ namespace Inflow
                     "Task Paused", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 ResumeTask();
+                if (panel1 != null) panel1.BackColor = Color.Gray;
             }
             else
             {
