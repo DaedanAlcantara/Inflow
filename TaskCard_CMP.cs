@@ -37,8 +37,7 @@ namespace Inflow
             DisplayTaskInfo();
         }
 
-        // Secondary constructor - for backward compatibility (generates new random color)
-        // Marked as obsolete to encourage using the Task_BX constructor
+        
         [Obsolete("Use TaskCard_CMP(Task_BX) constructor instead for permanent colors.")]
         public TaskCard_CMP(string name, string desc, string timeOfDay, string taskDuration, int rating)
         {
