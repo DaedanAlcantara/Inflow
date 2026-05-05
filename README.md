@@ -1,3 +1,5 @@
+# Notice: This is the Demo Branch of the InFlow repository. This Branch is only for demonstration purposes. Pull Requests and Commits are not allowed in this branch. For the latest updates and development, please refer to the Main Branch of the repository.
+
 ![inflow](https://github.com/DaedanAlcantara/Inflow/blob/master/InFlow%20MD%20Headers/2.png?raw=true)
 <br/>
 
