@@ -137,10 +137,10 @@ namespace Inflow
             // 
             Next.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             Next.AutoSize = true;
-            Next.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            Next.Font = new Font("Inter", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Next.Location = new Point(10, 14);
             Next.Name = "Next";
-            Next.Size = new Size(52, 25);
+            Next.Size = new Size(55, 24);
             Next.TabIndex = 1;
             Next.Text = "Next";
             Next.TextAlign = ContentAlignment.MiddleCenter;
@@ -180,7 +180,9 @@ namespace Inflow
             usernameTextbox.ForeColor = SystemColors.WindowText;
             usernameTextbox.Location = new Point(10, 10);
             usernameTextbox.Margin = new Padding(10);
+            usernameTextbox.MaxLength = 32767;
             usernameTextbox.Name = "usernameTextbox";
+            usernameTextbox.NumericOnly = false;
             usernameTextbox.Padding = new Padding(10, 8, 10, 8);
             usernameTextbox.Size = new Size(536, 40);
             usernameTextbox.TabIndex = 1;
@@ -194,7 +196,9 @@ namespace Inflow
             passwordText.ForeColor = SystemColors.WindowText;
             passwordText.Location = new Point(10, 70);
             passwordText.Margin = new Padding(10);
+            passwordText.MaxLength = 32767;
             passwordText.Name = "passwordText";
+            passwordText.NumericOnly = false;
             passwordText.Padding = new Padding(12, 8, 12, 8);
             passwordText.Size = new Size(536, 40);
             passwordText.TabIndex = 1;
@@ -208,7 +212,9 @@ namespace Inflow
             confirmPassText.ForeColor = SystemColors.WindowText;
             confirmPassText.Location = new Point(10, 130);
             confirmPassText.Margin = new Padding(10);
+            confirmPassText.MaxLength = 32767;
             confirmPassText.Name = "confirmPassText";
+            confirmPassText.NumericOnly = false;
             confirmPassText.Padding = new Padding(10, 8, 10, 8);
             confirmPassText.Size = new Size(536, 40);
             confirmPassText.TabIndex = 1;
