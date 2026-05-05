@@ -85,7 +85,7 @@ namespace Inflow
             var loadingLabel = new Label
             {
                 Text = "Loading Dashboard...",
-                Font = new Font("Segoe UI", 16F, FontStyle.Regular),
+                Font = new Font("Inter", 16F, FontStyle.Regular),
                 ForeColor = Color.Gray,
                 TextAlign = ContentAlignment.MiddleCenter,
                 Dock = DockStyle.Fill
@@ -688,13 +688,13 @@ namespace Inflow
             float finishedSize = Math.Max(12, Math.Min(28, statsHeight / 2.5f));
             float droppedSize = Math.Max(12, Math.Min(28, statsHeight / 2.5f));
             float daySize = Math.Max(16, Math.Min(36, taskHeight / 2.5f));
-            float timeSize = Math.Max(16, Math.Min(48, timeHeight / 2.0f));
+            float timeSize = Math.Max(16, Math.Min(48, timeHeight / 4.0f));
 
-            SetCachedFont(label2, ref _lastStreakFontSize, streakSize, "Segoe UI", FontStyle.Bold);
-            SetCachedFont(label3, ref _lastFinishedFontSize, finishedSize, "Segoe UI", FontStyle.Bold);
-            SetCachedFont(label6, ref _lastDroppedFontSize, droppedSize, "Segoe UI", FontStyle.Bold);
-            SetCachedFont(DayText, ref _lastDayFontSize, daySize, "Segoe UI", FontStyle.Bold);
-            SetCachedFont(Timetext, ref _lastTimeFontSize, timeSize, "Segoe UI", FontStyle.Bold);
+            SetCachedFont(label2, ref _lastStreakFontSize, streakSize, "Inter", FontStyle.Bold);
+            SetCachedFont(label3, ref _lastFinishedFontSize, finishedSize, "Inter", FontStyle.Bold);
+            SetCachedFont(label6, ref _lastDroppedFontSize, droppedSize, "Inter", FontStyle.Bold);
+            SetCachedFont(DayText, ref _lastDayFontSize, daySize, "Inter", FontStyle.Bold);
+            SetCachedFont(Timetext, ref _lastTimeFontSize, timeSize, "Inter", FontStyle.Bold);
         }
 
         private static void SetCachedFont(Control control, ref float cachedSize,

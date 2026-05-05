@@ -144,7 +144,7 @@ namespace Inflow
             TitleBar.Dock = DockStyle.Top;
             TitleBar.Location = new Point(0, 0);
             TitleBar.Name = "TitleBar";
-            TitleBar.Size = new Size(1960, 41);
+            TitleBar.Size = new Size(1942, 41);
             TitleBar.TabIndex = 0;
             TitleBar.MouseDown += TitleBar_MouseDown;
             // 
@@ -153,7 +153,7 @@ namespace Inflow
             flowLayoutPanel1.Controls.Add(btnMinimize);
             flowLayoutPanel1.Controls.Add(btnClose);
             flowLayoutPanel1.Dock = DockStyle.Right;
-            flowLayoutPanel1.Location = new Point(1880, 0);
+            flowLayoutPanel1.Location = new Point(1862, 0);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
             flowLayoutPanel1.Size = new Size(80, 41);
             flowLayoutPanel1.TabIndex = 0;
@@ -192,7 +192,7 @@ namespace Inflow
             Sidebar.Dock = DockStyle.Left;
             Sidebar.Location = new Point(0, 41);
             Sidebar.Name = "Sidebar";
-            Sidebar.Size = new Size(250, 1108);
+            Sidebar.Size = new Size(250, 1061);
             Sidebar.TabIndex = 1;
             // 
             // flowLayoutPanel5
@@ -245,12 +245,12 @@ namespace Inflow
             // label3
             // 
             label3.AutoSize = true;
-            label3.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label3.Font = new Font("Inter", 12F);
             label3.ForeColor = Color.White;
             label3.Location = new Point(80, 20);
             label3.Margin = new Padding(3, 20, 3, 15);
             label3.Name = "label3";
-            label3.Size = new Size(52, 25);
+            label3.Size = new Size(57, 24);
             label3.TabIndex = 1;
             label3.Tag = "Nitro";
             label3.Text = "Nitro";
@@ -282,12 +282,12 @@ namespace Inflow
             // label2
             // 
             label2.AutoSize = true;
-            label2.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label2.Font = new Font("Inter", 12F);
             label2.ForeColor = Color.White;
             label2.Location = new Point(83, 20);
             label2.Margin = new Padding(3, 20, 3, 15);
             label2.Name = "label2";
-            label2.Size = new Size(79, 25);
+            label2.Size = new Size(83, 24);
             label2.TabIndex = 1;
             label2.Tag = "Planner";
             label2.Text = "Planner";
@@ -318,12 +318,12 @@ namespace Inflow
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Font = new Font("Inter", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.White;
             label1.Location = new Point(83, 20);
             label1.Margin = new Padding(3, 20, 3, 15);
             label1.Name = "label1";
-            label1.Size = new Size(108, 25);
+            label1.Size = new Size(113, 24);
             label1.TabIndex = 1;
             label1.Tag = "Dashboard";
             label1.Text = "Dashboard";
@@ -337,12 +337,12 @@ namespace Inflow
             panel1.Location = new Point(250, 41);
             panel1.Name = "panel1";
             panel1.Padding = new Padding(10);
-            panel1.Size = new Size(1710, 1108);
+            panel1.Size = new Size(1692, 1061);
             panel1.TabIndex = 2;
             // 
             // MainWindowMother_FX
             // 
-            ClientSize = new Size(1960, 1149);
+            ClientSize = new Size(1942, 1102);
             Controls.Add(panel1);
             Controls.Add(Sidebar);
             Controls.Add(TitleBar);
@@ -769,7 +769,7 @@ namespace Inflow
             {
                 DialogResult result = MessageBox.Show(
                     "You are about to enter Nitro mode.\n\n" +
-                    "⚠️ WARNING: While in Nitro, the Planner button will be disabled\n" +
+                    "WARNING: While in Nitro, the Planner button will be disabled\n" +
                     "until all tasks are completed or dropped.\n\n" +
                     "Do you want to proceed?",
                     "Enter Nitro",

@@ -67,14 +67,14 @@ namespace Inflow
 
             taskNameLabel = new Label
             {
-                Font = new Font("Segoe UI", 11F, FontStyle.Bold),
+                Font = new Font("Inter Bold", 11F, FontStyle.Bold),
                 Location = new Point(5, 5),
                 AutoSize = true
             };
 
             descriptionLabel = new Label
             {
-                Font = new Font("Segoe UI", 9F, FontStyle.Regular),
+                Font = new Font("Inter", 9F, FontStyle.Regular),
                 Location = new Point(5, 30),
                 AutoSize = true,
                 ForeColor = Color.Gray
@@ -82,7 +82,7 @@ namespace Inflow
 
             timeLabel = new Label
             {
-                Font = new Font("Segoe UI", 8F, FontStyle.Regular),
+                Font = new Font("Inter", 8F, FontStyle.Regular),
                 Location = new Point(5, 55),
                 AutoSize = true,
                 ForeColor = Color.DarkBlue

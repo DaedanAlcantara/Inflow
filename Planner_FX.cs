@@ -161,9 +161,9 @@ namespace Inflow
             // pictureBox1
             // 
             pictureBox1.Image = Properties.Resources.AutoSort;
-            pictureBox1.Location = new Point(5, 5);
+            pictureBox1.Location = new Point(6, 6);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(20, 20);
+            pictureBox1.Size = new Size(18, 18);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
@@ -197,10 +197,10 @@ namespace Inflow
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
+            label1.Font = new Font("Inter", 10.2F, FontStyle.Bold);
             label1.Location = new Point(8, 5);
             label1.Name = "label1";
-            label1.Size = new Size(103, 20);
+            label1.Size = new Size(102, 20);
             label1.TabIndex = 3;
             label1.Text = "Task Name";
             // 
@@ -208,7 +208,7 @@ namespace Inflow
             // 
             usernameTextbox.Anchor = AnchorStyles.None;
             usernameTextbox.BackColor = SystemColors.ControlLight;
-            usernameTextbox.Font = new Font("Microsoft Sans Serif", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            usernameTextbox.Font = new Font("Inter", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             usernameTextbox.ForeColor = SystemColors.WindowText;
             usernameTextbox.Location = new Point(15, 35);
             usernameTextbox.Margin = new Padding(10);
@@ -234,10 +234,10 @@ namespace Inflow
             // label2
             // 
             label2.AutoSize = true;
-            label2.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
+            label2.Font = new Font("Inter", 10.2F, FontStyle.Bold);
             label2.Location = new Point(8, 5);
             label2.Name = "label2";
-            label2.Size = new Size(152, 20);
+            label2.Size = new Size(150, 20);
             label2.TabIndex = 3;
             label2.Text = "Task Description";
             // 
@@ -245,7 +245,7 @@ namespace Inflow
             // 
             roundedTextBox_cmp1.Anchor = AnchorStyles.None;
             roundedTextBox_cmp1.BackColor = SystemColors.ControlLight;
-            roundedTextBox_cmp1.Font = new Font("Microsoft Sans Serif", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            roundedTextBox_cmp1.Font = new Font("Inter", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             roundedTextBox_cmp1.ForeColor = SystemColors.WindowText;
             roundedTextBox_cmp1.Location = new Point(15, 35);
             roundedTextBox_cmp1.Margin = new Padding(10);
@@ -280,20 +280,20 @@ namespace Inflow
             // label3
             // 
             label3.AutoSize = true;
-            label3.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
+            label3.Font = new Font("Inter", 10.2F, FontStyle.Bold);
             label3.Location = new Point(3, 0);
             label3.Name = "label3";
-            label3.Size = new Size(50, 20);
+            label3.Size = new Size(51, 20);
             label3.TabIndex = 4;
             label3.Text = "Time";
             // 
             // AMButton
             // 
             AMButton.AutoSize = true;
-            AMButton.Font = new Font("Microsoft Sans Serif", 10.2F);
+            AMButton.Font = new Font("Inter", 10.2F);
             AMButton.Location = new Point(3, 23);
             AMButton.Name = "AMButton";
-            AMButton.Size = new Size(90, 24);
+            AMButton.Size = new Size(95, 24);
             AMButton.TabIndex = 5;
             AMButton.TabStop = true;
             AMButton.Text = "Morning";
@@ -303,10 +303,10 @@ namespace Inflow
             // PMButton
             // 
             PMButton.AutoSize = true;
-            PMButton.Font = new Font("Microsoft Sans Serif", 10.2F);
+            PMButton.Font = new Font("Inter", 10.2F);
             PMButton.Location = new Point(3, 53);
             PMButton.Name = "PMButton";
-            PMButton.Size = new Size(102, 24);
+            PMButton.Size = new Size(109, 24);
             PMButton.TabIndex = 6;
             PMButton.TabStop = true;
             PMButton.Text = "Afternoon";
@@ -325,7 +325,7 @@ namespace Inflow
             // label4
             // 
             label4.AutoSize = true;
-            label4.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
+            label4.Font = new Font("Inter", 10.2F, FontStyle.Bold);
             label4.Location = new Point(3, 0);
             label4.Name = "label4";
             label4.Size = new Size(81, 20);
@@ -342,14 +342,14 @@ namespace Inflow
             TimePicker1.Controls.Add(textBox4);
             TimePicker1.Location = new Point(3, 23);
             TimePicker1.Name = "TimePicker1";
-            TimePicker1.Size = new Size(201, 49);
+            TimePicker1.Size = new Size(210, 49);
             TimePicker1.TabIndex = 9;
             // 
             // MorningStartHour1
             // 
             MorningStartHour1.Anchor = AnchorStyles.None;
             MorningStartHour1.BackColor = SystemColors.ControlLight;
-            MorningStartHour1.Font = new Font("Segoe UI", 13.8F);
+            MorningStartHour1.Font = new Font("Inter", 13.8F);
             MorningStartHour1.Location = new Point(3, 3);
             MorningStartHour1.MaxLength = 32767;
             MorningStartHour1.Name = "MorningStartHour1";
@@ -363,7 +363,7 @@ namespace Inflow
             // 
             textBox2.Anchor = AnchorStyles.None;
             textBox2.BackColor = SystemColors.ControlLight;
-            textBox2.Font = new Font("Segoe UI", 13.8F);
+            textBox2.Font = new Font("Inter", 13.8F);
             textBox2.Location = new Point(46, 3);
             textBox2.MaxLength = 32767;
             textBox2.Name = "textBox2";
@@ -378,10 +378,10 @@ namespace Inflow
             label5.Anchor = AnchorStyles.None;
             label5.AutoSize = true;
             label5.BackColor = Color.Transparent;
-            label5.Font = new Font("Microsoft Sans Serif", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label5.Font = new Font("Inter", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label5.Location = new Point(89, 8);
             label5.Name = "label5";
-            label5.Size = new Size(23, 36);
+            label5.Size = new Size(24, 36);
             label5.TabIndex = 2;
             label5.Text = ":";
             // 
@@ -389,8 +389,8 @@ namespace Inflow
             // 
             textBox3.Anchor = AnchorStyles.None;
             textBox3.BackColor = SystemColors.ControlLight;
-            textBox3.Font = new Font("Segoe UI", 13.8F);
-            textBox3.Location = new Point(118, 3);
+            textBox3.Font = new Font("Inter", 13.8F);
+            textBox3.Location = new Point(119, 3);
             textBox3.MaxLength = 32767;
             textBox3.Name = "textBox3";
             textBox3.NumericOnly = false;
@@ -403,8 +403,8 @@ namespace Inflow
             // 
             textBox4.Anchor = AnchorStyles.None;
             textBox4.BackColor = SystemColors.ControlLight;
-            textBox4.Font = new Font("Segoe UI", 13.8F);
-            textBox4.Location = new Point(161, 3);
+            textBox4.Font = new Font("Inter", 13.8F);
+            textBox4.Location = new Point(162, 3);
             textBox4.MaxLength = 32767;
             textBox4.Name = "textBox4";
             textBox4.NumericOnly = false;
@@ -425,10 +425,10 @@ namespace Inflow
             // label6
             // 
             label6.AutoSize = true;
-            label6.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
+            label6.Font = new Font("Inter", 10.2F, FontStyle.Bold);
             label6.Location = new Point(3, 0);
             label6.Name = "label6";
-            label6.Size = new Size(130, 20);
+            label6.Size = new Size(128, 20);
             label6.TabIndex = 4;
             label6.Text = "Priority Rating";
             // 
@@ -511,7 +511,7 @@ namespace Inflow
             // 
             // button1
             // 
-            button1.Font = new Font("Microsoft Sans Serif", 7.8F, FontStyle.Bold);
+            button1.Font = new Font("Inter", 7.8F, FontStyle.Bold);
             button1.Location = new Point(3, 3);
             button1.Name = "button1";
             button1.Size = new Size(213, 28);
@@ -522,7 +522,7 @@ namespace Inflow
             // 
             // button2
             // 
-            button2.Font = new Font("Microsoft Sans Serif", 7.8F, FontStyle.Bold);
+            button2.Font = new Font("Inter", 7.8F, FontStyle.Bold);
             button2.Location = new Point(3, 37);
             button2.Name = "button2";
             button2.Size = new Size(213, 28);
@@ -533,7 +533,7 @@ namespace Inflow
             // 
             // deploybutton
             // 
-            deploybutton.Font = new Font("Microsoft Sans Serif", 7.8F, FontStyle.Bold);
+            deploybutton.Font = new Font("Inter", 7.8F, FontStyle.Bold);
             deploybutton.Location = new Point(3, 71);
             deploybutton.Name = "deploybutton";
             deploybutton.Size = new Size(213, 28);
@@ -712,7 +712,7 @@ namespace Inflow
                 Label morningHeader = new Label
                 {
                     Text = "☀️ Morning Tasks",
-                    Font = new Font("Segoe UI", 12F, FontStyle.Bold),
+                    Font = new Font("Inter Bold", 12F, FontStyle.Bold),
                     ForeColor = Color.FromArgb(255, 140, 0),
                     Margin = new Padding(3, 10, 3, 5),
                     AutoSize = true
@@ -727,7 +727,7 @@ namespace Inflow
                 Label afternoonHeader = new Label
                 {
                     Text = "🌙 Afternoon Tasks",
-                    Font = new Font("Segoe UI", 12F, FontStyle.Bold),
+                    Font = new Font("Inter Bold", 12F, FontStyle.Bold),
                     ForeColor = Color.FromArgb(0, 120, 215),
                     Margin = new Padding(3, 15, 3, 5),
                     AutoSize = true
@@ -870,7 +870,7 @@ namespace Inflow
             Label headerLabel = new Label
             {
                 Text = "My Tasks",
-                Font = new Font("Segoe UI", 14F, FontStyle.Bold),
+                Font = new Font("Inter", 14F, FontStyle.Bold),
                 Dock = DockStyle.Top,
                 Height = 35,
                 TextAlign = ContentAlignment.MiddleCenter,

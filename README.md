@@ -25,7 +25,6 @@ Planner lets users customize their to-do lists to further optimize and improve t
 ### Nitro Flow
 Nitro Flow is the star of InFlow's task management. If users want to be in their Flow State while working -- undisturbed and in the zone -- they can use Nitro Flow which is the app's **"Focus Mode"**. 
 In NitroFlow, tasks are automatically timed according to their specifications and if the user is not able to declare tasks as completed before the timer runs out, the task is automatically tagged as dropped and moves onto the next task in the list.
-Furthermore, users are rewarded in Nitro Flow in that completing two tasks consecutively would gain a Flow Streak.
 
 
 ### Custom UI Design

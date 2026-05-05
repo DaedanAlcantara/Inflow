@@ -159,7 +159,7 @@ namespace Inflow
             Label NextLabel = new Label
             {
                 Text = "Next",
-                Font = new Font("Microsoft Sans Serif", 12F),
+                Font = new Font("Inter Light", 12F, FontStyle.Regular, GraphicsUnit.Point, 0),
                 AutoSize = true,
                 Location = new Point(10, 14)
             };

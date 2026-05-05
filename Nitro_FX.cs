@@ -99,7 +99,7 @@ namespace Inflow
                 {
                     panel1.BackColor = Color.Red;
                 }
-                
+
             }
         }
 
@@ -142,7 +142,7 @@ namespace Inflow
             }
         }
 
-        
+
         private void ApplyCurrentTaskColor(Color taskColor)
         {
             // Only change the current task panel
@@ -206,7 +206,7 @@ namespace Inflow
             taskTimer?.Stop();
             if (TaskNamePlaceholder != null) TaskNamePlaceholder.Text = "TASK CLEARED";
             if (DescriptionPlaceholder != null) DescriptionPlaceholder.Text = "All assigned tasks are now finished";
-            if (TaskNamePlaceholder != null) 
+            if (TaskNamePlaceholder != null)
             {
                 if (flowLayoutPanel10 != null)
                     flowLayoutPanel10.Visible = false;
@@ -218,7 +218,7 @@ namespace Inflow
                 panel1.BackColor = Color.Green;
             }
 
-            
+
 
             var mainForm = System.Windows.Forms.Application.OpenForms.OfType<MainWindowMother_FX>().FirstOrDefault();
             if (mainForm != null)

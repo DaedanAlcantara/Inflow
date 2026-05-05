@@ -109,7 +109,7 @@
             // TimePlaceholderText
             // 
             TimePlaceholderText.BackColor = Color.Transparent;
-            TimePlaceholderText.Font = new Font("Microsoft Sans Serif", 31.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            TimePlaceholderText.Font = new Font("Inter", 31.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             TimePlaceholderText.Location = new Point(0, 0);
             TimePlaceholderText.Name = "TimePlaceholderText";
             TimePlaceholderText.Size = new Size(626, 65);
@@ -214,7 +214,7 @@
             // 
             DescriptionPlaceholder.Anchor = AnchorStyles.None;
             DescriptionPlaceholder.BackColor = Color.Transparent;
-            DescriptionPlaceholder.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            DescriptionPlaceholder.Font = new Font("Inter", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             DescriptionPlaceholder.Location = new Point(23, 0);
             DescriptionPlaceholder.Name = "DescriptionPlaceholder";
             DescriptionPlaceholder.Size = new Size(549, 19);
@@ -236,7 +236,7 @@
             // TaskNamePlaceholder
             // 
             TaskNamePlaceholder.Anchor = AnchorStyles.None;
-            TaskNamePlaceholder.Font = new Font("Microsoft Sans Serif", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            TaskNamePlaceholder.Font = new Font("Inter Medium", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             TaskNamePlaceholder.Location = new Point(23, 20);
             TaskNamePlaceholder.Name = "TaskNamePlaceholder";
             TaskNamePlaceholder.Size = new Size(549, 41);
@@ -286,7 +286,7 @@
             // 
             // NextTaskPlaceholder
             // 
-            NextTaskPlaceholder.Font = new Font("Microsoft Sans Serif", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            NextTaskPlaceholder.Font = new Font("Inter", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             NextTaskPlaceholder.Location = new Point(5, 5);
             NextTaskPlaceholder.Margin = new Padding(5);
             NextTaskPlaceholder.Name = "NextTaskPlaceholder";
@@ -315,7 +315,7 @@
             // 
             // NextTask2Placeholder
             // 
-            NextTask2Placeholder.Font = new Font("Microsoft Sans Serif", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            NextTask2Placeholder.Font = new Font("Inter", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             NextTask2Placeholder.Location = new Point(5, 5);
             NextTask2Placeholder.Margin = new Padding(5);
             NextTask2Placeholder.Name = "NextTask2Placeholder";
@@ -344,7 +344,7 @@
             // 
             // NextTask3Placeholder
             // 
-            NextTask3Placeholder.Font = new Font("Microsoft Sans Serif", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            NextTask3Placeholder.Font = new Font("Inter", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             NextTask3Placeholder.Location = new Point(5, 5);
             NextTask3Placeholder.Margin = new Padding(5);
             NextTask3Placeholder.Name = "NextTask3Placeholder";
