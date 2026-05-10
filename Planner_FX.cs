@@ -839,6 +839,11 @@ namespace Inflow
             // Add to user (automatically sorted and placed in morning/afternoon list)
             currentUser.AddTask(newTask);
 
+            if (currentUser.IsSorted)
+            {
+                currentUser.UnsortTasks();
+            }
+
             // Refresh the UI from the model
             RefreshTaskDisplay();
 

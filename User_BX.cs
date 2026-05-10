@@ -72,5 +72,19 @@ namespace Inflow
             _afternoonTasksUnsorted.Clear();
             _isSorted = true;
         }
+
+        public void UnsortTasks()
+        {
+            if (!_isSorted) return;
+
+            // Convert the sorted lists back to unsorted lists (keeping priority order)
+            _morningTasksUnsorted = _morningTasksSorted.ToList();
+            _afternoonTasksUnsorted = _afternoonTasksSorted.ToList();
+
+            // Clear the sorted lists
+            _morningTasksSorted = null;
+            _afternoonTasksSorted = null;
+            _isSorted = false;
+        }
     }
 }
