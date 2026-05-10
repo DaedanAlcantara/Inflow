@@ -77,7 +77,8 @@ namespace Inflow
             if (AppState.NitroElapsedSeconds <= 0)
             {
                 taskTimer.Stop();
-                MessageBox.Show("Time is up! Task dropped.", "Inflow Nitro", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(this, "Time is up! Task dropped.", "Inflow Nitro",
+                        MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 AdvanceTask(isFinished: false);
                 return;
             }
